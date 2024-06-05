@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Login\" />
-    <Folder Include="Trucks\" />
   </ItemGroup>
 
 </Project>

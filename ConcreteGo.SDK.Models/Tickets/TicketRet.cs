@@ -808,7 +808,7 @@ namespace ConcreteGo.SDK.Models.Tickets
         public bool TradeDiscountable { get; set; }
 
         [XmlElement(ElementName = "Taxable")]
-        public string Taxable { get; set; }
+        public bool Taxable { get; set; }
 
         [XmlElement(ElementName = "Tax1")]
         public double Tax1 { get; set; }
@@ -832,31 +832,31 @@ namespace ConcreteGo.SDK.Models.Tickets
         public double Amount { get; set; }
 
         [XmlElement(ElementName = "AccountLinkCode")]
-        public object AccountLinkCode { get; set; }
+        public string AccountLinkCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ItemCategoryID")]
         public int ItemCategoryID { get; set; }
 
         [XmlElement(ElementName = "ItemCategoryCode")]
-        public string ItemCategoryCode { get; set; }
+        public string ItemCategoryCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ItemCategoryAccountLinkCode")]
-        public object ItemCategoryAccountLinkCode { get; set; }
+        public string ItemCategoryAccountLinkCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ProductLink")]
-        public object ProductLink { get; set; }
+        public string ProductLink { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ItemTypeID")]
         public int ItemTypeID { get; set; }
 
         [XmlElement(ElementName = "ItemTypeName")]
-        public string ItemTypeName { get; set; }
+        public string ItemTypeName { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Cost")]
         public double Cost { get; set; }
 
         [XmlElement(ElementName = "CostUnit")]
-        public string CostUnit { get; set; }
+        public string CostUnit { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "CostAmount")]
         public double CostAmount { get; set; }
@@ -890,7 +890,7 @@ namespace ConcreteGo.SDK.Models.Tickets
         public double BatchActual { get; set; }
 
         [XmlElement(ElementName = "BatchUnit")]
-        public string BatchUnit { get; set; }
+        public string BatchUnit { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "MoisturePercent")]
         public double MoisturePercent { get; set; }
@@ -899,13 +899,13 @@ namespace ConcreteGo.SDK.Models.Tickets
         public int ItemCategoryID { get; set; }
 
         [XmlElement(ElementName = "ItemCategoryCode")]
-        public string ItemCategoryCode { get; set; }
+        public string ItemCategoryCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ItemTypeID")]
         public int ItemTypeID { get; set; }
 
         [XmlElement(ElementName = "ItemTypeName")]
-        public string ItemTypeName { get; set; }
+        public string ItemTypeName { get; set; } = string.Empty;
     }
 
     [XmlRoot(ElementName = "BatchWeight")]

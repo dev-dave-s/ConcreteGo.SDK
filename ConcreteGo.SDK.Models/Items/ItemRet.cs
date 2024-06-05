@@ -68,7 +68,7 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement(ElementName = "Locations")]
         public Locations Locations { get; set; } = null!;
         [XmlElement(ElementName = "TaxOverrides")]
-        public TaxOverrides TaxOverrides { get; set; }
+        public TaxOverrides TaxOverrides { get; set; } = null!;
     }
 
     [XmlRoot("TaxOverrides")]
@@ -570,7 +570,7 @@ namespace ConcreteGo.SDK.Models.Items
     public class Batching
     {
         [XmlElement("SpecificGravity")]
-        private string _SpecificGravity { get; set; }
+        public string _SpecificGravity { get; set; } = string.Empty;
         [XmlIgnore]
         public double? SpecificGravity
         {
@@ -582,7 +582,7 @@ namespace ConcreteGo.SDK.Models.Items
             }
         }
         [XmlElement("MoisturePercent")]
-        private string _MoisturePercent { get; set; } = string.Empty;
+        public string _MoisturePercent { get; set; } = string.Empty;
         [XmlIgnore]
         public double? MoisturePercent
         {
@@ -597,7 +597,7 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement("BatchUnit")]
         public string BatchUnit { get; set; } = string.Empty;
         [XmlElement("MaximumBatchSize")]
-        private string _MaximumBatchSize { get; set; } = string.Empty;
+        public string _MaximumBatchSize { get; set; } = string.Empty;
         [XmlIgnore]
         public double? MaximumBatchSize
         {
@@ -611,7 +611,7 @@ namespace ConcreteGo.SDK.Models.Items
             }
         }
         [XmlElement("MixerTime")]
-        private string _MixerTime { get; set; } = string.Empty;
+        public string _MixerTime { get; set; } = string.Empty;
         [XmlIgnore]
         public int? MixerTime
         {
@@ -631,7 +631,7 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "Pricing")]
-        public List<Pricing> Pricing { get; set; }
+        public List<Pricing> Pricing { get; set; } = null!;
     }
 
     [XmlRoot(ElementName = "Pricing")]
@@ -645,7 +645,7 @@ namespace ConcreteGo.SDK.Models.Items
         public string PriceCategoryName { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Price")]
-        private string _Price { get; set; } = string.Empty;
+        public string _Price { get; set; } = string.Empty;
         [XmlIgnore]
         public double? Price
         {
@@ -663,7 +663,7 @@ namespace ConcreteGo.SDK.Models.Items
         public string PriceExtensionCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "PriceEffectiveDate")]
-        private string _PriceEffectiveDate { get; set; } = string.Empty;
+        public string _PriceEffectiveDate { get; set; } = string.Empty;
         public DateTime? PriceEffectiveDate
         {
             get

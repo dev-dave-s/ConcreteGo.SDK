@@ -1,6 +1,7 @@
 ﻿using ConcreteGo.SDK.Models.Items;
 using ConcreteGo.SDK.Models.Processing;
 using ConcreteGo.SDK.Models.Tickets;
+using ConcreteGo.SDK.Models.Trucks;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Reflection.PortableExecutable;
@@ -75,12 +76,12 @@ namespace ConcreteGo.SDK
             }
         }
 
-        public async Task Login2Async()
-        {
+        //public async Task Login2Async()
+        //{
 
 
 
-        }
+        //}
 
         #endregion
 
@@ -229,7 +230,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //FromCreateDate
-                if (options.ToUpdateDate != null)
+                if (options.FromCreateDate != null)
                 {
                     var element = new XElement("FromCreateDate", options.FromCreateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
@@ -239,7 +240,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //ToCreateDate
-                if (options.ToUpdateDate != null)
+                if (options.ToCreateDate != null)
                 {
                     var element = new XElement("ToCreateDate", options.ToCreateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
@@ -635,6 +636,158 @@ namespace ConcreteGo.SDK
         }
 
         #endregion
+
+        #region Trucks
+
+        public async Task<List<TruckRet>?> GetTrucksAsync(TruckRequestOptions options)
+        {
+            var requestElementName = "TruckQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.Ids != null && options.Ids.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Ids)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Code
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+                //PlantIDs
+                if (options.PlantIDs != null && options.PlantIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantIDs)
+                        {
+                            requestElement.Add(new XElement("PlantID", item));
+                        };
+                    }
+                }
+                //PlantCodes
+                if (options.PlantCodes != null && options.PlantCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantCodes)
+                        {
+                            requestElement.Add(new XElement("PlantCode", item));
+                        };
+                    }
+                }
+                //ListOnly
+                if (options.ListOnly != null)
+                {
+                    var element = new XElement("ListOnly", options.ListOnly.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ListOnly
+                if (options.IncludeInactive != null)
+                {
+                    var element = new XElement("IncludeInactive", options.IncludeInactive.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromStatusTimeStamp
+                if (options.FromStatusTimeStamp != null)
+                {
+                    var element = new XElement("FromStatusTimeStamp", options.FromStatusTimeStamp.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToStatusTimeStamp
+                if (options.ToStatusTimeStamp != null)
+                {
+                    var element = new XElement("ToStatusTimeStamp", options.ToStatusTimeStamp.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromLocationUpdateTime
+                if (options.FromLocationUpdateTime != null)
+                {
+                    var element = new XElement("FromLocationUpdateTime", options.FromLocationUpdateTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToLocationUpdateTime
+                if (options.ToLocationUpdateTime != null)
+                {
+                    var element = new XElement("ToLocationUpdateTime", options.ToLocationUpdateTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<TruckRet>? result = null;
+            try
+            {
+                result = DeserializeList<TruckRet>(response.ProcessRequestResult, "TruckQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+        }
+
+        #endregion
+
 
         #region Helpers
         public static List<T>? DeserializeList<T>(string xml, string rootElement)
