@@ -67,6 +67,34 @@ namespace ConcreteGo.SDK.Models.Items
 
         [XmlElement(ElementName = "Locations")]
         public Locations Locations { get; set; } = null!;
+        [XmlElement(ElementName = "TaxOverrides")]
+        public TaxOverrides TaxOverrides { get; set; }
+    }
+
+    [XmlRoot("TaxOverrides")]
+    public class TaxOverrides
+    {
+        [XmlElement("TaxOverride")]
+        public List<TaxOverride> TaxOverride { get; set; } = null!;
+    }
+
+    [XmlRoot("TaxOverride")]
+    public class TaxOverride
+    {
+        [XmlElement("TaxAuthorityID")]
+        public int TaxAuthorityID { get; set; }
+        [XmlElement("TaxAuthorityCode")]
+        public string TaxAuthorityCode { get; set; } = string.Empty;
+        [XmlElement("TaxLocationID")]
+        public int TaxLocationID { get; set; }
+        [XmlElement("TaxLocationCode")]
+        public string TaxLocationCode { get; set; } = string.Empty;
+        [XmlElement("OverrideTaxable")]
+        public bool OverrideTaxable { get; set; }
+        [XmlElement("OverrideTaxRateLocationID")]
+        public int OverrideTaxRateLocationID { get; set; }
+        [XmlElement("OverrideTaxRateLocationCode")]
+        public string OverrideTaxRateLocationCode { get; set; } = string.Empty;
     }
 
     [XmlRoot(ElementName = "UOM")]
@@ -225,7 +253,17 @@ namespace ConcreteGo.SDK.Models.Items
         public string NonTaxableReasonCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ExpirationDate")]
-        public DateTime ExpirationDate { get; set; }
+        private string _ExpirationDate { get; set; } = string.Empty;
+        [XmlIgnore]
+        public DateTime? ExpirationDate
+        {
+            get
+            {
+                if (DateTime.TryParse(_ExpirationDate, out var value))
+                { return value; }
+                return null;
+            }
+        }
     }
 
     [XmlRoot(ElementName = "Mix")]
@@ -427,6 +465,233 @@ namespace ConcreteGo.SDK.Models.Items
         public MixDesign MixDesign { get; set; } = null!;
         [XmlElement(ElementName = "Cost")]
         public Cost Cost { get; set; } = null!;
+
+        [XmlElement(ElementName = "Batching")]
+        public Batching Batching { get; set; } = null!;
+
+        [XmlElement(ElementName = "Pricings")]
+        public Pricings Pricings { get; set; } = null!;
+
+        [XmlElement(ElementName = "BatchCodes")]
+        public BatchCodes BatchCodes { get; set; } = null!;
+
+        [XmlElement(ElementName = "AutoProducts")]
+        public AutoProducts AutoProducts { get; set; } = null!;
+    }
+
+    [XmlRoot("AutoProducts")]
+    public class AutoProducts
+    {
+        [XmlElement("AutoProduct")]
+        public List<AutoProduct> AutoProduct { get; set; } = null!;
+    }
+
+    [XmlRoot("AutoProduct")]
+    public class AutoProduct
+    {
+        [XmlElement("Code")]
+        public string Code { get; set; } = string.Empty;
+        [XmlElement("Quantity")]
+        private string _Quantity { get; set; } = string.Empty;
+        [XmlIgnore]
+        public double? Quantity
+        {
+            get
+            {
+                if(double.TryParse(_Quantity, out var value))
+                {
+                    return value;
+                }
+                return null;
+            }
+        }
+        [XmlElement("LoadQuantity")]
+        private string _LoadQuantity { get; set; } = string.Empty;
+        public double? LoadQuantity 
+        {
+            get
+            {
+                if(double.TryParse(_LoadQuantity, out var value))
+                {
+                    return value;
+                }
+                return null;
+            }
+        }
+    }
+
+    [XmlRoot("BatchCodes")]
+    public class BatchCodes
+    {
+        [XmlElement("BatchCode")]
+        public List<BatchCode> BatchCode { get; set; } = null!;
+    }
+
+    [XmlRoot("BatchCode")]
+    public class BatchCode
+    {
+        [XmlElement("Code")]
+        public string Code { get; set; } = string.Empty;
+        [XmlElement("SortLineNumber")]
+        private string _SortLineNumber { get; set; } = string.Empty;
+        [XmlIgnore]
+        public int? SortLineNumber
+        {
+            get
+            {
+                if(int.TryParse(_SortLineNumber, out var value))
+                {
+                    return value;
+                }
+                return null;
+            }
+        }
+        [XmlElement("Description")]
+        public string Description { get; set; } = string.Empty;
+        [XmlElement("ShortDescription")]
+        public string ShortDescription { get; set; } = string.Empty;
+        [XmlElement("UpdateDate")]
+        private string _UpdateDate { get; set; } = string.Empty;
+        [XmlIgnore]
+        public DateTime? UpdateDate
+        {
+            get
+            {
+                if(DateTime.TryParse(_UpdateDate, out var value))
+                {
+                    return value;
+                }
+                return null;
+            }
+        }
+    }
+
+    [XmlRoot(ElementName = "Batching")]
+    public class Batching
+    {
+        [XmlElement("SpecificGravity")]
+        private string _SpecificGravity { get; set; }
+        [XmlIgnore]
+        public double? SpecificGravity
+        {
+            get
+            {
+                if(double.TryParse(_SpecificGravity, out var value))
+                    { return value; }
+                return null;
+            }
+        }
+        [XmlElement("MoisturePercent")]
+        private string _MoisturePercent { get; set; } = string.Empty;
+        [XmlIgnore]
+        public double? MoisturePercent
+        {
+            get
+            {
+                if (double.TryParse(_MoisturePercent, out var value))
+                    { return value; }
+                return null;
+
+            }
+        }
+        [XmlElement("BatchUnit")]
+        public string BatchUnit { get; set; } = string.Empty;
+        [XmlElement("MaximumBatchSize")]
+        private string _MaximumBatchSize { get; set; } = string.Empty;
+        [XmlIgnore]
+        public double? MaximumBatchSize
+        {
+            get
+            {
+                if(double.TryParse(_MaximumBatchSize, out var value))
+                {
+                    return value;
+                }
+                return null;
+            }
+        }
+        [XmlElement("MixerTime")]
+        private string _MixerTime { get; set; } = string.Empty;
+        [XmlIgnore]
+        public int? MixerTime
+        {
+            get
+            {
+                if (int.TryParse(_MixerTime, out var value))
+                { return value; }
+                return null;
+            }
+        }
+        [XmlElement("DownloadToBatchSystem")]
+        public bool DownloadToBatchSystem { get; set; }
+    }
+
+    [XmlRoot(ElementName = "Pricings")]
+    public class Pricings
+    {
+
+        [XmlElement(ElementName = "Pricing")]
+        public List<Pricing> Pricing { get; set; }
+    }
+
+    [XmlRoot(ElementName = "Pricing")]
+    public class Pricing
+    {
+
+        [XmlElement(ElementName = "PriceCategoryCode")]
+        public string PriceCategoryCode { get; set; } = string.Empty;
+
+        [XmlElement(ElementName = "PriceCategoryName")]
+        public string PriceCategoryName { get; set; } = string.Empty;
+
+        [XmlElement(ElementName = "Price")]
+        private string _Price { get; set; } = string.Empty;
+        [XmlIgnore]
+        public double? Price
+        {
+            get
+            {
+                if(double.TryParse(_Price, out var value))
+                {
+                    return value;
+                }
+                return null;
+            }
+        }
+
+        [XmlElement(ElementName = "PriceExtensionCode")]
+        public string PriceExtensionCode { get; set; } = string.Empty;
+
+        [XmlElement(ElementName = "PriceEffectiveDate")]
+        private string _PriceEffectiveDate { get; set; } = string.Empty;
+        public DateTime? PriceEffectiveDate
+        {
+            get
+            {
+                if(DateTime.TryParse(_PriceEffectiveDate, out var value))
+                {
+                    return value;
+                }
+                return null;
+            }
+        }
+
+        [XmlElement(ElementName = "PreviousPrice")]
+        public string _PreviousPrice { get; set;} = string.Empty;
+        public double? PreviousPrice
+        {
+            get
+            {
+                if (double.TryParse(_PreviousPrice, out var value))
+                {
+                    return value;
+                }
+                return null;
+            }
+        }
+
+        [XmlElement(ElementName = "PreviousPriceExtensionCode")]
+        public string PreviousPriceExtensionCode { get; set; } = string.Empty;
     }
 
     [XmlRoot(ElementName = "MixDesign")]
@@ -434,7 +699,7 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "Material")]
-        public List<ApiItemMaterial> Material { get; set; } = null!;
+        public List<Material> Material { get; set; } = null!;
     }
 
     [XmlRoot(ElementName = "Cost")]
@@ -492,7 +757,7 @@ namespace ConcreteGo.SDK.Models.Items
     }
 
     [XmlRoot(ElementName = "Material")]
-    public class ApiItemMaterial
+    public class Material
     {
 
         [XmlElement(ElementName = "Sort")]

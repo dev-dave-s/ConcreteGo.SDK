@@ -11,7 +11,7 @@ namespace ConcreteGo.SDK.Models.Items
         public bool? ListOnly { get; set; }
         public List<string>? Codes { get; set; }
         public List<string>? LocationCodes { get; set; }
-        public List<string>? CategoryIds { get; set; }
+        public List<int>? CategoryIds { get; set; }
         public List<string>? CategoryCodes { get; set; }
         public bool? IsConstituent { get; set; }
         public bool? KeepInInventory { get; set; }
@@ -23,6 +23,6 @@ namespace ConcreteGo.SDK.Models.Items
         public DateTime? FromCreateDate { get; set; }
         public DateTime? ToCreateDate { get; set; }
         public int? MaxReturned {  get; set; }
-        public List<string>? IncludeRetElement { get; set; }
+        public List<string>? IncludeRetElements { get; set; }
     }
 }

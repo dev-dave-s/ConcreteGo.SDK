@@ -1,5 +1,6 @@
 ﻿using ConcreteGo.SDK.Models.Items;
 using ConcreteGo.SDK.Models.Processing;
+using ConcreteGo.SDK.Models.Tickets;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Reflection.PortableExecutable;
@@ -87,37 +88,186 @@ namespace ConcreteGo.SDK
 
         public async Task<List<ItemRet>?> GetItemsAsync(ItemRequestOptions options)
         {
+            var requestElementName = "ItemQueryRq";
+            
             await ManageLogin();
             var request = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XProcessingInstruction("webcretexml", "version=\"1.0\""),
                 new XElement("WebcreteXML",
                 new XElement("WebcreteXMLMsgsRq",
-                new XElement("ItemQueryRq", ""))));
+                new XElement(requestElementName, ""))));
 
             if (options != null && request.Root != null) 
             {
                 //List Only
                 if(options.ListOnly != null)
                 {
-                    var listOnly = new XElement("ListOnly", options.ListOnly.Value.ToString());
-                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == "ItemQueryRq");
+                    var element = new XElement("ListOnly", options.ListOnly.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if(requestElement != null)
                     {
-                        requestElement.Add(listOnly);
-                    }                     
-                    
+                        requestElement.Add(element);
+                    }                                         
                 }
-
+                //Codes
                 if(options.Codes != null && options.Codes.Any())
                 {
-                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == "ItemQueryRq");
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if(requestElement != null)
                     {
                         foreach (var code in options.Codes)
                         {
                             requestElement.Add(new XElement("Code", code));
                         };
+                    }
+                }
+                //LocationCodes
+                if(options.LocationCodes != null && options.LocationCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if(requestElement != null)
+                    {
+                        foreach(var locationCode in options.LocationCodes)
+                        {
+                            requestElement.Add(new XElement("LocationCode", locationCode));
+                        }
+                    }
+                }
+                //CategoryIds
+                if(options.CategoryIds != null && options.CategoryIds.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var categoryId in options.CategoryIds)
+                        {
+                            requestElement.Add(new XElement("CategoryID", categoryId));
+                        }
+                    }
+                }
+                //CategoryCodes
+                if (options.CategoryCodes != null && options.CategoryCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var categoryCode in options.CategoryCodes)
+                        {
+                            requestElement.Add(new XElement("CategoryCode", categoryCode));
+                        }
+                    }
+                }
+                //IsConstituent
+                if (options.IsConstituent != null)
+                {
+                    var element = new XElement("IsConstituent", options.IsConstituent.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //KeepInInventory
+                if (options.KeepInInventory != null)
+                {
+                    var element = new XElement("KeepInInventory", options.KeepInInventory.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //IsResaleable
+                if (options.IsResaleable != null)
+                {
+                    var element = new XElement("IsResaleable", options.IsResaleable.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //DoNotAllowTicketing
+                if (options.DoNotAllowTicketing != null)
+                {
+                    var element = new XElement("DoNotAllowTicketing", options.DoNotAllowTicketing.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //Taxable
+                if (options.Taxable != null)
+                {
+                    var element = new XElement("Taxable", options.Taxable.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromUpdateDate
+                if (options.FromUpdateDate != null)
+                {
+                    var element = new XElement("FromUpdateDate", options.FromUpdateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToUpdateDate
+                if (options.ToUpdateDate != null)
+                {
+                    var element = new XElement("ToUpdateDate", options.ToUpdateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromCreateDate
+                if (options.ToUpdateDate != null)
+                {
+                    var element = new XElement("FromCreateDate", options.FromCreateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToCreateDate
+                if (options.ToUpdateDate != null)
+                {
+                    var element = new XElement("ToCreateDate", options.ToCreateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //MaxReturned
+                if (options.MaxReturned != null)
+                {
+                    var element = new XElement("MaxReturned", options.MaxReturned.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //IncludeRetElement
+                if (options.IncludeRetElements != null && options.IncludeRetElements.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var includeRetElement in options.IncludeRetElements)
+                        {
+                            requestElement.Add(new XElement("IncludeRetElement", includeRetElement));
+                        }
                     }
                 }
             }
@@ -145,46 +295,346 @@ namespace ConcreteGo.SDK
             return result;
         }
 
-        //public async Task GetItemsIncludingMixDesignAsync()
-        //{
-        //    await ManageLogin();
-        //    var request = new XDocument(
-        //        new XDeclaration("1.0", "utf-8", "yes"),
-        //        new XProcessingInstruction("webcretexml", "version=\"1.0\""),
-        //        new XElement("WebcreteXML",
-        //        new XElement("WebcreteXMLMsgsRq",
-        //        new XElement("ItemQueryRq", ""))));
+        #endregion
 
-        //    var response = new ProcessRequestResponse();
-        //    try
-        //    {
-        //        response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error processing request: " + ex.Message);
-        //    }
+        #region Tickets
 
-        //    List<ItemRet>? result = null;
-        //    try
-        //    {
-        //        result = DeserializeList<ItemRet>(response.ProcessRequestResult, "ItemQueryRs");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error deserializing xml response: " + ex.Message);
-        //    }
-
-        //    return result;
-        //}
-
-        public async Task GetItemByItemCodeAsync()
+        public async Task<List<TicketRet>?> GetTicketsAsync(TicketRequestOptions options)
         {
+            var requestElementName = "TicketQueryRq";
 
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //FromOrderDate
+                if (options.FromOrderDate != null)
+                {
+                    var element = new XElement("FromOrderDate", options.FromOrderDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToOrderDate
+                if (options.ToOrderDate != null)
+                {
+                    var element = new XElement("ToOrderDate", options.ToOrderDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromTicketTime
+                if (options.FromTicketTime != null)
+                {
+                    var element = new XElement("FromTicketTime", options.FromTicketTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToTicketTime
+                if (options.ToTicketTime != null)
+                {
+                    var element = new XElement("ToTicketTime", options.ToTicketTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromUpdateTime
+                if (options.FromUpdateTime != null)
+                {
+                    var element = new XElement("FromUpdateTime", options.FromUpdateTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToUpdateTime
+                if (options.ToUpdateTime != null)
+                {
+                    var element = new XElement("ToUpdateTime", options.ToUpdateTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromLoadTime
+                if (options.FromLoadTime != null)
+                {
+                    var element = new XElement("FromLoadTime", options.FromLoadTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToLoadTime
+                if (options.ToLoadTime != null)
+                {
+                    var element = new XElement("ToLoadTime", options.ToLoadTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromCreatedDate
+                if (options.FromCreatedDate != null)
+                {
+                    var element = new XElement("FromCreatedDate", options.FromCreatedDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToCreatedDate
+                if (options.ToCreatedDate != null)
+                {
+                    var element = new XElement("ToCreatedDate", options.ToCreatedDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //OrderIDs
+                if (options.OrderIDs != null && options.OrderIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.OrderIDs)
+                        {
+                            requestElement.Add(new XElement("OrderID", item));
+                        };
+                    }
+                }
+                //TicketIDs
+                if (options.TicketIDs != null && options.TicketIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.TicketIDs)
+                        {
+                            requestElement.Add(new XElement("TicketID", item));
+                        };
+                    }
+                }
+                //TicketCodes
+                if (options.TicketCodes != null && options.TicketCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.TicketCodes)
+                        {
+                            requestElement.Add(new XElement("TicketCode", item));
+                        };
+                    }
+                }
+                //PlantCodes
+                if (options.PlantCodes != null && options.PlantCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantCodes)
+                        {
+                            requestElement.Add(new XElement("PlantCode", item));
+                        };
+                    }
+                }
+                //CustomerCodes
+                if (options.CustomerCodes != null && options.CustomerCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerCodes)
+                        {
+                            requestElement.Add(new XElement("CustomerCode", item));
+                        };
+                    }
+                }
+                //ProjectCodes
+                if (options.ProjectCodes != null && options.ProjectCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.ProjectCodes)
+                        {
+                            requestElement.Add(new XElement("ProjectCode", item));
+                        };
+                    }
+                }
+                //MixCodes
+                if (options.MixCodes != null && options.MixCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.MixCodes)
+                        {
+                            requestElement.Add(new XElement("MixCode", item));
+                        };
+                    }
+                }
+                //List Only
+                if (options.ListOnly != null)
+                {
+                    var element = new XElement("ListOnly", options.ListOnly.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //OrderBy
+                if (options.OrderBy != null)
+                {
+                    var element = new XElement("OrderBy", options.OrderBy);
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //Reviewed
+                if (options.Reviewed != null)
+                {
+                    var element = new XElement("Reviewed", options.Reviewed.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //IncludeRemovedTicket
+                if (options.IncludeRemovedTicket != null)
+                {
+                    var element = new XElement("IncludeRemovedTicket", options.IncludeRemovedTicket.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //IncludeSuspendedTicket
+                if (options.IncludeSuspendedTicket != null)
+                {
+                    var element = new XElement("IncludeSuspendedTicket", options.IncludeSuspendedTicket.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //IncludeInvoicedTicket
+                if (options.IncludeInvoicedTicket != null)
+                {
+                    var element = new XElement("IncludeInvoicedTicket", options.IncludeInvoicedTicket.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //WithBatchWeightsOnly
+                if (options.WithBatchWeightsOnly != null)
+                {
+                    var element = new XElement("WithBatchWeightsOnly", options.WithBatchWeightsOnly.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //IncludeRetElement
+                if (options.IncludeRetElements != null && options.IncludeRetElements.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var includeRetElement in options.IncludeRetElements)
+                        {
+                            requestElement.Add(new XElement("IncludeRetElement", includeRetElement));
+                        }
+                    }
+                }
+                //MarkOrderAsInvoiced
+                if (options.MarkOrderAsInvoiced != null)
+                {
+                    var element = new XElement("MarkOrderAsInvoiced", options.MarkOrderAsInvoiced.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //MarkTicketAsInvoiced
+                if (options.MarkTicketAsInvoiced != null)
+                {
+                    var element = new XElement("MarkTicketAsInvoiced", options.MarkTicketAsInvoiced.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FailOnOrderLock
+                if (options.FailOnOrderLock != null)
+                {
+                    var element = new XElement("FailOnOrderLock", options.FailOnOrderLock.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<TicketRet>? result = null;
+            try
+            {
+                result = DeserializeList<TicketRet>(response.ProcessRequestResult, "TicketQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
         }
 
         #endregion
-
 
         #region Helpers
         public static List<T>? DeserializeList<T>(string xml, string rootElement)
@@ -197,7 +647,8 @@ namespace ConcreteGo.SDK
             var xmlAttribute = new XmlElementAttribute
             {
                 ElementName = typeof(T).Name,
-                Type = typeof(T)
+                Type = typeof(T),
+                IsNullable = true
             };
             xmlResponseListAttributes.XmlElements.Add(xmlAttribute);
             var attributeOverrides = new XmlAttributeOverrides();
@@ -252,7 +703,8 @@ namespace ConcreteGo.SDK
                         var result = (GenericResponse<T>?)serlist.Deserialize(reader);
                         if (result != null)
                         {
-                            return result.Response.FirstOrDefault();
+                            return default;
+                            //return result.Response.FirstOrDefault();
                         }
                     }
                 }
