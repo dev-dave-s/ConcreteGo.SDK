@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/ConcreteGo.SDK.TestConsole/ConcreteGo.SDK.TestConsole.csproj
+/ConcreteGo.SDK.TestConsole/Program.cs
