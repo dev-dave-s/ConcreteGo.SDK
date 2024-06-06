@@ -287,7 +287,7 @@ namespace ConcreteGo.SDK
             List<ItemRet>? result = null;
             try
             {
-                result = DeserializeList<ItemRet>(response.ProcessRequestResult, "ItemQueryRs");
+                result = Deserialize<ItemRet>(response.ProcessRequestResult, "ItemQueryRs");
             }
             catch (Exception ex)
             {
@@ -472,7 +472,7 @@ namespace ConcreteGo.SDK
             List<OrderRet>? result = null;
             try
             {
-                result = DeserializeList<OrderRet>(response.ProcessRequestResult, "OrderQueryRs");
+                result = Deserialize<OrderRet>(response.ProcessRequestResult, "OrderQueryRs");
             }
             catch (Exception ex)
             {
@@ -811,7 +811,7 @@ namespace ConcreteGo.SDK
             List<TicketRet>? result = null;
             try
             {
-                result = DeserializeList<TicketRet>(response.ProcessRequestResult, "TicketQueryRs");
+                result = Deserialize<TicketRet>(response.ProcessRequestResult, "TicketQueryRs");
             }
             catch (Exception ex)
             {
@@ -962,7 +962,54 @@ namespace ConcreteGo.SDK
             List<TruckRet>? result = null;
             try
             {
-                result = DeserializeList<TruckRet>(response.ProcessRequestResult, "TruckQueryRs");
+                result = Deserialize<TruckRet>(response.ProcessRequestResult, "TruckQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+        }
+
+        public async Task<List<TruckRet>?> AddOrUpdateTruck(TruckAddOrUpdateRq data)
+        {
+            var requestElementName = "TruckUpdateRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+
+
+                var requestData = XElement.Parse(Serialize(data));
+                if (requestElement != null)
+                {
+                    requestElement.Add(requestData);
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<TruckRet>? result = null;
+            try
+            {
+                result = Deserialize<TruckRet>(response.ProcessRequestResult, "TruckUpdateRs");
             }
             catch (Exception ex)
             {
@@ -976,7 +1023,8 @@ namespace ConcreteGo.SDK
 
 
         #region Helpers
-        public static List<T>? DeserializeList<T>(string xml, string rootElement)
+
+        private List<T>? Deserialize<T>(string xml, string rootElement)
         {
             var boolFixedXml = FixXmlBool(xml);
             var xDoc = XDocument.Parse(boolFixedXml);
@@ -1014,42 +1062,17 @@ namespace ConcreteGo.SDK
             return null;
         }
 
-        public static T? DeserializeItem<T>(string xml, string rootElement)
+        private string Serialize<T>(T data)
         {
-            var boolFixedXml = FixXmlBool(xml);
-            var xDoc = XDocument.Parse(boolFixedXml);
-            var xmlGenericResponseAttributes = new XmlAttributes { XmlRoot = new XmlRootAttribute { ElementName = rootElement, IsNullable = true } };
+            var xmlGenericResponseAttributes = new XmlAttributes { XmlRoot = new XmlRootAttribute { Namespace = "", IsNullable = true } };
 
-            var xmlResponseListAttributes = new XmlAttributes();
-            var xmlAttribute = new XmlElementAttribute
-            {
-                ElementName = typeof(T).Name,
-                Type = typeof(T)
-            };
-            xmlResponseListAttributes.XmlElements.Add(xmlAttribute);
-            var attributeOverrides = new XmlAttributeOverrides();
-            attributeOverrides.Add(typeof(GenericResponse<T>), xmlGenericResponseAttributes);
-            attributeOverrides.Add(typeof(GenericResponse<T>), "Response", xmlResponseListAttributes);
 
-            var serlist = new XmlSerializer(typeof(GenericResponse<T>), attributeOverrides);
-            if (xDoc.Root != null)
+            var ser = new XmlSerializer(typeof(T));
+            using(var writer = new StringWriter())
             {
-                var node = xDoc.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == rootElement);
-                if (node != null)
-                {
-                    using (var reader = node.CreateReader())
-                    {
-                        var result = (GenericResponse<T>?)serlist.Deserialize(reader);
-                        if (result != null)
-                        {
-                            return default;
-                            //return result.Response.FirstOrDefault();
-                        }
-                    }
-                }
+                ser.Serialize(writer, data);
+                return writer.ToString();
             }
-
-            return default;
         }
 
         private async Task ManageLogin()
