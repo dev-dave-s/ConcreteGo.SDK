@@ -11,7 +11,9 @@ namespace ConcreteGo.SDK.Models.Trucks
     public class TruckRet
     {
         [XmlElement(ElementName = "ID")]
-        public int ID { get; set; }
+        public string _ID { get; set; }
+        [XmlIgnore]
+        public int? ID { get { if (int.TryParse(_ID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Code")]
         public string Code { get; set; }
@@ -23,7 +25,17 @@ namespace ConcreteGo.SDK.Models.Trucks
         public string ShortDescription { get; set; }
 
         [XmlElement(ElementName = "Active")]
-        public bool Active { get; set; }
+        public string _Active { get; set; }
+        [XmlIgnore]
+        public bool? Active
+        {
+            get
+            {
+                if(bool.TryParse(_Active, out var value))
+                    return value;
+                return null;
+            }
+        }
 
         [XmlElement(ElementName = "OwnerName")]
         public string OwnerName { get; set; }
@@ -33,6 +45,7 @@ namespace ConcreteGo.SDK.Models.Trucks
 
         [XmlElement(ElementName = "LicenseExpirationDate")]
         public string _LicenseExpirationDate { get; set; }
+        [XmlIgnore]
         public DateTime? LicenseExpirationDate
         {
             get
@@ -46,7 +59,17 @@ namespace ConcreteGo.SDK.Models.Trucks
         }
 
         [XmlElement(ElementName = "PlantID")]
-        public int PlantID { get; set; }
+        public string _PlantID { get; set; }
+        [XmlIgnore]
+        public int? PlantID 
+        {
+            get
+            {
+                if(int.TryParse(_PlantID, out var value))
+                    return value; 
+                return null;
+            }
+        }
 
         [XmlElement(ElementName = "PlantCode")]
         public string PlantCode { get; set; }
@@ -72,142 +95,362 @@ namespace ConcreteGo.SDK.Models.Trucks
         [XmlElement(ElementName = "CurrentPlantName")]
         public string CurrentPlantName { get; set; }
 
-        //[XmlElement(ElementName = "CurrentDriverID")]
-        //public int CurrentDriverID { get; set; }
+        [XmlElement(ElementName = "CurrentDriverID")]
+        public string _CurrentDriverID { get; set; }
+        [XmlIgnore]
+        public int? CurrentDriverID
+        {
+            get
+            {
+                if(int.TryParse(_CurrentDriverID, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "CurrentDriverCode")]
-        //public string CurrentDriverCode { get; set; }
+        [XmlElement(ElementName = "CurrentDriverCode")]
+        public string CurrentDriverCode { get; set; }
 
-        //[XmlElement(ElementName = "CurrentDriverName")]
-        //public string CurrentDriverName { get; set; }
+        [XmlElement(ElementName = "CurrentDriverName")]
+        public string CurrentDriverName { get; set; }
 
-        //[XmlElement(ElementName = "TruckTypeID")]
-        //public int TruckTypeID { get; set; }
+        [XmlElement(ElementName = "TruckTypeID")]
+        public string _TruckTypeID { get; set; } = string.Empty;
+        [XmlIgnore]
+        public int? TruckTypeID
+        {
+            get
+            {
+                if (int.TryParse(_TruckTypeID, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "TruckTypeCode")]
-        //public string TruckTypeCode { get; set; }
+        [XmlElement(ElementName = "TruckTypeCode")]
+        public string TruckTypeCode { get; set; }
 
-        //[XmlElement(ElementName = "TruckTypeName")]
-        //public string TruckTypeName { get; set; }
+        [XmlElement(ElementName = "TruckTypeName")]
+        public string TruckTypeName { get; set; }
 
-        //[XmlElement(ElementName = "ProductLine")]
-        //public string ProductLine { get; set; }
+        [XmlElement(ElementName = "ProductLine")]
+        public string ProductLine { get; set; }
 
-        //[XmlElement(ElementName = "MinimumLoadSize")]
-        //public double MinimumLoadSize { get; set; }
+        [XmlElement(ElementName = "MinimumLoadSize")]
+        public string _MinimumLoadSize { get; set; } = string.Empty;
+        [XmlIgnore]
+        public double? MinimumLoadSize
+        {
+            get
+            {
+                if(double.TryParse(_MinimumLoadSize, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "MinimumLoadSizeUnitID")]
-        //public int MinimumLoadSizeUnitID { get; set; }
+        [XmlElement(ElementName = "MinimumLoadSizeUnitID")]
+        public string _MinimumLoadSizeUnitID { get; set; } = string.Empty;
+        [XmlIgnore]
+        public int? MinimumLoadSizeUnitID
+        {
+            get
+            {
+                if(int.TryParse(_MinimumLoadSizeUnitID, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "MinimumLoadSizeUnit")]
-        //public string MinimumLoadSizeUnit { get; set; }
+        [XmlElement(ElementName = "MinimumLoadSizeUnit")]
+        public string MinimumLoadSizeUnit { get; set; }
 
-        //[XmlElement(ElementName = "MinimumLoadSizeUnitCode")]
-        //public string MinimumLoadSizeUnitCode { get; set; }
+        [XmlElement(ElementName = "MinimumLoadSizeUnitCode")]
+        public string MinimumLoadSizeUnitCode { get; set; }
 
-        //[XmlElement(ElementName = "ScheduleLoadSize")]
-        //public double ScheduleLoadSize { get; set; }
+        [XmlElement(ElementName = "ScheduleLoadSize")]
+        public string _ScheduleLoadSize { get; set; } = string.Empty;
+        [XmlIgnore]
+        public double? ScheduleLoadSize
+        {
+            get
+            {
+                if(double.TryParse(_ScheduleLoadSize, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "ScheduleLoadSizeUnitID")]
-        //public int ScheduleLoadSizeUnitID { get; set; }
+        [XmlElement(ElementName = "ScheduleLoadSizeUnitID")]
+        public string _ScheduleLoadSizeUnitID { get; set; } = string.Empty;
+        [XmlIgnore]
+        public int? ScheduleLoadSizeUnitID
+        {
+            get
+            {
+                if(int.TryParse(_ScheduleLoadSizeUnitID, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "ScheduleLoadSizeUnit")]
-        //public string ScheduleLoadSizeUnit { get; set; }
+        [XmlElement(ElementName = "ScheduleLoadSizeUnit")]
+        public string ScheduleLoadSizeUnit { get; set; }
 
-        //[XmlElement(ElementName = "ScheduleLoadSizeUnitCode")]
-        //public string ScheduleLoadSizeUnitCode { get; set; }
+        [XmlElement(ElementName = "ScheduleLoadSizeUnitCode")]
+        public string ScheduleLoadSizeUnitCode { get; set; }
 
-        //[XmlElement(ElementName = "MaximumLoadSize")]
-        //public double MaximumLoadSize { get; set; }
+        [XmlElement(ElementName = "MaximumLoadSize")]
+        public string _MaximumLoadSize { get; set; } = string.Empty;
+        [XmlIgnore]
+        public double? MaximumLoadSize
+        {
+            get
+            {
+                if(double.TryParse(_MaximumLoadSize, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "MaximumLoadSizeUnitID")]
-        //public int MaximumLoadSizeUnitID { get; set; }
+        [XmlElement(ElementName = "MaximumLoadSizeUnitID")]
+        public string _MaximumLoadSizeUnitID { get; set; } = string.Empty;
+        [XmlIgnore]
+        public int? MaximumLoadSizeUnitID
+        {
+            get
+            {
+                if(int.TryParse(_MaximumLoadSizeUnitID, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "MaximumLoadSizeUnit")]
-        //public string MaximumLoadSizeUnit { get; set; }
+        [XmlElement(ElementName = "MaximumLoadSizeUnit")]
+        public string MaximumLoadSizeUnit { get; set; }
 
-        //[XmlElement(ElementName = "MaximumLoadSizeUnitCode")]
-        //public string MaximumLoadSizeUnitCode { get; set; }
+        [XmlElement(ElementName = "MaximumLoadSizeUnitCode")]
+        public string MaximumLoadSizeUnitCode { get; set; }
 
-        //[XmlElement(ElementName = "TareWeight")]
-        //public double TareWeight { get; set; }
+        [XmlElement(ElementName = "TareWeight")]
+        public string _TareWeight { get; set; } = string.Empty;
+        [XmlIgnore]
+        public double? TareWeight
+        {
+            get
+            {
+                if(double.TryParse(_TareWeight, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "TareWeightUnitID")]
-        //public int TareWeightUnitID { get; set; }
+        [XmlElement(ElementName = "TareWeightUnitID")]
+        public string _TareWeightUnitID { get; set; } = string.Empty;
+        [XmlIgnore]
+        public int? TareWeightUnitID
+        {
+            get
+            {
+                if(int.TryParse(_TareWeightUnitID, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "TareWeightUnit")]
-        //public string TareWeightUnit { get; set; }
+        [XmlElement(ElementName = "TareWeightUnit")]
+        public string TareWeightUnit { get; set; }
 
-        //[XmlElement(ElementName = "TareWeightUnitCode")]
-        //public string TareWeightUnitCode { get; set; }
+        [XmlElement(ElementName = "TareWeightUnitCode")]
+        public string TareWeightUnitCode { get; set; }
 
-        //[XmlElement(ElementName = "DaysTareIsValid")]
-        //public int DaysTareIsValid { get; set; }
+        [XmlElement(ElementName = "DaysTareIsValid")]
+        public string _DaysTareIsValid { get; set; } = string.Empty;
+        [XmlIgnore]
+        public int? DaysTareIsValid
+        {
+            get
+            {
+                if(int.TryParse(_DaysTareIsValid, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "TareType")]
-        //public string TareType { get; set; }
+        [XmlElement(ElementName = "TareType")]
+        public string TareType { get; set; }
 
-        //[XmlElement(ElementName = "DeliveryMethod")]
-        //public string DeliveryMethod { get; set; }
+        [XmlElement(ElementName = "DeliveryMethod")]
+        public string DeliveryMethod { get; set; }
 
-        //[XmlElement(ElementName = "FOBonly")]
-        //public bool FOBonly { get; set; }
+        [XmlElement(ElementName = "FOBonly")]
+        public string _FOBonly { get; set; } = null!;
+        [XmlIgnore]
+        public bool? FOBonly
+        {
+            get
+            {
+                if(bool.TryParse(_FOBonly, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "RadioCode")]
-        //public string RadioCode { get; set; }
+        [XmlElement(ElementName = "RadioCode")]
+        public string RadioCode { get; set; }
 
-        //[XmlElement(ElementName = "AutomaticSignaling")]
-        //public bool AutomaticSignaling { get; set; }
+        [XmlElement(ElementName = "AutomaticSignaling")]
+        public string _AutomaticSignaling { get; set; } = string.Empty;
+        [XmlIgnore]
+        public bool? AutomaticSignaling
+        {
+            get
+            {
+                if(bool.TryParse(_AutomaticSignaling, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "EnableGPS")]
-        //public bool EnableGPS { get; set; }
+        [XmlElement(ElementName = "EnableGPS")]
+        public string _EnableGPS { get; set; }
+        [XmlIgnore]
+        public bool? EnableGPS
+        {
+            get
+            {
+                if(bool.TryParse(_EnableGPS, out var value))    
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "EnableAutoStatusing")]
-        //public bool EnableAutoStatusing { get; set; }
+        [XmlElement(ElementName = "EnableAutoStatusing")]
+        public string _EnableAutoStatusing { get; set; }
+        [XmlIgnore]
+        public bool? EnableAutoStatusing
+        {
+            get
+            {
+                if(bool.TryParse(_EnableAutoStatusing, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "NumberOfDrops")]
-        //public int NumberOfDrops { get; set; }
+        [XmlElement(ElementName = "NumberOfDrops")]
+        public string _NumberOfDrops { get; set; }
+        [XmlIgnore]
+        public int? NumberOfDrops
+        {
+            get
+            {
+                if(int.TryParse(_NumberOfDrops, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "SignalingUnitCode")]
-        //public int SignalingUnitCode { get; set; }
+        [XmlElement(ElementName = "SignalingUnitCode")]
+        public string _SignalingUnitCode { get; set; }
+        [XmlIgnore]
+        public int? SignalingUnitCode
+        {
+            get
+            {
+                if(int.TryParse(_SignalingUnitCode, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "Latitude")]
-        //public string Latitude { get; set; }
+        [XmlElement(ElementName = "Latitude")]
+        public string Latitude { get; set; }
 
-        //[XmlElement(ElementName = "Longitude")]
-        //public string Longitude { get; set; }
+        [XmlElement(ElementName = "Longitude")]
+        public string Longitude { get; set; }
 
-        //[XmlElement(ElementName = "LocationUpdateTime")]
-        //public DateTime LocationUpdateTime { get; set; }
+        [XmlElement(ElementName = "LocationUpdateTime")]
+        public string _LocationUpdateTime { get; set; }
+        [XmlIgnore]
+        public DateTime? LocationUpdateTime
+        {
+            get
+            {
+                if(DateTime.TryParse(_LocationUpdateTime, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "StatusCode")]
-        //public string StatusCode { get; set; }
+        [XmlElement(ElementName = "StatusCode")]
+        public string StatusCode { get; set; }
 
-        //[XmlElement(ElementName = "StatusTimeStamp")]
-        //public DateTime StatusTimeStamp { get; set; }
+        [XmlElement(ElementName = "StatusTimeStamp")]
+        public string _StatusTimeStamp { get; set; }
+        [XmlIgnore]
+        public DateTime? StatusTimeStamp
+        {
+            get
+            {
+                if(DateTime.TryParse(_StatusTimeStamp, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "TicketID")]
-        //public int TicketID { get; set; }
+        [XmlElement(ElementName = "TicketID")]
+        public string _TicketID { get; set; }
+        [XmlIgnore]
+        public int? TicketID
+        {
+            get
+            {
+                if(int.TryParse(_TicketID, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "ReturnedMaterialQty")]
-        //public double ReturnedMaterialQty { get; set; }
+        [XmlElement(ElementName = "ReturnedMaterialQty")]
+        public string _ReturnedMaterialQty { get; set; }
+        [XmlIgnore]
+        public double? ReturnedMaterialQty
+        {
+            get
+            {
+                if(double.TryParse(_ReturnedMaterialQty, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "SetupDate")]
-        //public DateTime SetupDate { get; set; }
+        [XmlElement(ElementName = "SetupDate")]
+        public string _SetupDate { get; set; }
+        [XmlIgnore]
+        public DateTime? SetupDate 
+        {
+            get
+            {
+                if(DateTime.TryParse(_SetupDate, out var value))
+                    return value;
+                return null;
+            }
+        }
 
-        //[XmlElement(ElementName = "VIN")]
-        //public string VIN { get; set; }
+        [XmlElement(ElementName = "VIN")]
+        public string VIN { get; set; }
 
-        //[XmlElement(ElementName = "Flag")]
-        //public string Flag { get; set; }
+        [XmlElement(ElementName = "Flag")]
+        public string Flag { get; set; }
 
-        //[XmlElement(ElementName = "ColorCode")]
-        //public string ColorCode { get; set; }
+        [XmlElement(ElementName = "ColorCode")]
+        public string ColorCode { get; set; }
 
-        //[XmlElement(ElementName = "FontColorCode")]
-        //public string FontColorCode { get; set; }
+        [XmlElement(ElementName = "FontColorCode")]
+        public string FontColorCode { get; set; }
 
-        //[XmlElement(ElementName = "PermanentColorCode")]
-        //public string PermanentColorCode { get; set; }
+        [XmlElement(ElementName = "PermanentColorCode")]
+        public string PermanentColorCode { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ConcreteGo.SDK.Models.Items;
+using ConcreteGo.SDK.Models.Orders;
 using ConcreteGo.SDK.Models.Processing;
 using ConcreteGo.SDK.Models.Tickets;
 using ConcreteGo.SDK.Models.Trucks;
@@ -293,6 +294,191 @@ namespace ConcreteGo.SDK
                 throw new Exception("Error deserializing xml response: " + ex.Message);
             }
             
+            return result;
+        }
+
+        #endregion
+
+        #region Orders
+
+        public async Task<List<OrderRet>?> GetOrdersAsync(OrderRequestOptions options)
+        {
+            var requestElementName = "OrderQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //FromOrderDate
+                if (options.FromOrderDate != null)
+                {
+                    var element = new XElement("FromOrderDate", options.FromOrderDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToOrderDate
+                if (options.ToOrderDate != null)
+                {
+                    var element = new XElement("ToOrderDate", options.ToOrderDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromUpdateTime
+                if (options.FromUpdateTime != null)
+                {
+                    var element = new XElement("FromUpdateTime", options.FromUpdateTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToUpdateTime
+                if (options.ToUpdateTime != null)
+                {
+                    var element = new XElement("ToUpdateTime", options.ToUpdateTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //OrderIDs
+                if (options.OrderIDs != null && options.OrderIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.OrderIDs)
+                        {
+                            requestElement.Add(new XElement("OrderID", item));
+                        };
+                    }
+                }
+                //OrderCodes
+                if (options.OrderCodes != null && options.OrderCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.OrderCodes)
+                        {
+                            requestElement.Add(new XElement("OrderCode", item));
+                        };
+                    }
+                }
+                //PlantCodes
+                if (options.PlantCodes != null && options.PlantCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantCodes)
+                        {
+                            requestElement.Add(new XElement("PlantCode", item));
+                        };
+                    }
+                }
+                //CustomerCodes
+                if (options.CustomerCodes != null && options.CustomerCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerCodes)
+                        {
+                            requestElement.Add(new XElement("CustomerCode", item));
+                        };
+                    }
+                }
+                //ProjectCodes
+                if (options.ProjectCodes != null && options.ProjectCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.ProjectCodes)
+                        {
+                            requestElement.Add(new XElement("ProjectCode", item));
+                        };
+                    }
+                }
+                //Reviewed
+                if (options.Reviewed != null)
+                {
+                    var element = new XElement("Reviewed", options.Reviewed.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //IncludeRemovedOrder
+                if (options.IncludeRemovedOrder != null)
+                {
+                    var element = new XElement("IncludeRemovedOrder", options.IncludeRemovedOrder.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //IncludeRetElements
+                if (options.IncludeRetElements != null && options.IncludeRetElements.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IncludeRetElements)
+                        {
+                            requestElement.Add(new XElement("IncludeRetElement", item));
+                        };
+                    }
+                }
+                //FailOnOrderLock
+                if (options.FailOnOrderLock != null)
+                {
+                    var element = new XElement("FailOnOrderLock", options.FailOnOrderLock.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<OrderRet>? result = null;
+            try
+            {
+                result = DeserializeList<OrderRet>(response.ProcessRequestResult, "OrderQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
             return result;
         }
 

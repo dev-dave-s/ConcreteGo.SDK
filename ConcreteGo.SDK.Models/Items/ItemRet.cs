@@ -12,7 +12,8 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "ID")]
-        public int ID { get; set; }
+        public string _ID { get; set; }
+        public int? ID { get { if (int.TryParse(_ID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Code")]
         public string Code { get; set; } = string.Empty;
@@ -27,22 +28,27 @@ namespace ConcreteGo.SDK.Models.Items
         public string ShortDescription { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Constituent")]
-        public bool Constituent { get; set; }
+        public string _Constituent { get; set; }
+        public bool? Constituent { get { if (bool.TryParse(_Constituent, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ItemTypeID")]
-        public int ItemTypeID { get; set; }
+        public string _ItemTypeID { get; set; }
+        public int? ItemTypeID { get { if (int.TryParse(_ItemTypeID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ItemType")]
         public string ItemType { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Resaleable")]
-        public bool Resaleable { get; set; }
+        public string _Resaleable { get; set; }
+        public bool? Resaleable { get { if (bool.TryParse(_Resaleable, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "KeepInInventory")]
-        public bool KeepInInventory { get; set; }
+        public string _KeepInInventory { get; set; }
+        public bool? KeepInInventory { get { if (bool.TryParse(_KeepInInventory, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "DoNotAllowTicketing")]
-        public bool DoNotAllowTicketing { get; set; }
+        public string _DoNotAllowTicketing { get; set; }
+        public bool? DoNotAllowTicketing { get { if (bool.TryParse(_DoNotAllowTicketing, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "AccountLinkCode")]
         public string AccountLinkCode { get; set; } = string.Empty;
@@ -51,10 +57,12 @@ namespace ConcreteGo.SDK.Models.Items
         public string CategoryAccountLinkCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "SetupDate")]
-        public DateTime SetupDate { get; set; }
+        public string _SetupDate { get; set; }
+        public DateTime? SetupDate { get { if (DateTime.TryParse(_SetupDate, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "UpdateDate")]
-        public DateTime UpdateDate { get; set; }
+        public string _UpdateDate { get; set; }
+        public DateTime? UpdateDate { get { if (DateTime.TryParse(_UpdateDate, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "UOM")]
         public UOM UOM { get; set; } = null!;
@@ -86,13 +94,16 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement("TaxAuthorityCode")]
         public string TaxAuthorityCode { get; set; } = string.Empty;
         [XmlElement("TaxLocationID")]
-        public int TaxLocationID { get; set; }
+        public string _TaxLocationID { get; set; }
+        public int? TaxLocationID { get { if (int.TryParse(_TaxLocationID, out var value)) return value; return null; } }
         [XmlElement("TaxLocationCode")]
         public string TaxLocationCode { get; set; } = string.Empty;
         [XmlElement("OverrideTaxable")]
-        public bool OverrideTaxable { get; set; }
+        public string _OverrideTaxable { get; set; }
+        public bool? OverrideTaxable { get { if (bool.TryParse(_OverrideTaxable, out var value)) return value; return null; } }
         [XmlElement("OverrideTaxRateLocationID")]
-        public int OverrideTaxRateLocationID { get; set; }
+        public string _OverrideTaxRateLocationID { get; set; }
+        public int? OverrideTaxRateLocationID { get { if (int.TryParse(_OverrideTaxRateLocationID, out var value)) return value; return null; } }
         [XmlElement("OverrideTaxRateLocationCode")]
         public string OverrideTaxRateLocationCode { get; set; } = string.Empty;
     }
@@ -193,7 +204,8 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "Enable")]
-        public bool Enable { get; set; }
+        public string _Enable { get; set; }
+        public bool? Enable { get { if (bool.TryParse(_Enable, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "DosageQuantityExtensionCode")]
         public string DosageQuantityExtensionCode { get; set; } = string.Empty;
@@ -238,13 +250,16 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "Taxable")]
-        public bool Taxable { get; set; }
+        public string _Taxable { get; set; }
+        public bool? Taxable { get { if (bool.TryParse(_Taxable, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "TradeDiscountable")]
-        public bool TradeDiscountable { get; set; }
+        public string _TradeDiscountable { get; set; }
+        public bool? TradeDiscountable { get { if (bool.TryParse(_TradeDiscountable, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "TermDiscountable")]
-        public bool TermDiscountable { get; set; }
+        public string _TermDiscountable { get; set; }
+        public bool? TermDiscountable { get { if (bool.TryParse(_TermDiscountable, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "UsageCode")]
         public string UsageCode { get; set; } = string.Empty;
@@ -456,7 +471,8 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "LocationID")]
-        public int LocationID { get; set; }
+        public string _LocationID { get; set; }
+        public int? LocationID { get { if (int.TryParse(_LocationID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "LocationCode")]
         public string LocationCode { get; set; } = string.Empty;
@@ -706,7 +722,8 @@ namespace ConcreteGo.SDK.Models.Items
     public class Cost
     {
         [XmlElement(ElementName = "StandardCost")]
-        public decimal StandardCost { get; set; }
+        public string _StandardCost { get; set; }
+        public decimal? StandardCost { get { if (decimal.TryParse(_StandardCost, out var value)) return value; return null; } }
         [XmlElement(ElementName = "CostExtensionCode")]
         public string CostExtensionCode { get; set; } = string.Empty;
 
@@ -761,10 +778,12 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "Sort")]
-        public int Sort { get; set; }
+        public string _Sort { get; set; }
+        public int? Sort { get { if (int.TryParse(_Sort, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ItemID")]
-        public int ItemID { get; set; }
+        public string _ItemID { get; set; }
+        public int? ItemID { get { if (int.TryParse(_ItemID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Code")]
         public string Code { get; set; } = string.Empty;

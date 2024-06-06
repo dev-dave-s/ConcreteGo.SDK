@@ -11,13 +11,19 @@ namespace ConcreteGo.SDK.Models.Tickets
     public class TicketRet
     {
         [XmlElement(ElementName = "TicketID")]
-        public int TicketID { get; set; }
+        public string _TicketID { get; set; }
+        [XmlIgnore]
+        public int? TicketID { get { if (int.TryParse(_TicketID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "CreatedDate")]
-        public DateTime CreatedDate { get; set; }
+        public string _CreatedDate { get; set; }
+        [XmlIgnore]
+        public DateTime? CreatedDate { get { if (DateTime.TryParse(_CreatedDate, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "PlantID")]
-        public int PlantID { get; set; }
+        public string _PlantID { get; set; }
+        [XmlIgnore]
+        public int? PlantID { get { if (int.TryParse(_PlantID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "PlantCode")]
         public string PlantCode { get; set; } = string.Empty;
@@ -26,7 +32,9 @@ namespace ConcreteGo.SDK.Models.Tickets
         public string PlantName { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "LocationID")]
-        public int LocationID { get; set; }
+        public string _LocationID { get; set; }
+        [XmlIgnore]
+        public int? LocationID { get { if (int.TryParse(_LocationID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "LocationCode")]
         public string LocationCode { get; set; } = string.Empty;
@@ -41,10 +49,14 @@ namespace ConcreteGo.SDK.Models.Tickets
         public string TicketCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "OrderDate")]
-        public DateTime OrderDate { get; set; }
+        public string _OrderDate { get; set; }
+        [XmlIgnore]
+        public DateTime? OrderDate { get { if (DateTime.TryParse(_OrderDate, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "OrderID")]
-        public int OrderID { get; set; }
+        public string _OrderID { get; set; }
+        [XmlIgnore]
+        public int? OrderID { get { if (int.TryParse(_OrderID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "OrderCode")]
         public string OrderCode { get; set; } = string.Empty;
@@ -53,13 +65,16 @@ namespace ConcreteGo.SDK.Models.Tickets
         public string MixCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "CurrentStatus")]
-        public int CurrentStatus { get; set; }
+        public string _CurrentStatus { get; set; }
+        public int? CurrentStatus { get { if (int.TryParse(_CurrentStatus, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "OrderCurrentStatus")]
-        public int OrderCurrentStatus { get; set; }
+        public string _OrderCurrentStatus { get; set; }
+        public int? OrderCurrentStatus { get { if (int.TryParse(_OrderCurrentStatus, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "PaymentForm")]
-        public int PaymentForm { get; set; }
+        public string _PaymentForm { get; set; }
+        public int? PaymentForm { get { if (int.TryParse(_PaymentForm, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "TruckCode")]
         public string TruckCode { get; set; } = string.Empty;
@@ -71,7 +86,8 @@ namespace ConcreteGo.SDK.Models.Tickets
         public string DriverName { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "CustomerID")]
-        public int CustomerID { get; set; }
+        public string _CustomerID { get; set; }
+        public int? CustomerID { get { if (int.TryParse(_CustomerID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "CustomerCode")]
         public string CustomerCode { get; set; } = string.Empty;
@@ -218,7 +234,8 @@ namespace ConcreteGo.SDK.Models.Tickets
         }
 
         [XmlElement(ElementName = "QBInvoiceEmailChecked")]
-        public bool QBInvoiceEmailChecked { get; set; }
+        public string _QBInvoiceEmailChecked { get; set; }
+        public bool? QBInvoiceEmailChecked { get { if (bool.TryParse(_QBInvoiceEmailChecked, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ScheduledOnJobTime")]
         public string _ScheduledOnJobTime { get; set; } = string.Empty;
@@ -384,7 +401,8 @@ namespace ConcreteGo.SDK.Models.Tickets
         }
 
         [XmlElement(ElementName = "Active")]
-        public int Active { get; set; }
+        public string _Active { get; set; }
+        public int? Active { get { if (int.TryParse(_Active, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Amount")]
         public string _Amount { get; set; } = string.Empty;
@@ -483,10 +501,12 @@ namespace ConcreteGo.SDK.Models.Tickets
         }
 
         [XmlElement(ElementName = "Removed")]
-        public int Removed { get; set; }
+        public string _Removed { get; set; }
+        public int? Removed { get { if (int.TryParse(_Removed, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "PrintMixWeight")]
-        public bool PrintMixWeight { get; set; }
+        public string _PrintMixWeight { get; set; }
+        public bool? PrintMixWeight { get { if (bool.TryParse(_PrintMixWeight, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "PaymentTermsCode")]
         public string PaymentTermsCode { get; set; } = string.Empty;
@@ -495,7 +515,8 @@ namespace ConcreteGo.SDK.Models.Tickets
         public string PaymentTermsName { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "SalesmanID")]
-        public int SalesmanID { get; set; }
+        public string _SalesmanID { get; set; }
+        public int? SalesmanID { get { if (int.TryParse(_SalesmanID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "SalesmanCode")]
         public string SalesmanCode { get; set; } = string.Empty;
@@ -525,13 +546,16 @@ namespace ConcreteGo.SDK.Models.Tickets
         }
 
         [XmlElement(ElementName = "Reviewed")]
-        public bool Reviewed { get; set; }
+        public string _Reviewed { get; set; }
+        public bool? Reviewed { get { if (bool.TryParse(_Reviewed, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Suspended")]
-        public bool Suspended { get; set; }
+        public string _Suspended { get; set; }
+        public bool? Suspended { get { if (bool.TryParse(_Suspended, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Invoiced")]
-        public bool Invoiced { get; set; }
+        public string _Invoiced { get; set; }
+        public bool? Invoiced { get { if (bool.TryParse(_Invoiced, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "CostAmount")]
         public string _CostAmount { get; set; } = string.Empty;
@@ -617,10 +641,12 @@ namespace ConcreteGo.SDK.Models.Tickets
     {
 
         [XmlElement(ElementName = "ProductID")]
-        public int ProductID { get; set; }
+        public string _ProductID { get; set; }
+        public int? ProductID { get { if (int.TryParse(_ProductID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ItemID")]
-        public int ItemID { get; set; }
+        public string _ItemID { get; set; }
+        public int? ItemID { get { if (int.TryParse(_ItemID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ItemCode")]
         public string ItemCode { get; set; } = string.Empty;
@@ -632,13 +658,16 @@ namespace ConcreteGo.SDK.Models.Tickets
         public string ShortDescription { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "IsMix")]
-        public bool IsMix { get; set; }
+        public string _IsMix { get; set; }
+        public bool? IsMix { get { if (bool.TryParse(_IsMix, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "IsAssoc")]
-        public bool IsAssoc { get; set; }
+        public string _IsAssoc { get; set; }
+        public bool? IsAssoc { get { if (bool.TryParse(_IsAssoc, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ChargeType")]
-        public int ChargeType { get; set; }
+        public string _ChargeType { get; set; }
+        public int? ChargeType { get { if (int.TryParse(_ChargeType, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Price")]
         public string _Price { get; set; } = string.Empty;
@@ -805,37 +834,47 @@ namespace ConcreteGo.SDK.Models.Tickets
         }
 
         [XmlElement(ElementName = "TradeDiscountable")]
-        public bool TradeDiscountable { get; set; }
+        public string _TradeDiscountable { get; set; }
+        public bool? TradeDiscountable { get { if (bool.TryParse(_TradeDiscountable, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Taxable")]
-        public bool Taxable { get; set; }
+        public string _Taxable { get; set; }
+        public bool? Taxable { get { if (bool.TryParse(_Taxable, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Tax1")]
-        public double Tax1 { get; set; }
+        public string _Tax1 { get; set; }
+        public double? Tax1 { get { if (double.TryParse(_Tax1, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Tax2")]
-        public double Tax2 { get; set; }
+        public string _Tax2 { get; set; }
+        public double? Tax2 { get { if (double.TryParse(_Tax2, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Tax3")]
-        public double Tax3 { get; set; }
+        public string _Tax3 { get; set; }
+        public double? Tax3 { get { if (double.TryParse(_Tax3, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Tax4")]
-        public double Tax4 { get; set; }
+        public string _Tax4 { get; set; }
+        public double? Tax4 { get { if (double.TryParse(_Tax4, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Tax5")]
-        public double Tax5 { get; set; }
+        public string _Tax5 { get; set; }
+        public double? Tax5 { get { if (double.TryParse(_Tax5, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "TaxAmount")]
-        public double TaxAmount { get; set; }
+        public string _TaxAmount { get; set; }
+        public double? TaxAmount { get { if (double.TryParse(_TaxAmount, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "Amount")]
-        public double Amount { get; set; }
+        public string _Amount { get; set; }
+        public double? Amount { get { if (double.TryParse(_Amount, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "AccountLinkCode")]
         public string AccountLinkCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ItemCategoryID")]
-        public int ItemCategoryID { get; set; }
+        public string _ItemCategoryID { get; set; }
+        public int? ItemCategoryID { get { if (int.TryParse(_ItemCategoryID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ItemCategoryCode")]
         public string ItemCategoryCode { get; set; } = string.Empty;
@@ -847,19 +886,22 @@ namespace ConcreteGo.SDK.Models.Tickets
         public string ProductLink { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ItemTypeID")]
-        public int ItemTypeID { get; set; }
+        public string _ItemTypeID { get; set; }
+        public int? ItemTypeID { get { if (int.TryParse(_ItemTypeID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ItemTypeName")]
         public string ItemTypeName { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Cost")]
-        public double Cost { get; set; }
+        public string _Cost { get; set; }
+        public double? Cost { get { if (double.TryParse(_Cost, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "CostUnit")]
         public string CostUnit { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "CostAmount")]
-        public double CostAmount { get; set; }
+        public string _CostAmount { get; set; }
+        public double? CostAmount { get { if (double.TryParse(_CostAmount, out var value)) return value; return null; } }
     }
 
     [XmlRoot(ElementName = "Products")]
@@ -875,7 +917,8 @@ namespace ConcreteGo.SDK.Models.Tickets
     {
 
         [XmlElement(ElementName = "ItemID")]
-        public int ItemID { get; set; }
+        public string _ItemID { get; set; }
+        public int? ItemID { get { if (int.TryParse(_ItemID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ItemCode")]
         public string ItemCode { get; set; } = string.Empty;
@@ -884,25 +927,30 @@ namespace ConcreteGo.SDK.Models.Tickets
         public string Name { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "BatchTarget")]
-        public double BatchTarget { get; set; }
+        public string _BatchTarget { get; set; }
+        public double? BatchTarget { get { if (double.TryParse(_BatchTarget, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "BatchActual")]
-        public double BatchActual { get; set; }
+        public string _BatchActual { get; set; }
+        public double? BatchActual { get { if (double.TryParse(_BatchActual, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "BatchUnit")]
         public string BatchUnit { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "MoisturePercent")]
-        public double MoisturePercent { get; set; }
+        public string _MoisturePercent { get; set; }
+        public double? MoisturePercent { get { if (double.TryParse(_MoisturePercent, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ItemCategoryID")]
-        public int ItemCategoryID { get; set; }
+        public string _ItemCategoryID { get; set; }
+        public int? ItemCategoryID { get { if (int.TryParse(_ItemCategoryID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ItemCategoryCode")]
         public string ItemCategoryCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ItemTypeID")]
-        public int ItemTypeID { get; set; }
+        public string _ItemTypeID { get; set; }
+        public int? ItemTypeID { get { if (int.TryParse(_ItemTypeID, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ItemTypeName")]
         public string ItemTypeName { get; set; } = string.Empty;
