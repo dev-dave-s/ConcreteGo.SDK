@@ -1,8 +1,14 @@
-﻿using ConcreteGo.SDK.Models.Items;
+﻿using ConcreteGo.SDK.Models.Company;
+using ConcreteGo.SDK.Models.CreditCodes;
+using ConcreteGo.SDK.Models.Divisions;
+using ConcreteGo.SDK.Models.Items;
 using ConcreteGo.SDK.Models.Orders;
 using ConcreteGo.SDK.Models.Processing;
+using ConcreteGo.SDK.Models.TaxAuthority;
 using ConcreteGo.SDK.Models.Tickets;
 using ConcreteGo.SDK.Models.Trucks;
+using ConcreteGo.SDK.Models.UOMs;
+using ConcreteGo.SDK.Models.Version;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Reflection.PortableExecutable;
@@ -77,12 +83,205 @@ namespace ConcreteGo.SDK
             }
         }
 
-        //public async Task Login2Async()
-        //{
+        #endregion
 
+        #region Company
 
+        public async Task<List<CompanyRet>> GetCompanyAsync()
+        {
+            var requestElementName = "CompanyQueryRq";
 
-        //}
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<CompanyRet>? result = null;
+            try
+            {
+                result = Deserialize<CompanyRet>(response.ProcessRequestResult, "CompanyQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region CreditCodes
+
+        public async Task<List<CreditCodeRet>?> GetCreditCodesAsync(CreditCodeOptions options)
+        {
+            var requestElementName = "CreditCodeQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<CreditCodeRet>? result = null;
+            try
+            {
+                result = Deserialize<CreditCodeRet>(response.ProcessRequestResult, "CreditCodeQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region Divisions
+
+        public async Task<List<DivisionRet>?> GetDivisionsAsync(DivisionRequestOptions options)
+        {
+            var requestElementName = "DivisionQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+                //Names
+                if (options.Names != null && options.Names.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Names)
+                        {
+                            requestElement.Add(new XElement("Name", item));
+                        };
+                    }
+                }
+                //IncludeRetElements
+                if (options.IncludeRetElements != null && options.IncludeRetElements.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IncludeRetElements)
+                        {
+                            requestElement.Add(new XElement("IncludeRetElement", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<DivisionRet>? result = null;
+            try
+            {
+                result = Deserialize<DivisionRet>(response.ProcessRequestResult, "DivisionQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
 
         #endregion
 
@@ -480,6 +679,74 @@ namespace ConcreteGo.SDK
             }
 
             return result;
+        }
+
+        #endregion
+
+        #region Tax Authorities
+
+        public async Task<List<TaxAuthorityRet>?> GetTaxAuthoritiesAsync(CreditCodeOptions options)
+        {
+            var requestElementName = "TaxAuthorityQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<TaxAuthorityRet>? result = null;
+            try
+            {
+                result = Deserialize<TaxAuthorityRet>(response.ProcessRequestResult, "TaxAuthorityQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
         }
 
         #endregion
@@ -1017,6 +1284,134 @@ namespace ConcreteGo.SDK
             }
 
             return result;
+        }
+
+        #endregion
+
+        #region UOMs
+
+        public async Task<List<UOMRet>?> GetUOMsAsync(UOMRequestOptions options)
+        {
+            var requestElementName = "UOMQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+                //Names
+                if (options.Names != null && options.Names.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Names)
+                        {
+                            requestElement.Add(new XElement("Name", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<UOMRet>? result = null;
+            try
+            {
+                result = Deserialize<UOMRet>(response.ProcessRequestResult, "UOMQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region Version
+
+        public async Task<VersionRet?> GetVersionAsync()
+        {
+            var requestElementName = "VersionQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            var result = new VersionRet();
+
+            try
+            {
+                var xDoc = XDocument.Parse(response.ProcessRequestResult);
+                if (xDoc.Root != null)
+                {
+                    var concreteGoVersion = xDoc.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == "ConcreteGoVersion");
+                    var webcreteVersion = xDoc.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == "WebcreteVersion");
+                    result.ConcreteGoVersion = concreteGoVersion.Value;
+                    result.WebcreteVersion = webcreteVersion.Value;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return null;
         }
 
         #endregion
