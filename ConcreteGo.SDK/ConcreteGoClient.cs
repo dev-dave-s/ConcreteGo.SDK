@@ -1,10 +1,19 @@
-﻿using ConcreteGo.SDK.Models.Company;
+﻿using ConcreteGo.SDK.Models.AccountingCategories;
+using ConcreteGo.SDK.Models.Company;
 using ConcreteGo.SDK.Models.CreditCodes;
 using ConcreteGo.SDK.Models.Divisions;
+using ConcreteGo.SDK.Models.Employees;
+using ConcreteGo.SDK.Models.ItemCategories;
 using ConcreteGo.SDK.Models.Items;
+using ConcreteGo.SDK.Models.ItemTypes;
+using ConcreteGo.SDK.Models.Locations;
 using ConcreteGo.SDK.Models.Orders;
+using ConcreteGo.SDK.Models.Plants;
+using ConcreteGo.SDK.Models.PriceCategories;
 using ConcreteGo.SDK.Models.Processing;
+using ConcreteGo.SDK.Models.Tax_Locations;
 using ConcreteGo.SDK.Models.TaxAuthority;
+using ConcreteGo.SDK.Models.TaxCodes;
 using ConcreteGo.SDK.Models.Tickets;
 using ConcreteGo.SDK.Models.Trucks;
 using ConcreteGo.SDK.Models.UOMs;
@@ -85,6 +94,322 @@ namespace ConcreteGo.SDK
 
         #endregion
 
+        #region Accounting Categories
+
+        public async Task<List<AccountingCategoryRet>?> GetAccountingCategories(AccountingCategoryOptions? options = null)
+        {
+            var requestElementName = "AccountingCategoryQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<AccountingCategoryRet>? result = null;
+            try
+            {
+                result = Deserialize<AccountingCategoryRet>(response.ProcessRequestResult, "AccountingCategoryQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region Customers
+
+        public async Task<List<EmployeeRet>?> GetEmployeesAsync(EmployeeOptions? options = null)
+        {
+            var requestElementName = "EmployeeQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+                //PlantIDs
+                if (options.PlantIDs != null && options.PlantIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantIDs)
+                        {
+                            requestElement.Add(new XElement("PlantID", item));
+                        };
+                    }
+                }
+                //PlantCodes
+                if (options.PlantCodes != null && options.PlantCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantCodes)
+                        {
+                            requestElement.Add(new XElement("PlantCode", item));
+                        };
+                    }
+                }
+                //PlantTypes
+                if (options.PlantTypes != null && options.PlantTypes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantTypes)
+                        {
+                            requestElement.Add(new XElement("PlantType", item));
+                        };
+                    }
+                }
+                //ListOnly
+                if (options.ListOnly != null)
+                {
+                    var element = new XElement("ListOnly", options.ListOnly.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //IncludeInactive
+                if (options.IncludeInactive != null)
+                {
+                    var element = new XElement("IncludeInactive", options.IncludeInactive.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<EmployeeRet>? result = null;
+            try
+            {
+                result = Deserialize<EmployeeRet>(response.ProcessRequestResult, "EmployeeQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region Employees
+
+        public async Task<List<EmployeeRet>?> GetEmployeesAsync(EmployeeOptions? options = null)
+        {
+            var requestElementName = "EmployeeQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+                //PlantIDs
+                if (options.PlantIDs != null && options.PlantIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantIDs)
+                        {
+                            requestElement.Add(new XElement("PlantID", item));
+                        };
+                    }
+                }
+                //PlantCodes
+                if (options.PlantCodes != null && options.PlantCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantCodes)
+                        {
+                            requestElement.Add(new XElement("PlantCode", item));
+                        };
+                    }
+                }
+                //PlantTypes
+                if (options.PlantTypes != null && options.PlantTypes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantTypes)
+                        {
+                            requestElement.Add(new XElement("PlantType", item));
+                        };
+                    }
+                }
+                //ListOnly
+                if (options.ListOnly != null)
+                {
+                    var element = new XElement("ListOnly", options.ListOnly.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //IncludeInactive
+                if (options.IncludeInactive != null)
+                {
+                    var element = new XElement("IncludeInactive", options.IncludeInactive.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<EmployeeRet>? result = null;
+            try
+            {
+                result = Deserialize<EmployeeRet>(response.ProcessRequestResult, "EmployeeQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
         #region Company
 
         public async Task<List<CompanyRet>> GetCompanyAsync()
@@ -127,7 +452,7 @@ namespace ConcreteGo.SDK
 
         #region CreditCodes
 
-        public async Task<List<CreditCodeRet>?> GetCreditCodesAsync(CreditCodeOptions options)
+        public async Task<List<CreditCodeRet>?> GetCreditCodesAsync(CreditCodeOptions? options = null)
         {
             var requestElementName = "CreditCodeQueryRq";
 
@@ -195,7 +520,7 @@ namespace ConcreteGo.SDK
 
         #region Divisions
 
-        public async Task<List<DivisionRet>?> GetDivisionsAsync(DivisionRequestOptions options)
+        public async Task<List<DivisionRet>?> GetDivisionsAsync(DivisionRequestOptions? options = null)
         {
             var requestElementName = "DivisionQueryRq";
 
@@ -287,7 +612,7 @@ namespace ConcreteGo.SDK
 
         #region Items
 
-        public async Task<List<ItemRet>?> GetItemsAsync(ItemRequestOptions options)
+        public async Task<List<ItemRet>?> GetItemsAsync(ItemRequestOptions? options = null)
         {
             var requestElementName = "ItemQueryRq";
             
@@ -498,6 +823,222 @@ namespace ConcreteGo.SDK
 
         #endregion
 
+        #region Item Categories
+
+        public async Task<List<ItemCategoryRet>?> GetItemCategoriesAsync(ItemCategoryOptions? options = null)
+        {
+            var requestElementName = "ItemCategoryQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<ItemCategoryRet>? result = null;
+            try
+            {
+                result = Deserialize<ItemCategoryRet>(response.ProcessRequestResult, "ItemCategoryQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region Item Types
+
+        public async Task<List<ItemTypeRet>?> GetItemTypesAsync(ItemTypeOptions? options = null)
+        {
+            var requestElementName = "ItemTypeQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Names != null && options.Names.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Names)
+                        {
+                            requestElement.Add(new XElement("Name", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<ItemTypeRet>? result = null;
+            try
+            {
+                result = Deserialize<ItemTypeRet>(response.ProcessRequestResult, "ItemTypeQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region Item Categories
+
+        public async Task<List<LocationRet>?> GetLocationsAsync(LocationOptions? options = null)
+        {
+            var requestElementName = "LocationQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+                //Names
+                if (options.Names != null && options.Names.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Names)
+                        {
+                            requestElement.Add(new XElement("Name", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<LocationRet>? result = null;
+            try
+            {
+                result = Deserialize<LocationRet>(response.ProcessRequestResult, "LocationQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
         #region Orders
 
         public async Task<List<OrderRet>?> GetOrdersAsync(OrderRequestOptions options)
@@ -683,9 +1224,145 @@ namespace ConcreteGo.SDK
 
         #endregion
 
+        #region Plants
+
+        public async Task<List<PlantRet>?> GetPlantsAsync(PlantOptions? options = null)
+        {
+            var requestElementName = "PlantQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<PlantRet>? result = null;
+            try
+            {
+                result = Deserialize<PlantRet>(response.ProcessRequestResult, "PlantQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region Price Categories
+
+        public async Task<List<PriceCategoryRet>?> GetPriceCategories(PriceCategoryOptions? options = null)
+        {
+            var requestElementName = "PriceCategoryQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<PriceCategoryRet>? result = null;
+            try
+            {
+                result = Deserialize<PriceCategoryRet>(response.ProcessRequestResult, "PriceCategoryQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
         #region Tax Authorities
 
-        public async Task<List<TaxAuthorityRet>?> GetTaxAuthoritiesAsync(CreditCodeOptions options)
+        public async Task<List<TaxAuthorityRet>?> GetTaxAuthoritiesAsync(CreditCodeOptions? options = null)
         {
             var requestElementName = "TaxAuthorityQueryRq";
 
@@ -751,9 +1428,145 @@ namespace ConcreteGo.SDK
 
         #endregion
 
+        #region Tax Codes
+
+        public async Task<List<TaxCodeRet>?> GetTaxCodesAsync(CreditCodeOptions? options = null)
+        {
+            var requestElementName = "TaxCodeQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<TaxCodeRet>? result = null;
+            try
+            {
+                result = Deserialize<TaxCodeRet>(response.ProcessRequestResult, "TaxCodeQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region Tax Locations
+
+        public async Task<List<TaxLocationRet>?> GetTaxLocationsAsync(CreditCodeOptions? options = null)
+        {
+            var requestElementName = "TaxLocationQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (options != null && request.Root != null)
+            {
+                //IDs
+                if (options.IDs != null && options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes != null && options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<TaxLocationRet>? result = null;
+            try
+            {
+                result = Deserialize<TaxLocationRet>(response.ProcessRequestResult, "TaxLocationQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
         #region Tickets
 
-        public async Task<List<TicketRet>?> GetTicketsAsync(TicketRequestOptions options)
+        public async Task<List<TicketRet>?> GetTicketsAsync(TicketRequestOptions? options = null)
         {
             var requestElementName = "TicketQueryRq";
 
@@ -1092,7 +1905,7 @@ namespace ConcreteGo.SDK
 
         #region Trucks
 
-        public async Task<List<TruckRet>?> GetTrucksAsync(TruckRequestOptions options)
+        public async Task<List<TruckRet>?> GetTrucksAsync(TruckRequestOptions? options = null!)
         {
             var requestElementName = "TruckQueryRq";
 
@@ -1290,7 +2103,7 @@ namespace ConcreteGo.SDK
 
         #region UOMs
 
-        public async Task<List<UOMRet>?> GetUOMsAsync(UOMRequestOptions options)
+        public async Task<List<UOMRet>?> GetUOMsAsync(UOMRequestOptions? options = null)
         {
             var requestElementName = "UOMQueryRq";
 
@@ -1416,7 +2229,6 @@ namespace ConcreteGo.SDK
 
         #endregion
 
-
         #region Helpers
 
         private List<T>? Deserialize<T>(string xml, string rootElement)
@@ -1486,7 +2298,7 @@ namespace ConcreteGo.SDK
             }
         }
 
-        public static string FixXmlBool(string xmlText)
+        private static string FixXmlBool(string xmlText)
         {
             //ConcreteGoApi annoyingly has uppercase on bool values which disagrees with Deserialize.
             var response = string.Empty;
