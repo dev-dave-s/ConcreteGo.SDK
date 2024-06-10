@@ -1,5 +1,4 @@
-﻿using ConcreteGo.SDK.Models.Tickets;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -334,6 +333,15 @@ namespace ConcreteGo.SDK.Models.Orders
 
         [XmlElement(ElementName = "UserDefinedField")]
         public List<UserDefinedField> UserDefinedField { get; set; }
+    }
+
+    [XmlRoot("UserDefinedField")]
+    public class UserDefinedField
+    {
+        [XmlElement("Name")]
+        public string Name { get; set; } = string.Empty;
+        [XmlElement("Value")]
+        public string Value { get; set; } = string.Empty;
     }
 
     [XmlRoot(ElementName = "Notes")]

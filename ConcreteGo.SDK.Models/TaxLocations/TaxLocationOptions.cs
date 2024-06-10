@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConcreteGo.SDK.Models.Tax_Locations
+namespace ConcreteGo.SDK.Models.TaxLocations
 {
     public class TaxLocationOptions
     {

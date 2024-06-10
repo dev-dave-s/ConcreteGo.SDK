@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace ConcreteGo.SDK.Models.Tax_Locations
+namespace ConcreteGo.SDK.Models.TaxLocations
 {
     [XmlRoot(ElementName = "TaxLocationRet")]
     public class TaxLocationRet
