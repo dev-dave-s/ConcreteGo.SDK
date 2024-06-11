@@ -97,8 +97,13 @@ namespace ConcreteGo.SDK
 
         #region Accounting Categories
 
-        public async Task<List<AccountingCategoryRet>?> GetAccountingCategories(AccountingCategoryOptions? options = null)
+        public async Task<List<AccountingCategoryRet>?> GetAccountingCategories(Action<AccountingCategoryOptions>? settings = null)
         {
+            var options = new AccountingCategoryOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
             var requestElementName = "AccountingCategoryQueryRq";
 
             await ManageLogin();
@@ -109,10 +114,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -124,7 +129,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -165,8 +170,14 @@ namespace ConcreteGo.SDK
 
         #region Customers
 
-        public async Task<List<CustomerRet>?> GetCustomersAsync(CustomerOptions? options = null)
+        public async Task<List<CustomerRet>?> GetCustomersAsync(Action<CustomerOptions>? settings = null)
         {
+            CustomerOptions options = new CustomerOptions();
+            if (settings != null)
+            {
+                options = new CustomerOptions();
+                settings(options);
+            }
             var requestElementName = "CustomerQueryRq";
 
             await ManageLogin();
@@ -177,7 +188,7 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
                 if (options.IDs != null && options.IDs.Any())
@@ -192,7 +203,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -204,7 +215,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Names
-                if (options.Names != null && options.Names.Any())
+                if (options.Names.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -286,7 +297,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //SalesAnalysisCodes
-                if (options.SalesAnalysisCodes != null && options.SalesAnalysisCodes.Any())
+                if (options.SalesAnalysisCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -298,7 +309,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //SalesmanCodes
-                if (options.SalesmanCodes != null && options.SalesmanCodes.Any())
+                if (options.SalesmanCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -310,7 +321,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //SalesmanNames
-                if (options.SalesmanNames != null && options.SalesmanNames.Any())
+                if (options.SalesmanNames.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -322,7 +333,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //PriceCategoryCodes
-                if (options.PriceCategoryCodes != null && options.PriceCategoryCodes.Any())
+                if (options.PriceCategoryCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -334,7 +345,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //PricingPlantCodes
-                if (options.PricingPlantCodes != null && options.PricingPlantCodes.Any())
+                if (options.PricingPlantCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -346,7 +357,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //TermsCodes
-                if (options.TermsCodes != null && options.TermsCodes.Any())
+                if (options.TermsCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -358,7 +369,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //ZoneCodes
-                if (options.ZoneCodes != null && options.ZoneCodes.Any())
+                if (options.ZoneCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -370,7 +381,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //StatementCycles
-                if (options.StatementCycles != null && options.StatementCycles.Any())
+                if (options.StatementCycles.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -382,7 +393,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //AccountingCategoryCodes
-                if (options.AccountingCategoryCodes != null && options.AccountingCategoryCodes.Any())
+                if (options.AccountingCategoryCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -394,7 +405,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //IncludeRetElement
-                if (options.IncludeRetElement != null && options.IncludeRetElement.Any())
+                if (options.IncludeRetElement.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -435,8 +446,13 @@ namespace ConcreteGo.SDK
 
         #region Employees
 
-        public async Task<List<EmployeeRet>?> GetEmployeesAsync(EmployeeOptions? options = null)
+        public async Task<List<EmployeeRet>?> GetEmployeesAsync(Action<EmployeeOptions>? settings = null)
         {
+            var options = new EmployeeOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
             var requestElementName = "EmployeeQueryRq";
 
             await ManageLogin();
@@ -447,10 +463,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -462,7 +478,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -474,7 +490,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //PlantIDs
-                if (options.PlantIDs != null && options.PlantIDs.Any())
+                if (options.PlantIDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -486,7 +502,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //PlantCodes
-                if (options.PlantCodes != null && options.PlantCodes.Any())
+                if (options.PlantCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -498,7 +514,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //PlantTypes
-                if (options.PlantTypes != null && options.PlantTypes.Any())
+                if (options.PlantTypes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -599,8 +615,14 @@ namespace ConcreteGo.SDK
 
         #region CreditCodes
 
-        public async Task<List<CreditCodeRet>?> GetCreditCodesAsync(CreditCodeOptions? options = null)
+        public async Task<List<CreditCodeRet>?> GetCreditCodesAsync(Action<CreditCodeOptions>? settings = null)
         {
+            var options = new CreditCodeOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+
             var requestElementName = "CreditCodeQueryRq";
 
             await ManageLogin();
@@ -611,10 +633,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -626,7 +648,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -667,8 +689,13 @@ namespace ConcreteGo.SDK
 
         #region Divisions
 
-        public async Task<List<DivisionRet>?> GetDivisionsAsync(DivisionRequestOptions? options = null)
+        public async Task<List<DivisionRet>?> GetDivisionsAsync(Action<DivisionRequestOptions>? settings = null)
         {
+            var options = new DivisionRequestOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
             var requestElementName = "DivisionQueryRq";
 
             await ManageLogin();
@@ -679,10 +706,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -694,7 +721,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -706,7 +733,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Names
-                if (options.Names != null && options.Names.Any())
+                if (options.Names.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -718,7 +745,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //IncludeRetElements
-                if (options.IncludeRetElements != null && options.IncludeRetElements.Any())
+                if (options.IncludeRetElements.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -759,8 +786,14 @@ namespace ConcreteGo.SDK
 
         #region Items
 
-        public async Task<List<ItemRet>?> GetItemsAsync(ItemRequestOptions? options = null)
+        public async Task<List<ItemRet>?> GetItemsAsync(Action<ItemRequestOptions>? settings = null)
         {
+            ItemRequestOptions options = new ItemRequestOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+
             var requestElementName = "ItemQueryRq";
             
             await ManageLogin();
@@ -771,7 +804,7 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null) 
+            if (request.Root != null) 
             {
                 //List Only
                 if(options.ListOnly != null)
@@ -784,7 +817,7 @@ namespace ConcreteGo.SDK
                     }                                         
                 }
                 //Codes
-                if(options.Codes != null && options.Codes.Any())
+                if(options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if(requestElement != null)
@@ -796,7 +829,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //LocationCodes
-                if(options.LocationCodes != null && options.LocationCodes.Any())
+                if(options.LocationCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if(requestElement != null)
@@ -808,7 +841,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //CategoryIds
-                if(options.CategoryIds != null && options.CategoryIds.Any())
+                if(options.CategoryIds.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -820,7 +853,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //CategoryCodes
-                if (options.CategoryCodes != null && options.CategoryCodes.Any())
+                if (options.CategoryCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -932,7 +965,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //IncludeRetElement
-                if (options.IncludeRetElements != null && options.IncludeRetElements.Any())
+                if (options.IncludeRetElements.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -972,8 +1005,14 @@ namespace ConcreteGo.SDK
 
         #region Item Categories
 
-        public async Task<List<ItemCategoryRet>?> GetItemCategoriesAsync(ItemCategoryOptions? options = null)
+        public async Task<List<ItemCategoryRet>?> GetItemCategoriesAsync(Action<ItemCategoryOptions>? settings = null)
         {
+            var options = new ItemCategoryOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+
             var requestElementName = "ItemCategoryQueryRq";
 
             await ManageLogin();
@@ -984,10 +1023,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -999,7 +1038,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1040,8 +1079,14 @@ namespace ConcreteGo.SDK
 
         #region Item Types
 
-        public async Task<List<ItemTypeRet>?> GetItemTypesAsync(ItemTypeOptions? options = null)
+        public async Task<List<ItemTypeRet>?> GetItemTypesAsync(Action<ItemTypeOptions>? settings = null)
         {
+            var options = new ItemTypeOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+            
             var requestElementName = "ItemTypeQueryRq";
 
             await ManageLogin();
@@ -1052,10 +1097,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1067,7 +1112,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Names != null && options.Names.Any())
+                if (options.Names.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1106,10 +1151,16 @@ namespace ConcreteGo.SDK
 
         #endregion
 
-        #region Item Categories
+        #region Locations
 
-        public async Task<List<LocationRet>?> GetLocationsAsync(LocationOptions? options = null)
+        public async Task<List<LocationRet>?> GetLocationsAsync(Action<LocationOptions>? settings = null)
         {
+            var options = new LocationOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+
             var requestElementName = "LocationQueryRq";
 
             await ManageLogin();
@@ -1120,10 +1171,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1135,7 +1186,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1147,7 +1198,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Names
-                if (options.Names != null && options.Names.Any())
+                if (options.Names.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1188,8 +1239,14 @@ namespace ConcreteGo.SDK
 
         #region Orders
 
-        public async Task<List<OrderRet>?> GetOrdersAsync(OrderRequestOptions options)
+        public async Task<List<OrderRet>?> GetOrdersAsync(Action<OrderRequestOptions>? settings = null)
         {
+            var options = new OrderRequestOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+            
             var requestElementName = "OrderQueryRq";
 
             await ManageLogin();
@@ -1200,7 +1257,7 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //FromOrderDate
                 if (options.FromOrderDate != null)
@@ -1243,7 +1300,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //OrderIDs
-                if (options.OrderIDs != null && options.OrderIDs.Any())
+                if (options.OrderIDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1255,7 +1312,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //OrderCodes
-                if (options.OrderCodes != null && options.OrderCodes.Any())
+                if (options.OrderCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1267,7 +1324,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //PlantCodes
-                if (options.PlantCodes != null && options.PlantCodes.Any())
+                if (options.PlantCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1279,7 +1336,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //CustomerCodes
-                if (options.CustomerCodes != null && options.CustomerCodes.Any())
+                if (options.CustomerCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1291,7 +1348,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //ProjectCodes
-                if (options.ProjectCodes != null && options.ProjectCodes.Any())
+                if (options.ProjectCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1323,7 +1380,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //IncludeRetElements
-                if (options.IncludeRetElements != null && options.IncludeRetElements.Any())
+                if (options.IncludeRetElements.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1373,8 +1430,15 @@ namespace ConcreteGo.SDK
 
         #region Plants
 
-        public async Task<List<PlantRet>?> GetPlantsAsync(PlantOptions? options = null)
+        public async Task<List<PlantRet>?> GetPlantsAsync(Action<PlantOptions>? settings = null)
         {
+            
+            var options = new PlantOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+            
             var requestElementName = "PlantQueryRq";
 
             await ManageLogin();
@@ -1385,10 +1449,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1400,7 +1464,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1441,8 +1505,14 @@ namespace ConcreteGo.SDK
 
         #region Price Categories
 
-        public async Task<List<PriceCategoryRet>?> GetPriceCategories(PriceCategoryOptions? options = null)
+        public async Task<List<PriceCategoryRet>?> GetPriceCategories(Action<PriceCategoryOptions>? settings = null)
         {
+            var options = new PriceCategoryOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+            
             var requestElementName = "PriceCategoryQueryRq";
 
             await ManageLogin();
@@ -1453,10 +1523,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1468,7 +1538,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1509,8 +1579,15 @@ namespace ConcreteGo.SDK
 
         #region Tax Authorities
 
-        public async Task<List<TaxAuthorityRet>?> GetTaxAuthoritiesAsync(CreditCodeOptions? options = null)
+        public async Task<List<TaxAuthorityRet>?> GetTaxAuthoritiesAsync(Action<TaxAuthorityOptions>? settings = null)
         {
+
+            var options = new TaxAuthorityOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+            
             var requestElementName = "TaxAuthorityQueryRq";
 
             await ManageLogin();
@@ -1521,10 +1598,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1536,7 +1613,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1577,8 +1654,14 @@ namespace ConcreteGo.SDK
 
         #region Tax Codes
 
-        public async Task<List<TaxCodeRet>?> GetTaxCodesAsync(CreditCodeOptions? options = null)
+        public async Task<List<TaxCodeRet>?> GetTaxCodesAsync(Action<TaxCodeOptions>? settings = null)
         {
+            var options = new TaxCodeOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+            
             var requestElementName = "TaxCodeQueryRq";
 
             await ManageLogin();
@@ -1589,10 +1672,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1604,7 +1687,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1645,8 +1728,15 @@ namespace ConcreteGo.SDK
 
         #region Tax Locations
 
-        public async Task<List<TaxLocationRet>?> GetTaxLocationsAsync(CreditCodeOptions? options = null)
+        public async Task<List<TaxLocationRet>?> GetTaxLocationsAsync(Action<TaxLocationOptions>? settings = null)
         {
+            var options = new TaxLocationOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+            
+
             var requestElementName = "TaxLocationQueryRq";
 
             await ManageLogin();
@@ -1657,10 +1747,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1672,7 +1762,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1713,8 +1803,14 @@ namespace ConcreteGo.SDK
 
         #region Tickets
 
-        public async Task<List<TicketRet>?> GetTicketsAsync(TicketRequestOptions? options = null)
+        public async Task<List<TicketRet>?> GetTicketsAsync(Action<TicketRequestOptions>? settings = null)
         {
+            var options = new TicketRequestOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+            
             var requestElementName = "TicketQueryRq";
 
             await ManageLogin();
@@ -1725,7 +1821,7 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //FromOrderDate
                 if (options.FromOrderDate != null)
@@ -1828,7 +1924,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //OrderIDs
-                if (options.OrderIDs != null && options.OrderIDs.Any())
+                if (options.OrderIDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1840,7 +1936,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //TicketIDs
-                if (options.TicketIDs != null && options.TicketIDs.Any())
+                if (options.TicketIDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1852,7 +1948,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //TicketCodes
-                if (options.TicketCodes != null && options.TicketCodes.Any())
+                if (options.TicketCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1864,7 +1960,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //PlantCodes
-                if (options.PlantCodes != null && options.PlantCodes.Any())
+                if (options.PlantCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1876,7 +1972,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //CustomerCodes
-                if (options.CustomerCodes != null && options.CustomerCodes.Any())
+                if (options.CustomerCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1888,7 +1984,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //ProjectCodes
-                if (options.ProjectCodes != null && options.ProjectCodes.Any())
+                if (options.ProjectCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1900,7 +1996,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //MixCodes
-                if (options.MixCodes != null && options.MixCodes.Any())
+                if (options.MixCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -1982,7 +2078,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //IncludeRetElement
-                if (options.IncludeRetElements != null && options.IncludeRetElements.Any())
+                if (options.IncludeRetElements.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -2052,8 +2148,14 @@ namespace ConcreteGo.SDK
 
         #region Trucks
 
-        public async Task<List<TruckRet>?> GetTrucksAsync(TruckRequestOptions? options = null!)
+        public async Task<List<TruckRet>?> GetTrucksAsync(Action<TruckRequestOptions>? settings = null!)
         {
+            var options = new TruckRequestOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+            
             var requestElementName = "TruckQueryRq";
 
             await ManageLogin();
@@ -2064,7 +2166,7 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
                 if (options.Ids != null && options.Ids.Any())
@@ -2079,7 +2181,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Code
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -2091,7 +2193,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //PlantIDs
-                if (options.PlantIDs != null && options.PlantIDs.Any())
+                if (options.PlantIDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -2103,7 +2205,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //PlantCodes
-                if (options.PlantCodes != null && options.PlantCodes.Any())
+                if (options.PlantCodes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -2250,8 +2352,14 @@ namespace ConcreteGo.SDK
 
         #region UOMs
 
-        public async Task<List<UOMRet>?> GetUOMsAsync(UOMRequestOptions? options = null)
+        public async Task<List<UOMRet>?> GetUOMsAsync(Action<UOMRequestOptions>? settings = null)
         {
+            var options = new UOMRequestOptions();
+            if(settings != null)
+            {
+                settings(options);
+            }
+            
             var requestElementName = "UOMQueryRq";
 
             await ManageLogin();
@@ -2262,10 +2370,10 @@ namespace ConcreteGo.SDK
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (options != null && request.Root != null)
+            if (request.Root != null)
             {
                 //IDs
-                if (options.IDs != null && options.IDs.Any())
+                if (options.IDs.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -2277,7 +2385,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Codes
-                if (options.Codes != null && options.Codes.Any())
+                if (options.Codes.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
@@ -2289,7 +2397,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //Names
-                if (options.Names != null && options.Names.Any())
+                if (options.Names.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)

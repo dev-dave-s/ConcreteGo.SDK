@@ -8,8 +8,8 @@ namespace ConcreteGo.SDK.Models.UOMs
 {
     public class UOMRequestOptions
     {
-        public List<int>? IDs { get; set; }
-        public List<string>? Codes { get; set; }
-        public List<string>? Names { get; set; }
+        public List<int> IDs { get; set; } = new List<int>();
+        public List<string> Codes { get; set; } = new List<string>();
+        public List<string> Names { get; set; } = new List<string>();
     }
 }

@@ -8,10 +8,10 @@ namespace ConcreteGo.SDK.Models.Trucks
 {
     public class TruckRequestOptions
     {
-        public List<int>? Ids { get; set; }
-        public List<string>? Codes { get; set; }
-        public List<int>? PlantIDs { get; set; }
-        public List<string>? PlantCodes { get; set; }
+        public List<int> Ids { get; set; } = new List<int>();
+        public List<string> Codes { get; set; } = new List<string>();
+        public List<int> PlantIDs { get; set; } = new List<int>();
+        public List<string> PlantCodes { get; set; } = new List<string>();
         public bool? ListOnly { get; set; }
         public bool? IncludeInactive { get; set; }
         public DateTime? FromStatusTimeStamp { get; set; }

@@ -8,11 +8,11 @@ namespace ConcreteGo.SDK.Models.Employees
 {
     public class EmployeeOptions
     {
-        public List<int>? IDs { get; set; }
-        public List<string>? Codes { get; set; }
-        public List<int>? PlantIDs { get; set; }
-        public List<string>? PlantCodes { get; set; }
-        public List<string>? PlantTypes { get; set; }
+        public List<int> IDs { get; set; } = new List<int>();
+        public List<string> Codes { get; set; } = new List<string>();
+        public List<int> PlantIDs { get; set; } = new List<int>();
+        public List<string> PlantCodes { get; set; } = new List<string>();
+        public List<string> PlantTypes { get; set; } = new List<string>();
         public bool? ListOnly { get; set; }
         public bool? IncludeInactive { get; set; }
     }

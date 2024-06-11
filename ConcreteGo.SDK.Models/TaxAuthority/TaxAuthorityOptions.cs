@@ -8,7 +8,7 @@ namespace ConcreteGo.SDK.Models.TaxAuthority
 {
     public class TaxAuthorityOptions
     {
-        public List<int>? IDs { get; set; }
-        public List<string>? Codes { get; set; }
+        public List<int> IDs { get; set; } = new List<int>();
+        public List<string> Codes { get; set; } = new List<string>();
     }
 }

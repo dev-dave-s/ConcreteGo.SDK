@@ -9,10 +9,10 @@ namespace ConcreteGo.SDK.Models.Items
     public class ItemRequestOptions
     {
         public bool? ListOnly { get; set; }
-        public List<string>? Codes { get; set; }
-        public List<string>? LocationCodes { get; set; }
-        public List<int>? CategoryIds { get; set; }
-        public List<string>? CategoryCodes { get; set; }
+        public List<string> Codes { get; set; } = new List<string>();
+        public List<string> LocationCodes { get; set; } = new List<string>();
+        public List<int> CategoryIds { get; set; } = new List<int>();
+        public List<string> CategoryCodes { get; set; } = new List<string>();
         public bool? IsConstituent { get; set; }
         public bool? KeepInInventory { get; set; }
         public bool? IsResaleable { get; set; }
@@ -23,6 +23,6 @@ namespace ConcreteGo.SDK.Models.Items
         public DateTime? FromCreateDate { get; set; }
         public DateTime? ToCreateDate { get; set; }
         public int? MaxReturned {  get; set; }
-        public List<string>? IncludeRetElements { get; set; }
+        public List<string> IncludeRetElements { get; set; } = new List<string>();
     }
 }
