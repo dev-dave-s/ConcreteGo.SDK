@@ -16,7 +16,7 @@ namespace ConcreteGo.SDK.Models.Customers
         public int ID { get; set; }
 
         [XmlElement(ElementName = "Code")]
-        public int Code { get; set; }
+        public string Code { get; set; }
 
         [XmlElement(ElementName = "Name")]
         public string Name { get; set; }
@@ -37,16 +37,16 @@ namespace ConcreteGo.SDK.Models.Customers
         public StatementAddress StatementAddress { get; set; }
 
         [XmlElement(ElementName = "Contact")]
-        public object Contact { get; set; }
+        public string Contact { get; set; }
 
         [XmlElement(ElementName = "Phone")]
         public string Phone { get; set; }
 
         [XmlElement(ElementName = "Fax")]
-        public object Fax { get; set; }
+        public string Fax { get; set; }
 
         [XmlElement(ElementName = "Cellular")]
-        public object Cellular { get; set; }
+        public string Cellular { get; set; }
 
         [XmlElement(ElementName = "Email")]
         public string Email { get; set; }
@@ -126,7 +126,7 @@ namespace ConcreteGo.SDK.Models.Customers
         public string StatementCycle { get; set; }
 
         [XmlElement(ElementName = "AccountingCategoryCode")]
-        public int AccountingCategoryCode { get; set; }
+        public string AccountingCategoryCode { get; set; }
 
         [XmlElement(ElementName = "ApplyFinanceCharges")]
         public bool ApplyFinanceCharges { get; set; }
@@ -150,7 +150,7 @@ namespace ConcreteGo.SDK.Models.Customers
         public bool ExternalLiensRequiredInOrderEntry { get; set; }
 
         [XmlElement(ElementName = "SuspendOrderReasonCode")]
-        public object SuspendOrderReasonCode { get; set; }
+        public string SuspendOrderReasonCode { get; set; }
 
         [XmlElement(ElementName = "UsageCodeRequiredInOrderEntry")]
         public bool UsageCodeRequiredInOrderEntry { get; set; }
@@ -262,7 +262,7 @@ namespace ConcreteGo.SDK.Models.Customers
     {
 
         [XmlElement(ElementName = "PriceCategoryCode")]
-        public int PriceCategoryCode { get; set; }
+        public string PriceCategoryCode { get; set; }
 
         [XmlElement(ElementName = "PriceCategoryName")]
         public string PriceCategoryName { get; set; }
@@ -271,28 +271,35 @@ namespace ConcreteGo.SDK.Models.Customers
         public string PriceCategoryDescription { get; set; }
 
         [XmlElement(ElementName = "PricingPlantCode")]
-        public int PricingPlantCode { get; set; }
+        public string PricingPlantCode { get; set; }
 
         [XmlElement(ElementName = "TradeDiscountPercent")]
-        public double TradeDiscountPercent { get; set; }
+        public string _TradeDiscountPercent { get; set; } = string.Empty;
+        [XmlIgnore]
+        public double? TradeDiscountPercent { get { if (double.TryParse(_TradeDiscountPercent, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "TradeDiscountAmount")]
-        public double TradeDiscountAmount { get; set; }
+        public string _TradeDiscountAmount { get; set; } = string.Empty;
+        [XmlIgnore]
+        public double? TradeDiscountAmount { get { if (double.TryParse(_TradeDiscountAmount, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "TradeDiscountAmountUnitCode")]
         public string TradeDiscountAmountUnitCode { get; set; }
 
         [XmlElement(ElementName = "TermCode")]
-        public object TermCode { get; set; }
+        public string TermCode { get; set; }
 
         [XmlElement(ElementName = "ZoneCode")]
-        public object ZoneCode { get; set; }
+        public string ZoneCode { get; set; }
 
         [XmlElement(ElementName = "OverrideChargeRate")]
-        public int OverrideChargeRate { get; set; }
+        public string _OverrideChargeRate { get; set; } = string.Empty;
+        [XmlIgnore]
+        public double? OverrideChargeRate { get { if (double.TryParse(_OverrideChargeRate, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "OverrideChargeEfftiveDate")]
-        public object OverrideChargeEfftiveDate { get; set; }
+        public string _OverrideChargeEfftiveDate { get; set; } = string.Empty;
+        public DateTime? OverrideChargeEfftiveDate { get { if (DateTime.TryParse(_OverrideChargeEfftiveDate, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "ApplyZoneCharges")]
         public bool ApplyZoneCharges { get; set; }
@@ -310,7 +317,8 @@ namespace ConcreteGo.SDK.Models.Customers
         public bool RestrictOrderstoCustomerProducts { get; set; }
 
         [XmlElement(ElementName = "AllowAutomaticPriceAjustment")]
-        public bool AllowAutomaticPriceAjustment { get; set; }
+        public string _AllowAutomaticPriceAjustment { get; set; } = string.Empty;
+        public bool? AllowAutomaticPriceAjustment { get { if (bool.TryParse(_AllowAutomaticPriceAjustment, out var value)) return value; return null; } }
     }
 
     [XmlRoot(ElementName = "Address")]
@@ -321,10 +329,10 @@ namespace ConcreteGo.SDK.Models.Customers
         public string Addr1 { get; set; }
 
         [XmlElement(ElementName = "Addr2")]
-        public object Addr2 { get; set; }
+        public string Addr2 { get; set; }
 
         [XmlElement(ElementName = "Addr3")]
-        public object Addr3 { get; set; }
+        public string Addr3 { get; set; }
 
         [XmlElement(ElementName = "City")]
         public string City { get; set; }
@@ -333,7 +341,7 @@ namespace ConcreteGo.SDK.Models.Customers
         public string State { get; set; }
 
         [XmlElement(ElementName = "PostalCode")]
-        public int PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         [XmlElement(ElementName = "Country")]
         public string Country { get; set; }
@@ -367,25 +375,25 @@ namespace ConcreteGo.SDK.Models.Customers
     {
 
         [XmlElement(ElementName = "Name")]
-        public object Name { get; set; }
+        public string Name { get; set; }
 
         [XmlElement(ElementName = "Addr1")]
-        public object Addr1 { get; set; }
+        public string Addr1 { get; set; }
 
         [XmlElement(ElementName = "Addr2")]
-        public object Addr2 { get; set; }
+        public string Addr2 { get; set; }
 
         [XmlElement(ElementName = "City")]
-        public object City { get; set; }
+        public string City { get; set; }
 
         [XmlElement(ElementName = "State")]
-        public object State { get; set; }
+        public string State { get; set; }
 
         [XmlElement(ElementName = "PostalCode")]
-        public object PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         [XmlElement(ElementName = "Country")]
-        public int Country { get; set; }
+        public string Country { get; set; }
     }
 
     [XmlRoot(ElementName = "Sales")]
@@ -396,7 +404,9 @@ namespace ConcreteGo.SDK.Models.Customers
         public string SalesAnalysisCode { get; set; }
 
         [XmlElement(ElementName = "SalesmanCode")]
-        public int SalesmanCode { get; set; }
+        public string _SalesmanCode { get; set; } = string.Empty;
+        [XmlIgnore]
+        public int? SalesmanCode { get { if (int.TryParse(_SalesmanCode, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "SalesmanName")]
         public string SalesmanName { get; set; }

@@ -1,0 +1,123 @@
+﻿using ConcreteGo.SDK.Models.Customers;
+using ConcreteGo.SDK.Models.Projects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+
+namespace ConcreteGo.SDK.Models.Quotes
+{
+    [XmlRoot(ElementName = "QuoteRet")]
+    public class QuoteRet
+    {
+        [XmlElement(ElementName = "ID")]
+        public int ID { get; set; }
+
+        [XmlElement(ElementName = "Code")]
+        public string Code { get; set; }
+
+        [XmlElement(ElementName = "Name")]
+        public string Name { get; set; }
+
+        [XmlElement(ElementName = "CustomerID")]
+        public int CustomerID { get; set; }
+
+        [XmlElement(ElementName = "CustomerCode")]
+        public string CustomerCode { get; set; }
+
+        [XmlElement(ElementName = "CustomerName")]
+        public string CustomerName { get; set; }
+
+        [XmlElement(ElementName = "SetupDate")]
+        public DateTime SetupDate { get; set; }
+
+        [XmlElement(ElementName = "DeliveryAddress")]
+        public DeliveryAddress DeliveryAddress { get; set; }
+
+        [XmlElement(ElementName = "Instruction")]
+        public Instruction Instruction { get; set; }
+
+        [XmlElement(ElementName = "InvoiceAddress")]
+        public InvoiceAddress InvoiceAddress { get; set; }
+
+        [XmlElement(ElementName = "StatementAddress")]
+        public StatementAddress StatementAddress { get; set; }
+
+        [XmlElement(ElementName = "Contact")]
+        public string Contact { get; set; }
+
+        [XmlElement(ElementName = "Phone")]
+        public string Phone { get; set; }
+
+        [XmlElement(ElementName = "Fax")]
+        public string Fax { get; set; }
+
+        [XmlElement(ElementName = "Cellular")]
+        public string Cellular { get; set; }
+
+        [XmlElement(ElementName = "Email")]
+        public string Email { get; set; }
+
+        [XmlElement(ElementName = "CustomerJob")]
+        public string CustomerJob { get; set; }
+
+        [XmlElement(ElementName = "PurchaseOrder")]
+        public string PurchaseOrder { get; set; }
+
+        [XmlElement(ElementName = "ExpirationDate")]
+        public string ExpirationDate { get; set; }
+
+        [XmlElement(ElementName = "ShippingCustomerCode")]
+        public string ShippingCustomerCode { get; set; }
+
+        [XmlElement(ElementName = "ReferenceCustomerCode")]
+        public string ReferenceCustomerCode { get; set; }
+
+        [XmlElement(ElementName = "Sales")]
+        public Sales Sales { get; set; }
+
+        [XmlElement(ElementName = "Taxing")]
+        public Taxing Taxing { get; set; }
+
+        [XmlElement(ElementName = "Pricing")]
+        public Pricing Pricing { get; set; }
+
+        [XmlElement(ElementName = "Charges")]
+        public Charges Charges { get; set; }
+
+        [XmlElement(ElementName = "Accounting")]
+        public Accounting Accounting { get; set; }
+
+        [XmlElement(ElementName = "Distribution")]
+        public Distribution Distribution { get; set; }
+
+        [XmlElement(ElementName = "EnablePriceEscalation")]
+        public string _EnablePriceEscalation { get; set; } = string.Empty;
+        public bool? EnablePriceEscalation { get { if (bool.TryParse(_EnablePriceEscalation, out var value)) return value; return null; } }
+
+        [XmlElement(ElementName = "PriceEscalationAmount")]
+        public string _PriceEscalationAmount { get; set; } = string.Empty;
+        public double? PriceEscalationAmount { get { if (double.TryParse(_PriceEscalationAmount, out var value)) return value; return null; } }
+
+        [XmlElement(ElementName = "PriceEscalationDate")]
+        public string _PriceEscalationDate { get; set; } = string.Empty;
+        public DateTime? PriceEscalationDate { get { if (DateTime.TryParse(_PriceEscalationDate, out var value)) return value; return null; } }
+
+        [XmlElement(ElementName = "QuoteRequiredDate")]
+        public string _QuoteRequiredDate { get; set; } = string.Empty;
+        public DateTime? QuoteRequiredDate { get { if (DateTime.TryParse(_QuoteRequiredDate, out var value)) return value; return null; } }
+
+        [XmlElement(ElementName = "QuoteExpirationDate")]
+        public string _QuoteExpirationDate { get; set; } = string.Empty;
+        public DateTime? QuoteExpirationDate { get { if (DateTime.TryParse(_QuoteExpirationDate, out var value)) return value; return null; } }
+
+        [XmlElement(ElementName = "UpdateDate")]
+        public string _UpdateDate { get; set; } = string.Empty;
+        public DateTime? UpdateDate { get { if (DateTime.TryParse(_UpdateDate, out var value)) return value; return null; } }
+
+        [XmlElement(ElementName = "CustomerRet")]
+        public CustomerRet CustomerRet { get; set; }
+    }
+}

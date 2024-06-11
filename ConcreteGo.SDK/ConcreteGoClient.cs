@@ -28,6 +28,9 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using WebcreteAPI;
 using ConcreteGo.SDK.Models.Customers;
+using ConcreteGo.SDK.Models.Projects;
+using ConcreteGo.SDK.Models.Jobs;
+using ConcreteGo.SDK.Models.Quotes;
 
 namespace ConcreteGo.SDK
 {
@@ -1151,6 +1154,294 @@ namespace ConcreteGo.SDK
 
         #endregion
 
+        #region Jobs
+
+        public async Task<List<JobRet>?> GetJobsAsync(Action<JobRequestOptions>? settings = null)
+        {
+            var options = new JobRequestOptions();
+            if (settings != null)
+            {
+                settings(options);
+            }
+
+            var requestElementName = "JobQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                //IDs
+                if (options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+                //Names
+                if (options.Names.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Names)
+                        {
+                            requestElement.Add(new XElement("Name", item));
+                        };
+                    }
+                }
+                //CustomerIDs
+                if (options.CustomerIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerIDs)
+                        {
+                            requestElement.Add(new XElement("CustomerID", item));
+                        };
+                    }
+                }
+                //CustomerCodes
+                if (options.CustomerCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerCodes)
+                        {
+                            requestElement.Add(new XElement("CustomerCode", item));
+                        };
+                    }
+                }
+                //CustomerNames
+                if (options.CustomerNames.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerNames)
+                        {
+                            requestElement.Add(new XElement("CustomerName", item));
+                        };
+                    }
+                }
+                //MaxReturned
+                if (options.MaxReturned != null)
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if(requestElement != null)
+                    {
+                        requestElement.Add(new XElement("MaxReturned", options.MaxReturned.Value));
+                    } 
+                }
+                //ListOnly
+                if (options.ListOnly != null)
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(new XElement("ListOnly", options.ListOnly.Value));
+                    }
+                }
+
+                //FromSetupDate
+                if (options.FromSetupDate != null)
+                {
+                    var element = new XElement("FromSetupDate", options.FromSetupDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToSetupDate
+                if (options.ToSetupDate != null)
+                {
+                    var element = new XElement("ToSetupDate", options.ToSetupDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromUpdateDate
+                if (options.FromUpdateDate != null)
+                {
+                    var element = new XElement("FromUpdateDate", options.FromUpdateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToUpdateDate
+                if (options.ToUpdateDate != null)
+                {
+                    var element = new XElement("ToUpdateDate", options.ToUpdateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //SalesAnalysisCodes
+                if (options.SalesAnalysisCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.SalesAnalysisCodes)
+                        {
+                            requestElement.Add(new XElement("SalesAnalysisCode", item));
+                        };
+                    }
+                }
+                //SalesmanCodes
+                if (options.SalesmanCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.SalesmanCodes)
+                        {
+                            requestElement.Add(new XElement("SalesmanCode", item));
+                        };
+                    }
+                }
+                //PriceCategoryCodes
+                if (options.PriceCategoryCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PriceCategoryCodes)
+                        {
+                            requestElement.Add(new XElement("PriceCategoryCode", item));
+                        };
+                    }
+                }
+                //PricingPlantCodes
+                if (options.PricingPlantCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PricingPlantCodes)
+                        {
+                            requestElement.Add(new XElement("PricingPlantCode", item));
+                        };
+                    }
+                }
+                //TermsCodes
+                if (options.TermsCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.TermsCodes)
+                        {
+                            requestElement.Add(new XElement("TermsCode", item));
+                        };
+                    }
+                }
+                //ZoneCodes
+                if (options.ZoneCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.ZoneCodes)
+                        {
+                            requestElement.Add(new XElement("ZoneCode", item));
+                        };
+                    }
+                }
+                //StatementCycles
+                if (options.StatementCycles.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.StatementCycles)
+                        {
+                            requestElement.Add(new XElement("StatementCycle", item));
+                        };
+                    }
+                }
+                //AccountingCategoryCodes
+                if (options.AccountingCategoryCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.AccountingCategoryCodes)
+                        {
+                            requestElement.Add(new XElement("AccountingCategoryCodes", item));
+                        };
+                    }
+                }
+                //IncludeRetElements
+                if (options.IncludeRetElements.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IncludeRetElements)
+                        {
+                            requestElement.Add(new XElement("IncludeRetElement", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<JobRet>? result = null;
+            try
+            {
+                result = Deserialize<JobRet>(response.ProcessRequestResult, "JobQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+        }
+
+        #endregion
+
         #region Locations
 
         public async Task<List<LocationRet>?> GetLocationsAsync(Action<LocationOptions>? settings = null)
@@ -1573,6 +1864,470 @@ namespace ConcreteGo.SDK
 
             return result;
 
+        }
+
+        #endregion
+
+        #region Projects
+
+        public async Task<List<ProjectRet>?> GetProjectsAsync(Action<ProjectRequestOptions>? settings = null)
+        {
+            var options = new ProjectRequestOptions();
+            if (settings != null)
+            {
+                settings(options);
+            }
+
+            var requestElementName = "ProjectQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                //IDs
+                if (options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+                //Names
+                if (options.Names.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Names)
+                        {
+                            requestElement.Add(new XElement("Name", item));
+                        };
+                    }
+                }
+                //CustomerIDs
+                if (options.CustomerIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerIDs)
+                        {
+                            requestElement.Add(new XElement("CustomerID", item));
+                        };
+                    }
+                }
+                //CustomerCodes
+                if (options.Names.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerCodes)
+                        {
+                            requestElement.Add(new XElement("CustomerCode", item));
+                        };
+                    }
+                }
+                //CustomerNames
+                if (options.Names.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerNames)
+                        {
+                            requestElement.Add(new XElement("CustomerName", item));
+                        };
+                    }
+                }
+                //ListOnly
+                if (options.ListOnly != null)
+                {
+                    var element = new XElement("ListOnly", options.ListOnly.Value.ToString());
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromUpdateDate
+                if (options.FromUpdateDate != null)
+                {
+                    var element = new XElement("FromUpdateDate", options.FromUpdateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToUpdateTime
+                if (options.ToUpdateDate != null)
+                {
+                    var element = new XElement("ToUpdateDate", options.ToUpdateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //IncludeRetElements
+                if (options.Names.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IncludeRetElements)
+                        {
+                            requestElement.Add(new XElement("IncludeRetElement", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<ProjectRet>? result = null;
+            try
+            {
+                result = Deserialize<ProjectRet>(response.ProcessRequestResult, "ProjectQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region Quotes
+
+        public async Task<List<QuoteRet>?> GetQuotesAsync(Action<QuoteRequestOptions>? settings = null)
+        {
+            var options = new QuoteRequestOptions();
+            if (settings != null)
+            {
+                settings(options);
+            }
+
+            var requestElementName = "QuoteQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                //IDs
+                if (options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //Codes
+                if (options.Codes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Codes)
+                        {
+                            requestElement.Add(new XElement("Code", item));
+                        };
+                    }
+                }
+                //Names
+                if (options.Names.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.Names)
+                        {
+                            requestElement.Add(new XElement("Name", item));
+                        };
+                    }
+                }
+                //CustomerIDs
+                if (options.CustomerIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerIDs)
+                        {
+                            requestElement.Add(new XElement("CustomerID", item));
+                        };
+                    }
+                }
+                //CustomerCodes
+                if (options.CustomerCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerCodes)
+                        {
+                            requestElement.Add(new XElement("CustomerCode", item));
+                        };
+                    }
+                }
+                //CustomerNames
+                if (options.CustomerNames.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerNames)
+                        {
+                            requestElement.Add(new XElement("CustomerName", item));
+                        };
+                    }
+                }
+                //MaxReturned
+                if (options.MaxReturned != null)
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(new XElement("MaxReturned", options.MaxReturned.Value));
+                    }
+                }
+                //ListOnly
+                if (options.ListOnly != null)
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(new XElement("ListOnly", options.ListOnly.Value));
+                    }
+                }
+
+                //FromSetupDate
+                if (options.FromSetupDate != null)
+                {
+                    var element = new XElement("FromSetupDate", options.FromSetupDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToSetupDate
+                if (options.ToSetupDate != null)
+                {
+                    var element = new XElement("ToSetupDate", options.ToSetupDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //FromUpdateDate
+                if (options.FromUpdateDate != null)
+                {
+                    var element = new XElement("FromUpdateDate", options.FromUpdateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToUpdateDate
+                if (options.ToUpdateDate != null)
+                {
+                    var element = new XElement("ToUpdateDate", options.ToUpdateDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //SalesAnalysisCodes
+                if (options.SalesAnalysisCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.SalesAnalysisCodes)
+                        {
+                            requestElement.Add(new XElement("SalesAnalysisCode", item));
+                        };
+                    }
+                }
+                //SalesmanCodes
+                if (options.SalesmanCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.SalesmanCodes)
+                        {
+                            requestElement.Add(new XElement("SalesmanCode", item));
+                        };
+                    }
+                }
+                //SalesmanNames
+                if (options.SalesmanNames.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.SalesmanNames)
+                        {
+                            requestElement.Add(new XElement("SalesmanName", item));
+                        };
+                    }
+                }
+                //PriceCategoryCodes
+                if (options.PriceCategoryCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PriceCategoryCodes)
+                        {
+                            requestElement.Add(new XElement("PriceCategoryCode", item));
+                        };
+                    }
+                }
+                //PricingPlantCodes
+                if (options.PricingPlantCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PricingPlantCodes)
+                        {
+                            requestElement.Add(new XElement("PricingPlantCode", item));
+                        };
+                    }
+                }
+                //TermsCodes
+                if (options.TermsCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.TermsCodes)
+                        {
+                            requestElement.Add(new XElement("TermsCode", item));
+                        };
+                    }
+                }
+                //ZoneCodes
+                if (options.ZoneCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.ZoneCodes)
+                        {
+                            requestElement.Add(new XElement("ZoneCode", item));
+                        };
+                    }
+                }
+                //StatementCycles
+                if (options.StatementCycles.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.StatementCycles)
+                        {
+                            requestElement.Add(new XElement("StatementCycle", item));
+                        };
+                    }
+                }
+                //AccountingCategoryCodes
+                if (options.AccountingCategoryCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.AccountingCategoryCodes)
+                        {
+                            requestElement.Add(new XElement("AccountingCategoryCodes", item));
+                        };
+                    }
+                }
+                //IncludeRetElements
+                if (options.IncludeRetElements.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IncludeRetElements)
+                        {
+                            requestElement.Add(new XElement("IncludeRetElement", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<QuoteRet>? result = null;
+            try
+            {
+                result = Deserialize<QuoteRet>(response.ProcessRequestResult, "QuoteQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
         }
 
         #endregion
