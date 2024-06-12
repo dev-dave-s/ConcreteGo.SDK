@@ -7,7 +7,9 @@ To connect to the concrete Go API, you will need to request an AppID / AppKey fr
 Basic usage:
 
 //Setup
+```
 var cgClient = new ConcreteGoClient("user@domain.com", "password", "AppId", "AppKey", "Slug");
+```
 
 //Get specific tickets based on ticket codes example:
 ```
