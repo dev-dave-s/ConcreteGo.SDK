@@ -502,7 +502,7 @@ namespace ConcreteGo.SDK.Models.Tickets
 
         [XmlElement(ElementName = "Removed")]
         public string _Removed { get; set; }
-        public int? Removed { get { if (int.TryParse(_Removed, out var value)) return value; return null; } }
+        public bool? Removed { get { if (bool.TryParse(_Removed, out var value)) return value; return null; } }
 
         [XmlElement(ElementName = "PrintMixWeight")]
         public string _PrintMixWeight { get; set; }
@@ -909,7 +909,7 @@ namespace ConcreteGo.SDK.Models.Tickets
     {
 
         [XmlElement(ElementName = "Product")]
-        public Product Product { get; set; } = null!;
+        public List<Product> Product { get; set; } = null!;
     }
 
     [XmlRoot(ElementName = "Material")]

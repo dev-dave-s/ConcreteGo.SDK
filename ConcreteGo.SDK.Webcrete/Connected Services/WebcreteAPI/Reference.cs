@@ -428,6 +428,8 @@ namespace WebcreteAPI
                 result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
                 result.AllowCookies = true;
+                result.ReceiveTimeout = new System.TimeSpan(0, 10, 0);
+                result.SendTimeout = new System.TimeSpan(0, 10, 0);
                 return result;
             }
             if ((endpointConfiguration == EndpointConfiguration.WebcreteAPISoap12))
