@@ -32,6 +32,8 @@ using ConcreteGo.SDK.Models.Projects;
 using ConcreteGo.SDK.Models.Jobs;
 using ConcreteGo.SDK.Models.Quotes;
 using ConcreteGo.SDK.Models.Invoices;
+using ConcreteGo.SDK.Models.InventoryTransactions;
+using ConcreteGo.SDK.Models.CloudBatchInventory;
 
 namespace ConcreteGo.SDK
 {
@@ -573,6 +575,159 @@ namespace ConcreteGo.SDK
 
             return result;
 
+        }
+
+        #endregion
+
+        #region CloudBatch Inventory
+
+        public async Task<List<BatchInventoryRet>?> GetCloudBatchInventoryAsync(Action<CloudBatchInventoryOptions>? settings = null)
+        {
+            var options = new CloudBatchInventoryOptions();
+            if (settings != null)
+            {
+                settings(options);
+            }
+
+            var requestElementName = "BatchInventoryQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                //ItemIDs
+                if (options.ItemIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.ItemIDs)
+                        {
+                            requestElement.Add(new XElement("ItemID", item));
+                        };
+                    }
+                }
+                //ItemCodes
+                if (options.ItemCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.ItemCodes)
+                        {
+                            requestElement.Add(new XElement("ItemCode", item));
+                        };
+                    }
+                }
+                //PlantIDs
+                if (options.PlantIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantIDs)
+                        {
+                            requestElement.Add(new XElement("PlantID", item));
+                        };
+                    }
+                }
+                //PlantCodes
+                if (options.PlantCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PlantCodes)
+                        {
+                            requestElement.Add(new XElement("PlantCode", item));
+                        };
+                    }
+                }
+                //LocationIDs
+                if (options.LocationIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.LocationIDs)
+                        {
+                            requestElement.Add(new XElement("LocationID", item));
+                        };
+                    }
+                }
+                //LocationCodes
+                if (options.LocationCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.LocationCodes)
+                        {
+                            requestElement.Add(new XElement("LocationCode", item));
+                        };
+                    }
+                }
+                //FromTransactionDate
+                if (options.FromTransactionDate != null)
+                {
+                    var element = new XElement("FromTransactionDate", options.FromTransactionDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToTransactionDate
+                if (options.ToTransactionDate != null)
+                {
+                    var element = new XElement("ToTransactionDate", options.ToTransactionDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //TransactionTypes
+                if (options.TransactionTypes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.TransactionTypes)
+                        {
+                            requestElement.Add(new XElement("TransactionType", item));
+                        };
+                    }
+                }              
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<BatchInventoryRet>? result = null;
+            try
+            {
+                result = Deserialize<BatchInventoryRet>(response.ProcessRequestResult, "BatchInventoryQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
         }
 
         #endregion
@@ -1155,6 +1310,147 @@ namespace ConcreteGo.SDK
 
         #endregion
 
+        #region Inventory Transaction
+
+        public async Task<List<RawMaterialReceipts>?> GetInventoryTransactionsAsync(Action<InventoryTransactionOptions>? settings = null)
+        {
+            var options = new InventoryTransactionOptions();
+            if (settings != null)
+            {
+                settings(options);
+            }
+
+            var requestElementName = "InventoryTransactionQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                //IDs
+                if (options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //DocumentNumbers
+                if (options.DocumentNumbers.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.DocumentNumbers)
+                        {
+                            requestElement.Add(new XElement("DocumentNumber", item));
+                        };
+                    }
+                }
+                //LocationIDs
+                if (options.LocationIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.LocationIDs)
+                        {
+                            requestElement.Add(new XElement("LocationID", item));
+                        };
+                    }
+                }
+                //LocationCodes
+                if (options.LocationCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.LocationCodes)
+                        {
+                            requestElement.Add(new XElement("LocationCode", item));
+                        };
+                    }
+                }
+                //FromTransactionDate
+                if (options.FromTransactionDate != null)
+                {
+                    var element = new XElement("FromTransactionDate", options.FromTransactionDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToTransactionDate
+                if (options.ToTransactionDate != null)
+                {
+                    var element = new XElement("ToTransactionDate", options.ToTransactionDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //TransactionTypes
+                if (options.TransactionTypes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.TransactionTypes)
+                        {
+                            requestElement.Add(new XElement("TransactionType", item));
+                        };
+                    }
+                }
+                //PostStatuses
+                if (options.PostStatuses.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.PostStatuses)
+                        {
+                            requestElement.Add(new XElement("PostStatuses", item));
+                        };
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<RawMaterialReceipts>? result = null;
+            try
+            {
+                result = Deserialize<RawMaterialReceipts>(response.ProcessRequestResult, "InventoryTransactionQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+        }
+
+        #endregion
+
         #region Invoices
 
         public async Task<List<InvoiceRet>?> GetInvoicesAsync(Action<InvoiceRequestOptions>? settings = null)
@@ -1326,7 +1622,6 @@ namespace ConcreteGo.SDK
         }
 
         #endregion
-
 
         #region Jobs
 
