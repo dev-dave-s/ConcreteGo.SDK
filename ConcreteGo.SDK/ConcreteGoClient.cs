@@ -31,6 +31,7 @@ using ConcreteGo.SDK.Models.Customers;
 using ConcreteGo.SDK.Models.Projects;
 using ConcreteGo.SDK.Models.Jobs;
 using ConcreteGo.SDK.Models.Quotes;
+using ConcreteGo.SDK.Models.Invoices;
 
 namespace ConcreteGo.SDK
 {
@@ -1153,6 +1154,179 @@ namespace ConcreteGo.SDK
         }
 
         #endregion
+
+        #region Invoices
+
+        public async Task<List<InvoiceRet>?> GetInvoicesAsync(Action<InvoiceRequestOptions>? settings = null)
+        {
+            var options = new InvoiceRequestOptions();
+            if (settings != null)
+            {
+                settings(options);
+            }
+
+            var requestElementName = "InvoiceQueryRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                //IDs
+                if (options.IDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.IDs)
+                        {
+                            requestElement.Add(new XElement("ID", item));
+                        };
+                    }
+                }
+                //InvoiceNumbers
+                if (options.InvoiceNumbers.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.InvoiceNumbers)
+                        {
+                            requestElement.Add(new XElement("InvoiceNumber", item));
+                        };
+                    }
+                }
+                //CustomerIDs
+                if (options.CustomerIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerIDs)
+                        {
+                            requestElement.Add(new XElement("CustomerID", item));
+                        };
+                    }
+                }
+                //CustomerCodes
+                if (options.CustomerCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerCodes)
+                        {
+                            requestElement.Add(new XElement("CustomerCode", item));
+                        };
+                    }
+                }
+                //CustomerNames
+                if (options.CustomerNames.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.CustomerNames)
+                        {
+                            requestElement.Add(new XElement("CustomerName", item));
+                        };
+                    }
+                }
+                //DivisionIDs
+                if (options.DivisionIDs.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.DivisionIDs)
+                        {
+                            requestElement.Add(new XElement("DivisionID", item));
+                        };
+                    }
+                }
+                //DivisionCodes
+                if (options.DivisionCodes.Any())
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        foreach (var item in options.DivisionCodes)
+                        {
+                            requestElement.Add(new XElement("DivisionCode", item));
+                        };
+                    }
+                }
+                //FromInvoiceDate
+                if (options.FromInvoiceDate != null)
+                {
+                    var element = new XElement("FromInvoiceDate", options.FromInvoiceDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+                //ToInvoiceDate
+                if (options.ToInvoiceDate != null)
+                {
+                    var element = new XElement("ToInvoiceDate", options.ToInvoiceDate.Value.ToString("yyyy-MM-dd"));
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(element);
+                    }
+                }
+
+                //ListOnly
+                if (options.ListOnly != null)
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(new XElement("ListOnly", options.ListOnly.Value));
+                    }
+                }
+                //IncludeRemovedInvoice
+                if (options.IncludeRemovedInvoice != null)
+                {
+                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                    if (requestElement != null)
+                    {
+                        requestElement.Add(new XElement("IncludeRemovedInvoice", options.IncludeRemovedInvoice.Value));
+                    }
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<InvoiceRet>? result = null;
+            try
+            {
+                result = Deserialize<InvoiceRet>(response.ProcessRequestResult, "InvoiceQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+        }
+
+        #endregion
+
 
         #region Jobs
 
