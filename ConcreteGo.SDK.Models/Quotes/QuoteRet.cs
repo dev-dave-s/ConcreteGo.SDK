@@ -1,4 +1,5 @@
-﻿using ConcreteGo.SDK.Models.Customers;
+﻿using ConcreteGo.SDK.Models.Common;
+using ConcreteGo.SDK.Models.Customers;
 using ConcreteGo.SDK.Models.Projects;
 using System;
 using System.Collections.Generic;

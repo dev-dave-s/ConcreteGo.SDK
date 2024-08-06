@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConcreteGo.SDK.Models.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -104,57 +105,57 @@ namespace ConcreteGo.SDK.Models.Customers
         public string Value { get; set; } = string.Empty;
     }
 
-    [XmlRoot(ElementName = "Distribution")]
-    public class Distribution
-    {
+    //[XmlRoot(ElementName = "Distribution")]
+    //public class Distribution
+    //{
 
-        [XmlElement(ElementName = "TrackingOrderColorCode")]
-        public object TrackingOrderColorCode { get; set; }
+    //    [XmlElement(ElementName = "TrackingOrderColorCode")]
+    //    public object TrackingOrderColorCode { get; set; }
 
-        [XmlElement(ElementName = "PrintMixWeightOnTicket")]
-        public bool PrintMixWeightOnTicket { get; set; }
+    //    [XmlElement(ElementName = "PrintMixWeightOnTicket")]
+    //    public bool PrintMixWeightOnTicket { get; set; }
 
-        [XmlElement(ElementName = "PrinterSelector")]
-        public object PrinterSelector { get; set; }
-    }
+    //    [XmlElement(ElementName = "PrinterSelector")]
+    //    public object PrinterSelector { get; set; }
+    //}
 
-    [XmlRoot(ElementName = "Accounting")]
-    public class Accounting
-    {
+    //[XmlRoot(ElementName = "Accounting")]
+    //public class Accounting
+    //{
 
-        [XmlElement(ElementName = "StatementCycle")]
-        public string StatementCycle { get; set; }
+    //    [XmlElement(ElementName = "StatementCycle")]
+    //    public string StatementCycle { get; set; }
 
-        [XmlElement(ElementName = "AccountingCategoryCode")]
-        public string AccountingCategoryCode { get; set; }
+    //    [XmlElement(ElementName = "AccountingCategoryCode")]
+    //    public string AccountingCategoryCode { get; set; }
 
-        [XmlElement(ElementName = "ApplyFinanceCharges")]
-        public bool ApplyFinanceCharges { get; set; }
+    //    [XmlElement(ElementName = "ApplyFinanceCharges")]
+    //    public bool ApplyFinanceCharges { get; set; }
 
-        [XmlElement(ElementName = "PrintStatements")]
-        public bool PrintStatements { get; set; }
+    //    [XmlElement(ElementName = "PrintStatements")]
+    //    public bool PrintStatements { get; set; }
 
-        [XmlElement(ElementName = "CreditCard")]
-        public CreditCard CreditCard { get; set; }
+    //    [XmlElement(ElementName = "CreditCard")]
+    //    public CreditCard CreditCard { get; set; }
 
-        [XmlElement(ElementName = "CreditInformation")]
-        public CreditInformation CreditInformation { get; set; }
+    //    [XmlElement(ElementName = "CreditInformation")]
+    //    public CreditInformation CreditInformation { get; set; }
 
-        [XmlElement(ElementName = "PurchaseOrderRequiredInOrderEntry")]
-        public bool PurchaseOrderRequiredInOrderEntry { get; set; }
+    //    [XmlElement(ElementName = "PurchaseOrderRequiredInOrderEntry")]
+    //    public bool PurchaseOrderRequiredInOrderEntry { get; set; }
 
-        [XmlElement(ElementName = "CustomerJobRequiredInOrderEntry")]
-        public bool CustomerJobRequiredInOrderEntry { get; set; }
+    //    [XmlElement(ElementName = "CustomerJobRequiredInOrderEntry")]
+    //    public bool CustomerJobRequiredInOrderEntry { get; set; }
 
-        [XmlElement(ElementName = "ExternalLiensRequiredInOrderEntry")]
-        public bool ExternalLiensRequiredInOrderEntry { get; set; }
+    //    [XmlElement(ElementName = "ExternalLiensRequiredInOrderEntry")]
+    //    public bool ExternalLiensRequiredInOrderEntry { get; set; }
 
-        [XmlElement(ElementName = "SuspendOrderReasonCode")]
-        public string SuspendOrderReasonCode { get; set; }
+    //    [XmlElement(ElementName = "SuspendOrderReasonCode")]
+    //    public string SuspendOrderReasonCode { get; set; }
 
-        [XmlElement(ElementName = "UsageCodeRequiredInOrderEntry")]
-        public bool UsageCodeRequiredInOrderEntry { get; set; }
-    }
+    //    [XmlElement(ElementName = "UsageCodeRequiredInOrderEntry")]
+    //    public bool UsageCodeRequiredInOrderEntry { get; set; }
+    //}
 
     [XmlRoot(ElementName = "CreditInformation")]
     public class CreditInformation
@@ -219,107 +220,107 @@ namespace ConcreteGo.SDK.Models.Customers
         public object ResponsibleName { get; set; }
     }
 
-    [XmlRoot(ElementName = "Charges")]
-    public class Charges
-    {
+    //[XmlRoot(ElementName = "Charges")]
+    //public class Charges
+    //{
 
-        [XmlElement(ElementName = "MinimumLoadChargeTableCode")]
-        public string MinimumLoadChargeTableCode { get; set; }
+    //    [XmlElement(ElementName = "MinimumLoadChargeTableCode")]
+    //    public string MinimumLoadChargeTableCode { get; set; }
 
-        [XmlElement(ElementName = "SeasonalChargeTableCode")]
-        public object SeasonalChargeTableCode { get; set; }
+    //    [XmlElement(ElementName = "SeasonalChargeTableCode")]
+    //    public object SeasonalChargeTableCode { get; set; }
 
-        [XmlElement(ElementName = "UnloadingChargeTableCode")]
-        public string UnloadingChargeTableCode { get; set; }
+    //    [XmlElement(ElementName = "UnloadingChargeTableCode")]
+    //    public string UnloadingChargeTableCode { get; set; }
 
-        [XmlElement(ElementName = "ApplyMinimumLoadCharge")]
-        public bool ApplyMinimumLoadCharge { get; set; }
+    //    [XmlElement(ElementName = "ApplyMinimumLoadCharge")]
+    //    public bool ApplyMinimumLoadCharge { get; set; }
 
-        [XmlElement(ElementName = "ApplySeasonalCharge")]
-        public bool ApplySeasonalCharge { get; set; }
+    //    [XmlElement(ElementName = "ApplySeasonalCharge")]
+    //    public bool ApplySeasonalCharge { get; set; }
 
-        [XmlElement(ElementName = "ApplyUnloadingCharge")]
-        public bool ApplyUnloadingCharge { get; set; }
+    //    [XmlElement(ElementName = "ApplyUnloadingCharge")]
+    //    public bool ApplyUnloadingCharge { get; set; }
 
-        [XmlElement(ElementName = "PrintMinimumLoadChargeOnSeperateInvoice")]
-        public bool PrintMinimumLoadChargeOnSeperateInvoice { get; set; }
+    //    [XmlElement(ElementName = "PrintMinimumLoadChargeOnSeperateInvoice")]
+    //    public bool PrintMinimumLoadChargeOnSeperateInvoice { get; set; }
 
-        [XmlElement(ElementName = "PrintSeasonalChargeOnSeperateInvoice")]
-        public bool PrintSeasonalChargeOnSeperateInvoice { get; set; }
+    //    [XmlElement(ElementName = "PrintSeasonalChargeOnSeperateInvoice")]
+    //    public bool PrintSeasonalChargeOnSeperateInvoice { get; set; }
 
-        [XmlElement(ElementName = "PrintUnloadingChargeOnSeperateInvoice")]
-        public bool PrintUnloadingChargeOnSeperateInvoice { get; set; }
+    //    [XmlElement(ElementName = "PrintUnloadingChargeOnSeperateInvoice")]
+    //    public bool PrintUnloadingChargeOnSeperateInvoice { get; set; }
 
-        [XmlElement(ElementName = "PrintAutomaticSundryChargeOnSeperateInvoice")]
-        public bool PrintAutomaticSundryChargeOnSeperateInvoice { get; set; }
+    //    [XmlElement(ElementName = "PrintAutomaticSundryChargeOnSeperateInvoice")]
+    //    public bool PrintAutomaticSundryChargeOnSeperateInvoice { get; set; }
 
-        [XmlElement(ElementName = "SundryCharges")]
-        public object SundryCharges { get; set; }
-    }
+    //    [XmlElement(ElementName = "SundryCharges")]
+    //    public object SundryCharges { get; set; }
+    //}
 
-    [XmlRoot(ElementName = "Pricing")]
-    public class Pricing
-    {
+    //[XmlRoot(ElementName = "Pricing")]
+    //public class Pricing
+    //{
 
-        [XmlElement(ElementName = "PriceCategoryCode")]
-        public string PriceCategoryCode { get; set; }
+    //    [XmlElement(ElementName = "PriceCategoryCode")]
+    //    public string PriceCategoryCode { get; set; }
 
-        [XmlElement(ElementName = "PriceCategoryName")]
-        public string PriceCategoryName { get; set; }
+    //    [XmlElement(ElementName = "PriceCategoryName")]
+    //    public string PriceCategoryName { get; set; }
 
-        [XmlElement(ElementName = "PriceCategoryDescription")]
-        public string PriceCategoryDescription { get; set; }
+    //    [XmlElement(ElementName = "PriceCategoryDescription")]
+    //    public string PriceCategoryDescription { get; set; }
 
-        [XmlElement(ElementName = "PricingPlantCode")]
-        public string PricingPlantCode { get; set; }
+    //    [XmlElement(ElementName = "PricingPlantCode")]
+    //    public string PricingPlantCode { get; set; }
 
-        [XmlElement(ElementName = "TradeDiscountPercent")]
-        public string _TradeDiscountPercent { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? TradeDiscountPercent { get { if (double.TryParse(_TradeDiscountPercent, out var value)) return value; return null; } }
+    //    [XmlElement(ElementName = "TradeDiscountPercent")]
+    //    public string _TradeDiscountPercent { get; set; } = string.Empty;
+    //    [XmlIgnore]
+    //    public double? TradeDiscountPercent { get { if (double.TryParse(_TradeDiscountPercent, out var value)) return value; return null; } }
 
-        [XmlElement(ElementName = "TradeDiscountAmount")]
-        public string _TradeDiscountAmount { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? TradeDiscountAmount { get { if (double.TryParse(_TradeDiscountAmount, out var value)) return value; return null; } }
+    //    [XmlElement(ElementName = "TradeDiscountAmount")]
+    //    public string _TradeDiscountAmount { get; set; } = string.Empty;
+    //    [XmlIgnore]
+    //    public double? TradeDiscountAmount { get { if (double.TryParse(_TradeDiscountAmount, out var value)) return value; return null; } }
 
-        [XmlElement(ElementName = "TradeDiscountAmountUnitCode")]
-        public string TradeDiscountAmountUnitCode { get; set; }
+    //    [XmlElement(ElementName = "TradeDiscountAmountUnitCode")]
+    //    public string TradeDiscountAmountUnitCode { get; set; }
 
-        [XmlElement(ElementName = "TermCode")]
-        public string TermCode { get; set; }
+    //    [XmlElement(ElementName = "TermCode")]
+    //    public string TermCode { get; set; }
 
-        [XmlElement(ElementName = "ZoneCode")]
-        public string ZoneCode { get; set; }
+    //    [XmlElement(ElementName = "ZoneCode")]
+    //    public string ZoneCode { get; set; }
 
-        [XmlElement(ElementName = "OverrideChargeRate")]
-        public string _OverrideChargeRate { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? OverrideChargeRate { get { if (double.TryParse(_OverrideChargeRate, out var value)) return value; return null; } }
+    //    [XmlElement(ElementName = "OverrideChargeRate")]
+    //    public string _OverrideChargeRate { get; set; } = string.Empty;
+    //    [XmlIgnore]
+    //    public double? OverrideChargeRate { get { if (double.TryParse(_OverrideChargeRate, out var value)) return value; return null; } }
 
-        [XmlElement(ElementName = "OverrideChargeEfftiveDate")]
-        public string _OverrideChargeEfftiveDate { get; set; } = string.Empty;
-        public DateTime? OverrideChargeEfftiveDate { get { if (DateTime.TryParse(_OverrideChargeEfftiveDate, out var value)) return value; return null; } }
+    //    [XmlElement(ElementName = "OverrideChargeEfftiveDate")]
+    //    public string _OverrideChargeEfftiveDate { get; set; } = string.Empty;
+    //    public DateTime? OverrideChargeEfftiveDate { get { if (DateTime.TryParse(_OverrideChargeEfftiveDate, out var value)) return value; return null; } }
 
-        [XmlElement(ElementName = "ApplyZoneCharges")]
-        public bool ApplyZoneCharges { get; set; }
+    //    [XmlElement(ElementName = "ApplyZoneCharges")]
+    //    public bool ApplyZoneCharges { get; set; }
 
-        [XmlElement(ElementName = "AllowPriceChangeInOrderEntry")]
-        public bool AllowPriceChangeInOrderEntry { get; set; }
+    //    [XmlElement(ElementName = "AllowPriceChangeInOrderEntry")]
+    //    public bool AllowPriceChangeInOrderEntry { get; set; }
 
-        [XmlElement(ElementName = "ControlPricePrintInOE")]
-        public bool ControlPricePrintInOE { get; set; }
+    //    [XmlElement(ElementName = "ControlPricePrintInOE")]
+    //    public bool ControlPricePrintInOE { get; set; }
 
-        [XmlElement(ElementName = "PrintPricesOnTicket")]
-        public bool PrintPricesOnTicket { get; set; }
+    //    [XmlElement(ElementName = "PrintPricesOnTicket")]
+    //    public bool PrintPricesOnTicket { get; set; }
 
-        [XmlElement(ElementName = "RestrictOrderstoCustomerProducts")]
-        public bool RestrictOrderstoCustomerProducts { get; set; }
+    //    [XmlElement(ElementName = "RestrictOrderstoCustomerProducts")]
+    //    public bool RestrictOrderstoCustomerProducts { get; set; }
 
-        [XmlElement(ElementName = "AllowAutomaticPriceAjustment")]
-        public string _AllowAutomaticPriceAjustment { get; set; } = string.Empty;
-        public bool? AllowAutomaticPriceAjustment { get { if (bool.TryParse(_AllowAutomaticPriceAjustment, out var value)) return value; return null; } }
-    }
+    //    [XmlElement(ElementName = "AllowAutomaticPriceAjustment")]
+    //    public string _AllowAutomaticPriceAjustment { get; set; } = string.Empty;
+    //    public bool? AllowAutomaticPriceAjustment { get { if (bool.TryParse(_AllowAutomaticPriceAjustment, out var value)) return value; return null; } }
+    //}
 
     [XmlRoot(ElementName = "Address")]
     public class Address
@@ -347,85 +348,64 @@ namespace ConcreteGo.SDK.Models.Customers
         public string Country { get; set; }
     }
 
-    [XmlRoot(ElementName = "InvoiceAddress")]
-    public class InvoiceAddress
-    {
+    
 
-        [XmlElement(ElementName = "Addr1")]
-        public object Addr1 { get; set; }
+    //[XmlRoot(ElementName = "StatementAddress")]
+    //public class StatementAddress
+    //{
 
-        [XmlElement(ElementName = "Addr2")]
-        public object Addr2 { get; set; }
+    //    [XmlElement(ElementName = "Name")]
+    //    public string Name { get; set; }
 
-        [XmlElement(ElementName = "City")]
-        public object City { get; set; }
+    //    [XmlElement(ElementName = "Addr1")]
+    //    public string Addr1 { get; set; }
 
-        [XmlElement(ElementName = "State")]
-        public object State { get; set; }
+    //    [XmlElement(ElementName = "Addr2")]
+    //    public string Addr2 { get; set; }
 
-        [XmlElement(ElementName = "PostalCode")]
-        public object PostalCode { get; set; }
+    //    [XmlElement(ElementName = "City")]
+    //    public string City { get; set; }
 
-        [XmlElement(ElementName = "Country")]
-        public object Country { get; set; }
-    }
+    //    [XmlElement(ElementName = "State")]
+    //    public string State { get; set; }
 
-    [XmlRoot(ElementName = "StatementAddress")]
-    public class StatementAddress
-    {
+    //    [XmlElement(ElementName = "PostalCode")]
+    //    public string PostalCode { get; set; }
 
-        [XmlElement(ElementName = "Name")]
-        public string Name { get; set; }
+    //    [XmlElement(ElementName = "Country")]
+    //    public string Country { get; set; }
+    //}
 
-        [XmlElement(ElementName = "Addr1")]
-        public string Addr1 { get; set; }
+    //[XmlRoot(ElementName = "Sales")]
+    //public class Sales
+    //{
 
-        [XmlElement(ElementName = "Addr2")]
-        public string Addr2 { get; set; }
+    //    [XmlElement(ElementName = "SalesAnalysisCode")]
+    //    public string SalesAnalysisCode { get; set; }
 
-        [XmlElement(ElementName = "City")]
-        public string City { get; set; }
+    //    [XmlElement(ElementName = "SalesmanCode")]
+    //    public string _SalesmanCode { get; set; } = string.Empty;
+    //    [XmlIgnore]
+    //    public int? SalesmanCode { get { if (int.TryParse(_SalesmanCode, out var value)) return value; return null; } }
 
-        [XmlElement(ElementName = "State")]
-        public string State { get; set; }
+    //    [XmlElement(ElementName = "SalesmanName")]
+    //    public string SalesmanName { get; set; }
+    //}
 
-        [XmlElement(ElementName = "PostalCode")]
-        public string PostalCode { get; set; }
+    //[XmlRoot(ElementName = "Taxing")]
+    //public class Taxing
+    //{
 
-        [XmlElement(ElementName = "Country")]
-        public string Country { get; set; }
-    }
+    //    [XmlElement(ElementName = "TaxID")]
+    //    public object TaxID { get; set; }
 
-    [XmlRoot(ElementName = "Sales")]
-    public class Sales
-    {
+    //    [XmlElement(ElementName = "TaxCode")]
+    //    public string TaxCode { get; set; }
 
-        [XmlElement(ElementName = "SalesAnalysisCode")]
-        public string SalesAnalysisCode { get; set; }
+    //    [XmlElement(ElementName = "Taxable")]
+    //    public string Taxable { get; set; }
 
-        [XmlElement(ElementName = "SalesmanCode")]
-        public string _SalesmanCode { get; set; } = string.Empty;
-        [XmlIgnore]
-        public int? SalesmanCode { get { if (int.TryParse(_SalesmanCode, out var value)) return value; return null; } }
-
-        [XmlElement(ElementName = "SalesmanName")]
-        public string SalesmanName { get; set; }
-    }
-
-    [XmlRoot(ElementName = "Taxing")]
-    public class Taxing
-    {
-
-        [XmlElement(ElementName = "TaxID")]
-        public object TaxID { get; set; }
-
-        [XmlElement(ElementName = "TaxCode")]
-        public string TaxCode { get; set; }
-
-        [XmlElement(ElementName = "Taxable")]
-        public string Taxable { get; set; }
-
-        [XmlElement(ElementName = "NonTaxableReasonCode")]
-        public object NonTaxableReasonCode { get; set; }
-    }
+    //    [XmlElement(ElementName = "NonTaxableReasonCode")]
+    //    public object NonTaxableReasonCode { get; set; }
+    //}
 }

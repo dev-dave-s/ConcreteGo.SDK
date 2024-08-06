@@ -1,4 +1,5 @@
-﻿using ConcreteGo.SDK.Models.Customers;
+﻿using ConcreteGo.SDK.Models.Common;
+using ConcreteGo.SDK.Models.Customers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,7 +122,59 @@ namespace ConcreteGo.SDK.Models.Projects
 
         [XmlElement(ElementName = "CustomerRet")]
         public CustomerRet CustomerRet { get; set; }
+
+        [XmlElement(ElementName = "Products")]
+        public Products Products { get; set; }
+
     }
+
+    [XmlRoot(ElementName = "Products")]
+    public class Products
+    {
+
+        [XmlElement(ElementName = "MixProduct")]
+        public MixProduct MixProduct { get; set; }
+    }
+
+    [XmlRoot(ElementName = "MixProduct")]
+    public class MixProduct
+    {
+
+        [XmlElement(ElementName = "PlantID")]
+        public string _PlantID { get; set; }
+        [XmlIgnore]
+        public int? PlantID { get { if(int.TryParse(_PlantID,out var value)) return value; return null; } }
+
+        [XmlElement(ElementName = "PlantCode")]
+        public string PlantCode { get; set; }
+
+        [XmlElement(ElementName = "ItemID")]
+        public string _ItemID { get; set; }
+        [XmlIgnore]
+        public int? ItemID { get { if (int.TryParse(_ItemID, out var value)) return value; return null;} } 
+
+        [XmlElement(ElementName = "ItemCode")]
+        public string ItemCode { get; set; }
+
+        [XmlElement(ElementName = "ShortDescription")]
+        public string ShortDescription { get; set; }
+
+        [XmlElement(ElementName = "Description")]
+        public string Description { get; set; }
+
+        [XmlElement(ElementName = "BatchCode")]
+        public string BatchCode { get; set; }
+
+        [XmlElement(ElementName = "Slump")]
+        public int Slump { get; set; }
+
+        [XmlElement(ElementName = "AllowAuto")]
+        public bool AllowAuto { get; set; }
+
+        [XmlElement(ElementName = "Pricing")]
+        public Pricing Pricing { get; set; }
+    }
+
 
     [XmlRoot(ElementName = "DeliveryAddress")]
     public class DeliveryAddress

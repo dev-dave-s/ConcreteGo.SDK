@@ -2462,7 +2462,7 @@ namespace ConcreteGo.SDK
                     }
                 }
                 //IncludeRetElements
-                if (options.Names.Any())
+                if (options.IncludeRetElements.Any())
                 {
                     var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
                     if (requestElement != null)
