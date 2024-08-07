@@ -98,14 +98,10 @@ namespace ConcreteGo.SDK.Models.Jobs
         public bool EnablePriceEscalation { get; set; }
 
         [XmlElement(ElementName = "PriceEscalationAmount")]
-        public string _PriceEscalationAmount { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? PriceEscalationAmount { get { if (double.TryParse(_PriceEscalationAmount, out var value)) return value; return null; } }
+        public decimal PriceEscalationAmount { get; set; } 
 
         [XmlElement(ElementName = "PriceEscalationDate")]
-        public string _PriceEscalationDate { get; set; } = string.Empty;
-        [XmlIgnore]
-        public DateTime? PriceEscalationDate { get { if (DateTime.TryParse(_PriceEscalationDate, out var value)) return value; return null; } }
+        public DateTime? PriceEscalationDate { get; set; }
 
         [XmlElement(ElementName = "Owner")]
         public string Owner { get; set; }
@@ -120,25 +116,19 @@ namespace ConcreteGo.SDK.Models.Jobs
         public string GeneralContractor { get; set; }
 
         [XmlElement(ElementName = "JobBidDate")]
-        public string _JobBidDate { get; set; } = string.Empty;
-
-        public DateTime? JobBidDate { get { if (DateTime.TryParse(_JobBidDate, out var value)) return value; return null; } }
+        public DateTime? JobBidDate { get; set; } 
 
         [XmlElement(ElementName = "JobAwardDate")]
-        public string _JobAwardDate { get; set; } = string.Empty;
-        public DateTime? JobAwardDate { get { if (DateTime.TryParse(_JobAwardDate, out var value)) return value; return null; } }
+        public DateTime? JobAwardDate { get; set; }
 
         [XmlElement(ElementName = "JobBeginDate")]
-        public string _JobBeginDate { get; set; } = string.Empty;
-        public DateTime? JobBeginDate { get { if (DateTime.TryParse(_JobBeginDate, out var value)) return value; return null; } }
+        public DateTime? JobBeginDate { get; set; }
 
         [XmlElement(ElementName = "JobCompletionDate")]
-        public string _JobCompletionDate { get; set; } = string.Empty;
-        public DateTime? JobCompletionDate { get { if (DateTime.TryParse(_JobCompletionDate, out var value)) return value; return null; } }
+        public DateTime? JobCompletionDate { get; set; }
 
         [XmlElement(ElementName = "UpdateDate")]
-        public string _UpdateDate { get; set;} = string.Empty;
-        public DateTime? UpdateDate { get { if (DateTime.TryParse(_UpdateDate, out var value)) return value; return null; } }
+        public DateTime? UpdateDate { get; set;}
 
         [XmlElement(ElementName = "CustomerRet")]
         public CustomerRet CustomerRet { get; set; }

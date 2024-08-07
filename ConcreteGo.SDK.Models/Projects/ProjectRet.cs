@@ -16,64 +16,64 @@ namespace ConcreteGo.SDK.Models.Projects
         public int ID { get; set; }
 
         [XmlElement(ElementName = "Code")]
-        public string Code { get; set; }
+        public string Code { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "CustomerID")]
         public int CustomerID { get; set; }
 
         [XmlElement(ElementName = "CustomerCode")]
-        public string CustomerCode { get; set; }
+        public string CustomerCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "CustomerName")]
-        public string CustomerName { get; set; }
+        public string CustomerName { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "SetupDate")]
         public DateTime SetupDate { get; set; }
 
         [XmlElement(ElementName = "DeliveryAddress")]
-        public DeliveryAddress DeliveryAddress { get; set; }
+        public DeliveryAddress DeliveryAddress { get; set; } 
 
         [XmlElement(ElementName = "Instruction")]
-        public Instruction Instruction { get; set; }
+        public Instruction Instruction { get; set; } 
 
         [XmlElement(ElementName = "InvoiceAddress")]
-        public InvoiceAddress InvoiceAddress { get; set; }
+        public InvoiceAddress InvoiceAddress { get; set; } 
 
         [XmlElement(ElementName = "StatementAddress")]
         public StatementAddress StatementAddress { get; set; }
 
         [XmlElement(ElementName = "Contact")]
-        public string Contact { get; set; }
+        public string Contact { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Phone")]
-        public string Phone { get; set; }
+        public string Phone { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Fax")]
-        public string Fax { get; set; }
+        public string Fax { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Cellular")]
-        public string Cellular { get; set; }
+        public string Cellular { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Email")]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "CustomerJob")]
-        public string CustomerJob { get; set; }
+        public string CustomerJob { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "PurchaseOrder")]
-        public string PurchaseOrder { get; set; }
+        public string PurchaseOrder { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ExpirationDate")]
-        public string ExpirationDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
 
         [XmlElement(ElementName = "ShippingCustomerCode")]
-        public string ShippingCustomerCode { get; set; }
+        public string ShippingCustomerCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ReferenceCustomerCode")]
-        public string ReferenceCustomerCode { get; set; }
+        public string ReferenceCustomerCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Sales")]
         public Sales Sales { get; set; }
@@ -97,25 +97,21 @@ namespace ConcreteGo.SDK.Models.Projects
         public bool EnablePriceEscalation { get; set; }
 
         [XmlElement(ElementName = "PriceEscalationAmount")]
-        public string _PriceEscalationAmount { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? PriceEscalationAmount { get { if (double.TryParse(_PriceEscalationAmount, out var value)) return value; return null; } }
+        public decimal? PriceEscalationAmount { get; set; }
 
         [XmlElement(ElementName = "PriceEscalationDate")]
-        public string _PriceEscalationDate { get; set; } = string.Empty;
-        [XmlIgnore]
-        public DateTime? PriceEscalationDate { get { if (DateTime.TryParse(_PriceEscalationDate, out var value)) return value; return null; } }
+        public DateTime? PriceEscalationDate { get; set; }
+
 
         [XmlElement(ElementName = "Latitude")]
-        public string Latitude { get; set; }
+        public string Latitude { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Longitude")]
-        public string Longitude { get; set; }
+        public string Longitude { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "JobsiteRadius")]
-        public string _JobSiteRadius { get; set; }
-        [XmlIgnore]
-        public int? JobsiteRadius { get { if (int.TryParse(_JobSiteRadius, out var value)) return value; return null; } }
+        public int? JobSiteRadius { get; set; }
+
 
         [XmlElement(ElementName = "UpdateDate")]
         public DateTime UpdateDate { get; set; }
@@ -133,7 +129,7 @@ namespace ConcreteGo.SDK.Models.Projects
     {
 
         [XmlElement(ElementName = "MixProduct")]
-        public MixProduct MixProduct { get; set; }
+        public List<MixProduct> MixProduct { get; set; }
     }
 
     [XmlRoot(ElementName = "MixProduct")]
@@ -141,32 +137,28 @@ namespace ConcreteGo.SDK.Models.Projects
     {
 
         [XmlElement(ElementName = "PlantID")]
-        public string _PlantID { get; set; }
-        [XmlIgnore]
-        public int? PlantID { get { if(int.TryParse(_PlantID,out var value)) return value; return null; } }
+        public int? PlantID { get; set; }
 
         [XmlElement(ElementName = "PlantCode")]
-        public string PlantCode { get; set; }
+        public string PlantCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ItemID")]
-        public string _ItemID { get; set; }
-        [XmlIgnore]
-        public int? ItemID { get { if (int.TryParse(_ItemID, out var value)) return value; return null;} } 
+        public int? ItemID { get; set; }
 
         [XmlElement(ElementName = "ItemCode")]
-        public string ItemCode { get; set; }
+        public string ItemCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ShortDescription")]
-        public string ShortDescription { get; set; }
+        public string ShortDescription { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Description")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "BatchCode")]
-        public string BatchCode { get; set; }
+        public string BatchCode { get; set; } = string.Empty;
 
-        [XmlElement(ElementName = "Slump")]
-        public int Slump { get; set; }
+        [XmlElement(ElementName = "Slump", IsNullable = true)]
+        public int? Slump { get; set; }
 
         [XmlElement(ElementName = "AllowAuto")]
         public bool AllowAuto { get; set; }
@@ -181,13 +173,13 @@ namespace ConcreteGo.SDK.Models.Projects
     {
 
         [XmlElement(ElementName = "Addr1")]
-        public object Addr1 { get; set; }
+        public string Addr1 { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Addr2")]
-        public object Addr2 { get; set; }
+        public string Addr2 { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Addr3")]
-        public object Addr3 { get; set; }
+        public string Addr3 { get; set; } = string.Empty;
     }
 
     [XmlRoot(ElementName = "Instruction")]
@@ -195,12 +187,12 @@ namespace ConcreteGo.SDK.Models.Projects
     {
 
         [XmlElement(ElementName = "Instruction1")]
-        public object Instruction1 { get; set; }
+        public string Instruction1 { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Instruction2")]
-        public object Instruction2 { get; set; }
+        public string Instruction2 { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Instruction3")]
-        public object Instruction3 { get; set; }
+        public string Instruction3 { get; set; } = string.Empty;
     }
 }

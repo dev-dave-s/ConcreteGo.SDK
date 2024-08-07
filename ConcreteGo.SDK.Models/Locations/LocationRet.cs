@@ -50,18 +50,10 @@ namespace ConcreteGo.SDK.Models.Locations
         public string Email { get; set; }
 
         [XmlElement(ElementName = "CompanyID")]
-        public string _CompanyID { get; set; }
-        [XmlIgnore]
-        public int? CompanyID
-        {
-            get
-            {
-                if(int.TryParse(_CompanyID, out var value)) return value; return null;
-            }
-        }
+        public int? CompanyID { get; set; }
 
         [XmlElement(ElementName = "CompanyCode")]
-        public string CompanyCode { get; set; }
+        public string CompanyCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Divisions")]
         public Divisions Divisions { get; set; }

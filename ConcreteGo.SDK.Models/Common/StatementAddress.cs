@@ -12,24 +12,24 @@ namespace ConcreteGo.SDK.Models.Common
     {
 
         [XmlElement(ElementName = "Name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Addr1")]
-        public string Addr1 { get; set; }
+        public string Addr1 { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Addr2")]
-        public string Addr2 { get; set; }
+        public string Addr2 { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "City")]
-        public string City { get; set; }
+        public string City { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "State")]
-        public string State { get; set; }
+        public string State { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "PostalCode")]
-        public string PostalCode { get; set; }
+        public string PostalCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Country")]
-        public string Country { get; set; }
+        public string Country { get; set; } = string.Empty;
     }
 }

@@ -12,8 +12,7 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "ID")]
-        public string _ID { get; set; }
-        public int? ID { get { if (int.TryParse(_ID, out var value)) return value; return null; } }
+        public int ID { get; set; }
 
         [XmlElement(ElementName = "Code")]
         public string Code { get; set; } = string.Empty;
@@ -28,27 +27,22 @@ namespace ConcreteGo.SDK.Models.Items
         public string ShortDescription { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Constituent")]
-        public string _Constituent { get; set; }
-        public bool? Constituent { get { if (bool.TryParse(_Constituent, out var value)) return value; return null; } }
+        public bool? Constituent { get; set; }
 
         [XmlElement(ElementName = "ItemTypeID")]
-        public string _ItemTypeID { get; set; }
-        public int? ItemTypeID { get { if (int.TryParse(_ItemTypeID, out var value)) return value; return null; } }
+        public int? ItemTypeID { get; set; }
 
         [XmlElement(ElementName = "ItemType")]
         public string ItemType { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Resaleable")]
-        public string _Resaleable { get; set; }
-        public bool? Resaleable { get { if (bool.TryParse(_Resaleable, out var value)) return value; return null; } }
+        public bool? Resaleable { get; set; }
 
         [XmlElement(ElementName = "KeepInInventory")]
-        public string _KeepInInventory { get; set; }
-        public bool? KeepInInventory { get { if (bool.TryParse(_KeepInInventory, out var value)) return value; return null; } }
+        public bool? KeepInInventory { get; set; }
 
         [XmlElement(ElementName = "DoNotAllowTicketing")]
-        public string _DoNotAllowTicketing { get; set; }
-        public bool? DoNotAllowTicketing { get { if (bool.TryParse(_DoNotAllowTicketing, out var value)) return value; return null; } }
+        public bool? DoNotAllowTicketing { get; set; }
 
         [XmlElement(ElementName = "AccountLinkCode")]
         public string AccountLinkCode { get; set; } = string.Empty;
@@ -57,12 +51,10 @@ namespace ConcreteGo.SDK.Models.Items
         public string CategoryAccountLinkCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "SetupDate")]
-        public string _SetupDate { get; set; }
-        public DateTime? SetupDate { get { if (DateTime.TryParse(_SetupDate, out var value)) return value; return null; } }
+        public DateTime? SetupDate { get; set; }
 
         [XmlElement(ElementName = "UpdateDate")]
-        public string _UpdateDate { get; set; }
-        public DateTime? UpdateDate { get { if (DateTime.TryParse(_UpdateDate, out var value)) return value; return null; } }
+        public DateTime? UpdateDate { get; set; }
 
         [XmlElement(ElementName = "UOM")]
         public UOM UOM { get; set; } = null!;
@@ -94,16 +86,15 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement("TaxAuthorityCode")]
         public string TaxAuthorityCode { get; set; } = string.Empty;
         [XmlElement("TaxLocationID")]
-        public string _TaxLocationID { get; set; }
-        public int? TaxLocationID { get { if (int.TryParse(_TaxLocationID, out var value)) return value; return null; } }
+        public int? TaxLocationID { get; set; }
+
         [XmlElement("TaxLocationCode")]
         public string TaxLocationCode { get; set; } = string.Empty;
         [XmlElement("OverrideTaxable")]
-        public string _OverrideTaxable { get; set; }
-        public bool? OverrideTaxable { get { if (bool.TryParse(_OverrideTaxable, out var value)) return value; return null; } }
+        public bool? OverrideTaxable { get; set; }
+
         [XmlElement("OverrideTaxRateLocationID")]
-        public string _OverrideTaxRateLocationID { get; set; }
-        public int? OverrideTaxRateLocationID { get { if (int.TryParse(_OverrideTaxRateLocationID, out var value)) return value; return null; } }
+        public int? OverrideTaxRateLocationID { get; set; }
         [XmlElement("OverrideTaxRateLocationCode")]
         public string OverrideTaxRateLocationCode { get; set; } = string.Empty;
     }
@@ -164,36 +155,10 @@ namespace ConcreteGo.SDK.Models.Items
         public string ReportingUnit { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "DosageQuantity")]
-        public string _DosageQuantity { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? DosageQuantity
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_DosageQuantity, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? DosageQuantity { get; set; } 
 
         [XmlElement(ElementName = "PerCemWeightDivisor")]
-        public string _PerCemWeightDivisor { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? PerCemWeightDivisor
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_PerCemWeightDivisor, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? PerCemWeightDivisor { get; set; }
 
         [XmlElement(ElementName = "UseDosageQuantityUOMInMixDesign")]
         public UseDosageQuantityUOMInMixDesign UseDosageQuantityUOMInMixDesign { get; set; } = null!;
@@ -204,45 +169,17 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "Enable")]
-        public string _Enable { get; set; }
-        public bool? Enable { get { if (bool.TryParse(_Enable, out var value)) return value; return null; } }
+        public bool? Enable { get; set; }
 
         [XmlElement(ElementName = "DosageQuantityExtensionCode")]
         public string DosageQuantityExtensionCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "PerCemWeightDivisor")]
-        public string _PerCemWeightDivisor { get; set; } = string.Empty;
-
-        [XmlIgnore]
-        public decimal? PerCemWeightDivisor
-        {
-            get
-            {
-                decimal value;
-                if (decimal.TryParse(_PerCemWeightDivisor, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? _PerCemWeightDivisor { get; set; }
 
         [XmlElement(ElementName = "DosageQuantity")]
-        public string _DosageQuantity { get; set; } = string.Empty;
+        public decimal? DosageQuantity { get; set; } 
 
-        [XmlIgnore]
-        public decimal? DosageQuantity
-        {
-            get
-            {
-                decimal value;
-                if (decimal.TryParse(_DosageQuantity, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
     }
 
     [XmlRoot(ElementName = "Sales")]
@@ -250,220 +187,64 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "Taxable")]
-        public string _Taxable { get; set; }
-        public bool? Taxable { get { if (bool.TryParse(_Taxable, out var value)) return value; return null; } }
+        public bool? Taxable { get; set; }
 
         [XmlElement(ElementName = "TradeDiscountable")]
-        public string _TradeDiscountable { get; set; }
-        public bool? TradeDiscountable { get { if (bool.TryParse(_TradeDiscountable, out var value)) return value; return null; } }
+        public bool? TradeDiscountable { get; set; }
 
         [XmlElement(ElementName = "TermDiscountable")]
-        public string _TermDiscountable { get; set; }
-        public bool? TermDiscountable { get { if (bool.TryParse(_TermDiscountable, out var value)) return value; return null; } }
+        public bool? TermDiscountable { get; set; }
 
         [XmlElement(ElementName = "UsageCode")]
         public string UsageCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "NonTaxableReasonCode")]
-        public string NonTaxableReasonCode { get; set; } = string.Empty;
-
+        public string NonTaxableReasonCode { get; set; } 
         [XmlElement(ElementName = "ExpirationDate")]
-        private string _ExpirationDate { get; set; } = string.Empty;
-        [XmlIgnore]
-        public DateTime? ExpirationDate
-        {
-            get
-            {
-                if (DateTime.TryParse(_ExpirationDate, out var value))
-                { return value; }
-                return null;
-            }
-        }
+        public DateTime? ExpirationDate { get; set; }
+
     }
 
     [XmlRoot(ElementName = "Mix")]
     public class Mix
     {
 
-
         [XmlElement(ElementName = "Strength")]
-        public string _Strength { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? Strength
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_Strength, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? Strength { get; set; }
 
         [XmlElement(ElementName = "StrengthUnit")]
         public string StrengthUnit { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Slump")]
-        public string _Slump { get; set; } = string.Empty;
-
-        [XmlIgnore]
-        public double? Slump
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_Slump, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? Slump { get; set; }
 
         [XmlElement(ElementName = "WaterCementRatio")]
-        public string _WaterCementRatio { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? WaterCementRatio
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_WaterCementRatio, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? WaterCementRatio { get; set; }
+
         [XmlElement(ElementName = "AggregateSize")]
-        public string _AggregateSize { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? AggregateSize
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_AggregateSize, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? AggregateSize { get; set; }
 
         [XmlElement(ElementName = "CementType")]
-        public string _CementType { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? CementType
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_CementType, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public string CementType { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "DaysToStrength")]
-        public string _DaysToStrength { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? DaysToStrength
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_DaysToStrength, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? DaysToStrength { get; set; }
 
         [XmlElement(ElementName = "MaximumWater")]
-        public string _MaximumWater { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? MaximumWater
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_MaximumWater, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? MaximumWater { get; set; }
 
         [XmlElement(ElementName = "MinCementContent")]
-        public string _MinCementContent { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? MinCementContent
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_MinCementContent, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? MinCementContent { get; set; }
 
         [XmlElement(ElementName = "PercentAirVolume")]
-        public string _PercentAirVolume { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? PercentAirVolume
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_PercentAirVolume, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? PercentAirVolume { get; set; }
 
         [XmlElement(ElementName = "WaterHoldback")]
-        public string _WaterHoldback { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? WaterHoldback
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_WaterHoldback, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? WaterHoldback { get; set; }
 
         [XmlElement(ElementName = "LightweightCubicFeet")]
-        public string _LightweightCubicFeet { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? LightweightCubicFeet
-        {
-            get
-            {
-                double value;
-                if (double.TryParse(_LightweightCubicFeet, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? LightweightCubicFeet { get; set; }
+
     }
 
     [XmlRoot(ElementName = "Location")]
@@ -471,8 +252,7 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "LocationID")]
-        public string _LocationID { get; set; }
-        public int? LocationID { get { if (int.TryParse(_LocationID, out var value)) return value; return null; } }
+        public int? LocationID { get; set; }
 
         [XmlElement(ElementName = "LocationCode")]
         public string LocationCode { get; set; } = string.Empty;
@@ -508,32 +288,11 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement("Code")]
         public string Code { get; set; } = string.Empty;
         [XmlElement("Quantity")]
-        private string _Quantity { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? Quantity
-        {
-            get
-            {
-                if(double.TryParse(_Quantity, out var value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? Quantity { get; set; }
+
         [XmlElement("LoadQuantity")]
-        private string _LoadQuantity { get; set; } = string.Empty;
-        public double? LoadQuantity 
-        {
-            get
-            {
-                if(double.TryParse(_LoadQuantity, out var value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? LoadQuantity { get; set; } 
+
     }
 
     [XmlRoot("BatchCodes")]
@@ -549,95 +308,33 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement("Code")]
         public string Code { get; set; } = string.Empty;
         [XmlElement("SortLineNumber")]
-        private string _SortLineNumber { get; set; } = string.Empty;
-        [XmlIgnore]
-        public int? SortLineNumber
-        {
-            get
-            {
-                if(int.TryParse(_SortLineNumber, out var value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public int? SortLineNumber { get; set; }
+
         [XmlElement("Description")]
         public string Description { get; set; } = string.Empty;
         [XmlElement("ShortDescription")]
         public string ShortDescription { get; set; } = string.Empty;
         [XmlElement("UpdateDate")]
-        private string _UpdateDate { get; set; } = string.Empty;
-        [XmlIgnore]
-        public DateTime? UpdateDate
-        {
-            get
-            {
-                if(DateTime.TryParse(_UpdateDate, out var value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public DateTime? UpdateDate { get; set; }
     }
 
     [XmlRoot(ElementName = "Batching")]
     public class Batching
     {
         [XmlElement("SpecificGravity")]
-        public string _SpecificGravity { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? SpecificGravity
-        {
-            get
-            {
-                if(double.TryParse(_SpecificGravity, out var value))
-                    { return value; }
-                return null;
-            }
-        }
-        [XmlElement("MoisturePercent")]
-        public string _MoisturePercent { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? MoisturePercent
-        {
-            get
-            {
-                if (double.TryParse(_MoisturePercent, out var value))
-                    { return value; }
-                return null;
+        public decimal? SpecificGravity { get; set; }
 
-            }
-        }
+        [XmlElement("MoisturePercent")]
+        public decimal? MoisturePercent { get; set; }
+
         [XmlElement("BatchUnit")]
         public string BatchUnit { get; set; } = string.Empty;
         [XmlElement("MaximumBatchSize")]
-        public string _MaximumBatchSize { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? MaximumBatchSize
-        {
-            get
-            {
-                if(double.TryParse(_MaximumBatchSize, out var value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? MaximumBatchSize { get; set; }
+
         [XmlElement("MixerTime")]
-        public string _MixerTime { get; set; } = string.Empty;
-        [XmlIgnore]
-        public int? MixerTime
-        {
-            get
-            {
-                if (int.TryParse(_MixerTime, out var value))
-                { return value; }
-                return null;
-            }
-        }
+        public int? MixerTime { get; set; }
+
         [XmlElement("DownloadToBatchSystem")]
         public bool DownloadToBatchSystem { get; set; }
     }
@@ -661,50 +358,16 @@ namespace ConcreteGo.SDK.Models.Items
         public string PriceCategoryName { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Price")]
-        public string _Price { get; set; } = string.Empty;
-        [XmlIgnore]
-        public double? Price
-        {
-            get
-            {
-                if(double.TryParse(_Price, out var value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? Price { get; set; } 
 
         [XmlElement(ElementName = "PriceExtensionCode")]
         public string PriceExtensionCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "PriceEffectiveDate")]
-        public string _PriceEffectiveDate { get; set; } = string.Empty;
-        public DateTime? PriceEffectiveDate
-        {
-            get
-            {
-                if(DateTime.TryParse(_PriceEffectiveDate, out var value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public DateTime? PriceEffectiveDate { get; set; }
 
         [XmlElement(ElementName = "PreviousPrice")]
-        public string _PreviousPrice { get; set;} = string.Empty;
-        public double? PreviousPrice
-        {
-            get
-            {
-                if (double.TryParse(_PreviousPrice, out var value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? PreviousPrice { get; set;}
 
         [XmlElement(ElementName = "PreviousPriceExtensionCode")]
         public string PreviousPriceExtensionCode { get; set; } = string.Empty;
@@ -722,44 +385,16 @@ namespace ConcreteGo.SDK.Models.Items
     public class Cost
     {
         [XmlElement(ElementName = "StandardCost")]
-        public string _StandardCost { get; set; }
-        public decimal? StandardCost { get { if (decimal.TryParse(_StandardCost, out var value)) return value; return null; } }
+        public decimal? StandardCost { get; set; }
+
         [XmlElement(ElementName = "CostExtensionCode")]
         public string CostExtensionCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "CostEffectiveDate")]
-        public string _CostEffectiveDate { get; set; } = string.Empty;
-        [XmlIgnore]
-        public DateTime? CostEffectiveDate
-        {
-            get
-            {
-                DateTime value;
-                if (DateTime.TryParse(_CostEffectiveDate, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
-
+        public DateTime? CostEffectiveDate { get; set; }
 
         [XmlElement(ElementName = "PreviousCost")]
-        private string _PreviousCost { get; set; } = string.Empty;
-
-        [XmlIgnore]
-        public decimal? PreviousCost
-        {
-            get
-            {
-                decimal value;
-                if (decimal.TryParse(_PreviousCost, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? PreviousCost { get; set; } 
 
         [XmlElement(ElementName = "PreviousCostExtensionCode")]
         public string PreviousCostExtensionCode { get; set; } = string.Empty;
@@ -778,12 +413,10 @@ namespace ConcreteGo.SDK.Models.Items
     {
 
         [XmlElement(ElementName = "Sort")]
-        public string _Sort { get; set; }
-        public int? Sort { get { if (int.TryParse(_Sort, out var value)) return value; return null; } }
+        public int? Sort { get; set; }
 
         [XmlElement(ElementName = "ItemID")]
-        public string _ItemID { get; set; }
-        public int? ItemID { get { if (int.TryParse(_ItemID, out var value)) return value; return null; } }
+        public int? ItemID { get; set; }
 
         [XmlElement(ElementName = "Code")]
         public string Code { get; set; } = string.Empty;
@@ -792,36 +425,10 @@ namespace ConcreteGo.SDK.Models.Items
         public string Description { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Quantity")]
-        public string _Quantity { get; set; } = string.Empty;
-        [XmlIgnore]
-        public decimal? Quantity
-        {
-            get
-            {
-                decimal value;
-                if (decimal.TryParse(_Quantity, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? Quantity { get; set; }
 
         [XmlElement(ElementName = "DosageQuantity")]
-        public string _DosageQuantity { get; set; } = string.Empty;
-        [XmlIgnore]
-        public decimal? DosageQuantity
-        {
-            get
-            {
-                decimal value;
-                if (decimal.TryParse(_DosageQuantity, out value))
-                {
-                    return value;
-                }
-                return null;
-            }
-        }
+        public decimal? DosageQuantity { get; set; }
 
         [XmlElement(ElementName = "Unit")]
         public string Unit { get; set; } = string.Empty;

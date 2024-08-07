@@ -12,14 +12,12 @@ namespace ConcreteGo.SDK.Models.Common
     {
 
         [XmlElement(ElementName = "SalesAnalysisCode")]
-        public string SalesAnalysisCode { get; set; }
+        public string SalesAnalysisCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "SalesmanCode")]
-        public string _SalesmanCode { get; set; } = string.Empty;
-        [XmlIgnore]
-        public int? SalesmanCode { get { if (int.TryParse(_SalesmanCode, out var value)) return value; return null; } }
+        public string SalesmanCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "SalesmanName")]
-        public string SalesmanName { get; set; }
+        public string SalesmanName { get; set; } = string.Empty;
     }
 }

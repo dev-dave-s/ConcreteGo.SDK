@@ -95,28 +95,22 @@ namespace ConcreteGo.SDK.Models.Quotes
         public Distribution Distribution { get; set; }
 
         [XmlElement(ElementName = "EnablePriceEscalation")]
-        public string _EnablePriceEscalation { get; set; } = string.Empty;
-        public bool? EnablePriceEscalation { get { if (bool.TryParse(_EnablePriceEscalation, out var value)) return value; return null; } }
+        public bool? EnablePriceEscalation { get; set; } 
 
         [XmlElement(ElementName = "PriceEscalationAmount")]
-        public string _PriceEscalationAmount { get; set; } = string.Empty;
-        public double? PriceEscalationAmount { get { if (double.TryParse(_PriceEscalationAmount, out var value)) return value; return null; } }
+        public decimal? PriceEscalationAmount { get; set; } 
 
         [XmlElement(ElementName = "PriceEscalationDate")]
-        public string _PriceEscalationDate { get; set; } = string.Empty;
-        public DateTime? PriceEscalationDate { get { if (DateTime.TryParse(_PriceEscalationDate, out var value)) return value; return null; } }
+        public DateTime? PriceEscalationDate { get; set; } 
 
         [XmlElement(ElementName = "QuoteRequiredDate")]
-        public string _QuoteRequiredDate { get; set; } = string.Empty;
-        public DateTime? QuoteRequiredDate { get { if (DateTime.TryParse(_QuoteRequiredDate, out var value)) return value; return null; } }
+        public DateTime? QuoteRequiredDate { get; set; } 
 
         [XmlElement(ElementName = "QuoteExpirationDate")]
-        public string _QuoteExpirationDate { get; set; } = string.Empty;
-        public DateTime? QuoteExpirationDate { get { if (DateTime.TryParse(_QuoteExpirationDate, out var value)) return value; return null; } }
+        public DateTime? QuoteExpirationDate { get; set; } 
 
         [XmlElement(ElementName = "UpdateDate")]
-        public string _UpdateDate { get; set; } = string.Empty;
-        public DateTime? UpdateDate { get { if (DateTime.TryParse(_UpdateDate, out var value)) return value; return null; } }
+        public DateTime? UpdateDate { get; set; } 
 
         [XmlElement(ElementName = "CustomerRet")]
         public CustomerRet CustomerRet { get; set; }

@@ -13,10 +13,10 @@ namespace ConcreteGo.SDK.Models.Common
     {
 
         [XmlElement(ElementName = "StatementCycle")]
-        public string StatementCycle { get; set; }
+        public string StatementCycle { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "AccountingCategoryCode")]
-        public string AccountingCategoryCode { get; set; }
+        public string AccountingCategoryCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ApplyFinanceCharges")]
         public bool ApplyFinanceCharges { get; set; }
@@ -40,7 +40,7 @@ namespace ConcreteGo.SDK.Models.Common
         public bool ExternalLiensRequiredInOrderEntry { get; set; }
 
         [XmlElement(ElementName = "SuspendOrderReasonCode")]
-        public string SuspendOrderReasonCode { get; set; }
+        public string SuspendOrderReasonCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "UsageCodeRequiredInOrderEntry")]
         public bool UsageCodeRequiredInOrderEntry { get; set; }

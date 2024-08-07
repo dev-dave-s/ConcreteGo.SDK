@@ -425,8 +425,10 @@ namespace WebcreteAPI
             {
                 System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
+                //result.MaxBufferSize = 512000000;
                 result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
+                //result.MaxReceivedMessageSize = 512000000;
                 result.AllowCookies = true;
                 result.ReceiveTimeout = new System.TimeSpan(0, 10, 0);
                 result.SendTimeout = new System.TimeSpan(0, 10, 0);
@@ -441,7 +443,11 @@ namespace WebcreteAPI
                 System.ServiceModel.Channels.HttpTransportBindingElement httpBindingElement = new System.ServiceModel.Channels.HttpTransportBindingElement();
                 httpBindingElement.AllowCookies = true;
                 httpBindingElement.MaxBufferSize = int.MaxValue;
+                //httpBindingElement.MaxBufferSize = 512000000;
+
                 httpBindingElement.MaxReceivedMessageSize = int.MaxValue;
+                //httpBindingElement.MaxReceivedMessageSize = 512000000;
+
                 result.Elements.Add(httpBindingElement);
                 return result;
             }

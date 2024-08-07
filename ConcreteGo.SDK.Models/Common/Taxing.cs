@@ -12,15 +12,15 @@ namespace ConcreteGo.SDK.Models.Common
     {
 
         [XmlElement(ElementName = "TaxID")]
-        public object TaxID { get; set; }
+        public int TaxID { get; set; }
 
         [XmlElement(ElementName = "TaxCode")]
-        public string TaxCode { get; set; }
+        public string TaxCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Taxable")]
-        public string Taxable { get; set; }
+        public string Taxable { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "NonTaxableReasonCode")]
-        public object NonTaxableReasonCode { get; set; }
+        public string NonTaxableReasonCode { get; set; } = string.Empty;
     }
 }

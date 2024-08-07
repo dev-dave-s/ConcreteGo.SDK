@@ -12,13 +12,13 @@ namespace ConcreteGo.SDK.Models.Common
     {
 
         [XmlElement(ElementName = "MinimumLoadChargeTableCode")]
-        public string MinimumLoadChargeTableCode { get; set; }
+        public string MinimumLoadChargeTableCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "SeasonalChargeTableCode")]
-        public object SeasonalChargeTableCode { get; set; }
+        public string SeasonalChargeTableCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "UnloadingChargeTableCode")]
-        public string UnloadingChargeTableCode { get; set; }
+        public string UnloadingChargeTableCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "ApplyMinimumLoadCharge")]
         public bool ApplyMinimumLoadCharge { get; set; }

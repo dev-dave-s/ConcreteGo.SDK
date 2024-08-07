@@ -12,34 +12,34 @@ namespace ConcreteGo.SDK.Models.Invoices
     public class InvoiceRet
     {
         public int ID { get; set; }
-        public string InvoiceNumber { get; set; }
+        public string InvoiceNumber { get; set; } = string.Empty;
         public DateTime InvoiceDate { get; set; }
         public DateTime OrderDate { get; set; }
         public int CustomerID { get; set; }
-        public string CustomerCode { get; set; }
-        public string CustomerName { get; set; }
+        public string CustomerCode { get; set; } = string.Empty;
+        public string CustomerName { get; set; } = string.Empty;
         public int DivisionID { get; set; }
-        public string DivisionCode { get; set; }
+        public string DivisionCode { get; set; } = string.Empty;
         public int ProjectID { get; set; }
-        public string ProjectCode { get; set; }
-        public string ProjectName { get; set; }
-        public string JobNumber { get; set; }
-        public string PurchaseOrder {  get; set; }
+        public string ProjectCode { get; set; } = string.Empty;
+        public string ProjectName { get; set; } = string.Empty;
+        public string JobNumber { get; set; } = string.Empty;
+        public string PurchaseOrder {  get; set; } = string.Empty;
         public DeliveryAddress DeliveryAddress { get; set; }
         public InvoiceAddress InvoiceAddress { get; set; }
         public PaymentTerm PaymentTerm { get; set; }
-        public string TicketCodes { get; set; }
-        public string MessageText { get; set; }
-        public string AccountingCategoryCode { get; set; }
-        public string PricingPlantCode { get; set; }
-        public string CustomerJob {  get; set; }
+        public string TicketCodes { get; set; } = string.Empty;
+        public string MessageText { get; set; } = string.Empty;
+        public string AccountingCategoryCode { get; set; } = string.Empty;
+        public string PricingPlantCode { get; set; } = string.Empty;
+        public string CustomerJob {  get; set; } = string.Empty;
         public string IsRemoved { get; set; }
         public string RemoveReason { get; set; }
-        public string TaxCode { get; set; }
-        public string TaxCodeDescription { get; set; }
-        public string TaxCodeShortDescription { get; set; }
+        public string TaxCode { get; set; } = string.Empty;
+        public string TaxCodeDescription { get; set; } = string.Empty;
+        public string TaxCodeShortDescription { get; set; } = string.Empty;
         public bool Taxable { get; set; }
-        public string PaymentForm { get; set; }
+        public string PaymentForm { get; set; } = string.Empty;
         public decimal Amount { get; set; }
         public decimal TaxAmount { get; set; }
         public decimal TotalAmount { get; set; }

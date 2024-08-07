@@ -3714,6 +3714,8 @@ namespace ConcreteGo.SDK
         {
             var boolFixedXml = FixXmlBool(xml);
             var xDoc = XDocument.Parse(boolFixedXml);
+            //Remove blanks because concrete go don't mark their null fields correctly!!!
+            xDoc.Descendants().Where(e => string.IsNullOrEmpty(e.Value)).Remove();
             var xmlGenericResponseAttributes = new XmlAttributes { XmlRoot = new XmlRootAttribute { ElementName = rootElement, IsNullable = true } };
             
             var xmlResponseListAttributes = new XmlAttributes();
@@ -3793,6 +3795,8 @@ namespace ConcreteGo.SDK
 
             return response;
         }
+
+
 
         #endregion
     }
