@@ -175,7 +175,7 @@ namespace ConcreteGo.SDK.Models.Items
         public string DosageQuantityExtensionCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "PerCemWeightDivisor")]
-        public decimal? _PerCemWeightDivisor { get; set; }
+        public decimal? PerCemWeightDivisor { get; set; }
 
         [XmlElement(ElementName = "DosageQuantity")]
         public decimal? DosageQuantity { get; set; } 

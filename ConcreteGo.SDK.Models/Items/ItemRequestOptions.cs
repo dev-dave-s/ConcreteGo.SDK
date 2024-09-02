@@ -22,7 +22,8 @@ namespace ConcreteGo.SDK.Models.Items
         public DateTime? ToUpdateDate { get; set; }
         public DateTime? FromCreateDate { get; set; }
         public DateTime? ToCreateDate { get; set; }
-        public int? MaxReturned {  get; set; }
+        public int? MaxReturned { get; set; }
+        //LOCATION|COST|PRICING|MIXDESIGN|BATCHING|TAXOVERRIDE|BATCHCODE|AUTOPRODUCT
         public List<string> IncludeRetElements { get; set; } = new List<string>();
     }
 }

@@ -448,6 +448,53 @@ namespace ConcreteGo.SDK
 
         }
 
+        public async Task<List<CustomerRet>?> AddOrUpdateCustomer(CustomerAddOrUpdateRq data)
+        {
+            var requestElementName = "CustomerUpdateRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+
+
+                var requestData = XElement.Parse(Serialize(data));
+                if (requestElement != null)
+                {
+                    requestElement.Add(requestData);
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<CustomerRet>? result = null;
+            try
+            {
+                result = Deserialize<CustomerRet>(response.ProcessRequestResult, "CustomerUpdateRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Employees
@@ -2001,64 +2048,245 @@ namespace ConcreteGo.SDK
 
         public async Task<List<OrderRet>?> GetOrdersAsync(Action<OrderRequestOptions>? settings = null)
         {
+            var result = new List<OrderRet>();
+            List<OrderRet>? resultSet;
+            var requestElementName = "OrderQueryRq";
+            XDocument request = new XDocument();
+
+            var response = new ProcessRequestResponse();
+
             var options = new OrderRequestOptions();
             if(settings != null)
             {
                 settings(options);
             }
-            
-            var requestElementName = "OrderQueryRq";
+
+            //Check date ranges have start and finish
+            if(options.FromOrderDate != null && options.ToOrderDate == null)
+            {
+                //You must have a start and end to the range.
+                return null;
+            }
+            if (options.FromUpdateTime != null && options.ToUpdateTime == null)
+            {
+                //You must have a start and end to the range.
+                return null;
+            }
+
+            //Add support for FromOrderDate > 30 days
+            if(options.FromOrderDate != null && options.ToOrderDate != null)
+            {
+                var daysToProcess = (options.ToOrderDate - options.FromOrderDate).Value.Days;
+
+                int maxDaysPerCall = 15;
+                if (daysToProcess > maxDaysPerCall)
+                {
+                    await ManageLogin();
+
+
+                    
+                    int pageCounter = 0;
+                    while(daysToProcess > 0)
+                    {
+                        
+                        request = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                        new XElement("WebcreteXML",
+                        new XElement("WebcreteXMLMsgsRq",
+                        new XElement(requestElementName, ""))));
+
+                        request = GetOrderRequestSetup(requestElementName, options, request);
+                        
+                        var start = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall);
+                        var end = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(maxDaysPerCall - 1);
+                        if (daysToProcess < maxDaysPerCall)
+                        {
+                            end = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(daysToProcess);
+                        }
+                        
+
+                        //FromOrderDate
+                        if (options.FromOrderDate != null)
+                        {
+                            var element = new XElement("FromOrderDate", start.ToString("yyyy-MM-dd"));
+                            var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                            if (requestElement != null)
+                            {
+                                requestElement.Add(element);
+                            }
+                        }
+                        //ToOrderDate
+                        if (options.ToOrderDate != null)
+                        {
+                            var element = new XElement("ToOrderDate", end.ToString("yyyy-MM-dd"));
+                            var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                            if (requestElement != null)
+                            {
+                                requestElement.Add(element);
+                            }
+                        }
+
+                        response = new ProcessRequestResponse();
+                        try
+                        {
+                            response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error processing request: " + ex.Message);
+                        }
+
+                        resultSet = null;
+                        try
+                        {
+                            resultSet = Deserialize<OrderRet>(response.ProcessRequestResult, "OrderQueryRs");
+                            if(resultSet != null)
+                            {
+                                result.AddRange(resultSet);
+                            }
+                            
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error deserializing xml response: " + ex.Message);
+                        }
+
+                        daysToProcess = daysToProcess - maxDaysPerCall;
+                        pageCounter++;
+                    }
+                }
+                return result;
+            }
+
+            //Add support for FromUpdateTime > 30 days
+            if (options.FromUpdateTime != null && options.ToUpdateTime != null)
+            {
+                var daysToProcess = (options.ToUpdateTime - options.FromUpdateTime).Value.Days;
+
+                int maxDaysPerCall = 15;
+                if (daysToProcess > maxDaysPerCall)
+                {
+                    await ManageLogin();
+
+
+
+                    int pageCounter = 0;
+                    while (daysToProcess > 0)
+                    {
+
+                        request = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                        new XElement("WebcreteXML",
+                        new XElement("WebcreteXMLMsgsRq",
+                        new XElement(requestElementName, ""))));
+
+                        request = GetOrderRequestSetup(requestElementName, options, request);
+
+                        var start = options.FromUpdateTime.Value.AddDays(pageCounter * maxDaysPerCall);
+                        var end = options.FromUpdateTime.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(maxDaysPerCall - 1);
+                        if (daysToProcess < maxDaysPerCall)
+                        {
+                            end = options.FromUpdateTime.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(daysToProcess);
+                        }
+
+
+                        //FromUpdateTime
+                        if (options.FromUpdateTime != null)
+                        {
+                            var element = new XElement("FromUpdateTime", start.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                            var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                            if (requestElement != null)
+                            {
+                                requestElement.Add(element);
+                            }
+                        }
+                        //ToUpdateTime
+                        if (options.ToUpdateTime != null)
+                        {
+                            var element = new XElement("ToUpdateTime", end.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                            var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                            if (requestElement != null)
+                            {
+                                requestElement.Add(element);
+                            }
+                        }
+
+                        response = new ProcessRequestResponse();
+                        try
+                        {
+                            response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error processing request: " + ex.Message);
+                        }
+
+                        resultSet = null;
+                        try
+                        {
+                            resultSet = Deserialize<OrderRet>(response.ProcessRequestResult, "OrderQueryRs");
+                            if (resultSet != null)
+                            {
+                                result.AddRange(resultSet);
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error deserializing xml response: " + ex.Message);
+                        }
+
+                        daysToProcess = daysToProcess - maxDaysPerCall;
+                        pageCounter++;
+                    }
+                }
+                return result;
+            }
 
             await ManageLogin();
-            var request = new XDocument(
+            request = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XProcessingInstruction("webcretexml", "version=\"1.0\""),
                 new XElement("WebcreteXML",
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (request.Root != null)
+            request = GetOrderRequestSetup(requestElementName, options, request);
+
+            response = new ProcessRequestResponse();
+            try
             {
-                //FromOrderDate
-                if (options.FromOrderDate != null)
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            resultSet = null;
+            try
+            {
+                resultSet = Deserialize<OrderRet>(response.ProcessRequestResult, "OrderQueryRs");
+                if(resultSet != null)
                 {
-                    var element = new XElement("FromOrderDate", options.FromOrderDate.Value.ToString("yyyy-MM-dd"));
-                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
-                    if (requestElement != null)
-                    {
-                        requestElement.Add(element);
-                    }
+                    result.AddRange(resultSet);
                 }
-                //ToOrderDate
-                if (options.ToOrderDate != null)
-                {
-                    var element = new XElement("ToOrderDate", options.ToOrderDate.Value.ToString("yyyy-MM-dd"));
-                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
-                    if (requestElement != null)
-                    {
-                        requestElement.Add(element);
-                    }
-                }
-                //FromUpdateTime
-                if (options.FromUpdateTime != null)
-                {
-                    var element = new XElement("FromUpdateTime", options.FromUpdateTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
-                    if (requestElement != null)
-                    {
-                        requestElement.Add(element);
-                    }
-                }
-                //ToUpdateTime
-                if (options.ToUpdateTime != null)
-                {
-                    var element = new XElement("ToUpdateTime", options.ToUpdateTime.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
-                    if (requestElement != null)
-                    {
-                        requestElement.Add(element);
-                    }
-                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+        }
+
+        private XDocument GetOrderRequestSetup(string requestElementName, OrderRequestOptions options, XDocument request)
+        {
+            if (request.Root != null)
+            {       
                 //OrderIDs
                 if (options.OrderIDs.Any())
                 {
@@ -2160,30 +2388,9 @@ namespace ConcreteGo.SDK
                     {
                         requestElement.Add(element);
                     }
-                }
+                }                
             }
-
-            var response = new ProcessRequestResponse();
-            try
-            {
-                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error processing request: " + ex.Message);
-            }
-
-            List<OrderRet>? result = null;
-            try
-            {
-                result = Deserialize<OrderRet>(response.ProcessRequestResult, "OrderQueryRs");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error deserializing xml response: " + ex.Message);
-            }
-
-            return result;
+            return request;
         }
 
         #endregion
@@ -3029,44 +3236,259 @@ namespace ConcreteGo.SDK
 
         public async Task<List<TicketRet>?> GetTicketsAsync(Action<TicketRequestOptions>? settings = null)
         {
+            var result = new List<TicketRet>();
+            List<TicketRet>? resultSet;
+            var requestElementName = "TicketQueryRq";
+            XDocument request = new XDocument();
+            var response = new ProcessRequestResponse();
+
             var options = new TicketRequestOptions();
             if(settings != null)
             {
                 settings(options);
             }
-            
-            var requestElementName = "TicketQueryRq";
+
+            if(options.FromOrderDate != null && options.ToOrderDate == null)
+            {
+                //Must have start and end.
+                return null;
+            }
+
+            if(options.FromCreatedDate != null && options.ToCreatedDate == null)
+            {
+                //Must have start and end.
+                return null;
+            }
+
+            //Process by order date
+            if(options.FromOrderDate != null && options.ToOrderDate != null)
+            {
+                var daysToProcess = (options.ToOrderDate - options.FromOrderDate).Value.Days;
+
+                int maxDaysPerCall = 15;
+                if (daysToProcess > maxDaysPerCall)
+                {
+                    await ManageLogin();
+
+
+
+                    int pageCounter = 0;
+                    while (daysToProcess > 0)
+                    {
+
+                        request = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                        new XElement("WebcreteXML",
+                        new XElement("WebcreteXMLMsgsRq",
+                        new XElement(requestElementName, ""))));
+
+                        request = GetTicketRequestSetup(requestElementName, options, request);
+
+                        var start = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall);
+                        var end = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(maxDaysPerCall - 1);
+                        if (daysToProcess < maxDaysPerCall)
+                        {
+                            end = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(daysToProcess);
+                        }
+
+
+                        //FromOrderDate
+                        if (options.FromOrderDate != null)
+                        {
+                            var element = new XElement("FromOrderDate", start.ToString("yyyy-MM-dd"));
+                            var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                            if (requestElement != null)
+                            {
+                                requestElement.Add(element);
+                            }
+                        }
+                        //ToOrderDate
+                        if (options.ToOrderDate != null)
+                        {
+                            var element = new XElement("ToOrderDate", end.ToString("yyyy-MM-dd"));
+                            var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                            if (requestElement != null)
+                            {
+                                requestElement.Add(element);
+                            }
+                        }
+
+                        response = new ProcessRequestResponse();
+                        try
+                        {
+                            response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error processing request: " + ex.Message);
+                        }
+
+                        resultSet = null;
+                        try
+                        {
+                            resultSet = Deserialize<TicketRet>(response.ProcessRequestResult, "TicketQueryRs");
+                            if (resultSet != null)
+                            {
+                                result.AddRange(resultSet);
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error deserializing xml response: " + ex.Message);
+                        }
+
+                        daysToProcess = daysToProcess - maxDaysPerCall;
+                        pageCounter++;
+                    }
+                }
+                return result;
+            }
+
+            //prcess by created date
+            if (options.FromCreatedDate != null && options.ToCreatedDate != null)
+            {
+                var daysToProcess = (options.ToCreatedDate - options.FromCreatedDate).Value.Days;
+
+                int maxDaysPerCall = 5;
+                if (daysToProcess > maxDaysPerCall)
+                {
+                    await ManageLogin();
+
+
+
+                    int pageCounter = 0;
+                    while (daysToProcess > 0)
+                    {
+
+                        request = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                        new XElement("WebcreteXML",
+                        new XElement("WebcreteXMLMsgsRq",
+                        new XElement(requestElementName, ""))));
+
+                        request = GetTicketRequestSetup(requestElementName, options, request);
+
+                        var start = options.FromCreatedDate.Value.AddDays(pageCounter * maxDaysPerCall);
+                        var end = options.FromCreatedDate.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(maxDaysPerCall - 1);
+                        if (daysToProcess < maxDaysPerCall)
+                        {
+                            end = options.FromCreatedDate.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(daysToProcess);
+                        }
+
+
+                        //FromCreatedDate
+                        if (options.FromCreatedDate != null)
+                        {
+                            var element = new XElement("FromCreatedDate", start.ToString("yyyy-MM-dd"));
+                            var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                            if (requestElement != null)
+                            {
+                                requestElement.Add(element);
+                            }
+                        }
+                        //ToCreatedDate
+                        if (options.ToCreatedDate != null)
+                        {
+                            var element = new XElement("ToCreatedDate", end.ToString("yyyy-MM-dd"));
+                            var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                            if (requestElement != null)
+                            {
+                                requestElement.Add(element);
+                            }
+                        }
+
+                        response = new ProcessRequestResponse();
+                        try
+                        {
+                            response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error processing request: " + ex.Message);
+                        }
+
+                        resultSet = null;
+                        try
+                        {
+                            resultSet = Deserialize<TicketRet>(response.ProcessRequestResult, "TicketQueryRs");
+                            if (resultSet != null)
+                            {
+                                result.AddRange(resultSet);
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error deserializing xml response: " + ex.Message);
+                        }
+
+                        daysToProcess = daysToProcess - maxDaysPerCall;
+                        pageCounter++;
+                    }
+                }
+                return result;
+            }
 
             await ManageLogin();
-            var request = new XDocument(
+            request = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XProcessingInstruction("webcretexml", "version=\"1.0\""),
                 new XElement("WebcreteXML",
                 new XElement("WebcreteXMLMsgsRq",
                 new XElement(requestElementName, ""))));
 
-            if (request.Root != null)
+            request = GetTicketRequestSetup(requestElementName, options, request);
+
+            response = new ProcessRequestResponse();
+            try
             {
-                //FromOrderDate
-                if (options.FromOrderDate != null)
-                {
-                    var element = new XElement("FromOrderDate", options.FromOrderDate.Value.ToString("yyyy-MM-dd"));
-                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
-                    if (requestElement != null)
-                    {
-                        requestElement.Add(element);
-                    }
-                }
-                //ToOrderDate
-                if (options.ToOrderDate != null)
-                {
-                    var element = new XElement("ToOrderDate", options.ToOrderDate.Value.ToString("yyyy-MM-dd"));
-                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
-                    if (requestElement != null)
-                    {
-                        requestElement.Add(element);
-                    }
-                }
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            result = null;
+            try
+            {
+                result = Deserialize<TicketRet>(response.ProcessRequestResult, "TicketQueryRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+        }
+
+        private XDocument GetTicketRequestSetup(string requestElementName, TicketRequestOptions options, XDocument request)
+        {
+            if(request.Root != null)
+            {
+                ////FromOrderDate
+                //if (options.FromOrderDate != null)
+                //{
+                //    var element = new XElement("FromOrderDate", options.FromOrderDate.Value.ToString("yyyy-MM-dd"));
+                //    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                //    if (requestElement != null)
+                //    {
+                //        requestElement.Add(element);
+                //    }
+                //}
+                ////ToOrderDate
+                //if (options.ToOrderDate != null)
+                //{
+                //    var element = new XElement("ToOrderDate", options.ToOrderDate.Value.ToString("yyyy-MM-dd"));
+                //    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                //    if (requestElement != null)
+                //    {
+                //        requestElement.Add(element);
+                //    }
+                //}
                 //FromTicketTime
                 if (options.FromTicketTime != null)
                 {
@@ -3127,26 +3549,26 @@ namespace ConcreteGo.SDK
                         requestElement.Add(element);
                     }
                 }
-                //FromCreatedDate
-                if (options.FromCreatedDate != null)
-                {
-                    var element = new XElement("FromCreatedDate", options.FromCreatedDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
-                    if (requestElement != null)
-                    {
-                        requestElement.Add(element);
-                    }
-                }
-                //ToCreatedDate
-                if (options.ToCreatedDate != null)
-                {
-                    var element = new XElement("ToCreatedDate", options.ToCreatedDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-                    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
-                    if (requestElement != null)
-                    {
-                        requestElement.Add(element);
-                    }
-                }
+                ////FromCreatedDate
+                //if (options.FromCreatedDate != null)
+                //{
+                //    var element = new XElement("FromCreatedDate", options.FromCreatedDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                //    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                //    if (requestElement != null)
+                //    {
+                //        requestElement.Add(element);
+                //    }
+                //}
+                ////ToCreatedDate
+                //if (options.ToCreatedDate != null)
+                //{
+                //    var element = new XElement("ToCreatedDate", options.ToCreatedDate.Value.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                //    var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                //    if (requestElement != null)
+                //    {
+                //        requestElement.Add(element);
+                //    }
+                //}
                 //OrderIDs
                 if (options.OrderIDs.Any())
                 {
@@ -3344,28 +3766,8 @@ namespace ConcreteGo.SDK
                     }
                 }
             }
-
-            var response = new ProcessRequestResponse();
-            try
-            {
-                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error processing request: " + ex.Message);
-            }
-
-            List<TicketRet>? result = null;
-            try
-            {
-                result = Deserialize<TicketRet>(response.ProcessRequestResult, "TicketQueryRs");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error deserializing xml response: " + ex.Message);
-            }
-
-            return result;
+            
+            return request;
         }
 
         #endregion
