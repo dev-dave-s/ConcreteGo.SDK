@@ -13,7 +13,8 @@ namespace ConcreteGo.SDK.Models.Common {
         public string? AccountingCategoryCode { get; set; }
 
         [XmlElement(ElementName = "PrepaymentPercentage")]
-        public decimal? PrepaymentPercentage { get; set; }
+        public double? PrepaymentPercentage { get; set; }
+        public bool ShouldSerializePrepaymentPercentage() { return PrepaymentPercentage != null; }
 
         [XmlElement(ElementName = "CreditCard")]
         public CreditCardRq? CreditCard { get; set; } 
@@ -23,21 +24,26 @@ namespace ConcreteGo.SDK.Models.Common {
     
         [XmlElement(ElementName = "PurchaseOrderRequiredInOrderEntry")]
         public bool? PurchaseOrderRequiredInOrderEntry { get; set; }
+        public bool ShouldSerializePurchaseOrderRequiredInOrderEntry() { return PurchaseOrderRequiredInOrderEntry != null; }
     
         [XmlElement(ElementName = "CustomerJobRequiredInOrderEntry")]
         public bool? CustomerJobRequiredInOrderEntry { get; set; }
+        public bool ShouldSerializeCustomerJobRequiredInOrderEntry() { return CustomerJobRequiredInOrderEntry != null; }
     
         [XmlElement(ElementName = "LotBlockRequiredInOrderEntry")]
         public bool? LotBlockRequiredInOrderEntry { get; set; }
+        public bool ShouldSerializeLotBlockRequiredInOrderEntry() { return LotBlockRequiredInOrderEntry != null; }
     
         [XmlElement(ElementName = "LotBlock")]
         public string? LotBlock { get; set; }
     
         [XmlElement(ElementName = "SuspendOrderReasonCode")]
         public bool? SuspendOrderReasonCode { get; set; }
+        public bool ShouldSerializeSuspendOrderReasonCode() { return SuspendOrderReasonCode != null; }
     
         [XmlElement(ElementName = "UsageCodeRequiredInOrderEntry")]
         public bool? UsageCodeRequiredInOrderEntry { get; set; }
+        public bool ShouldSerializeUsageCodeRequiredInOrderEntry() { return UsageCodeRequiredInOrderEntry != null; }
     
     }
 
@@ -74,6 +80,7 @@ namespace ConcreteGo.SDK.Models.Common {
     
         [XmlElement(ElementName = "CreditEffectiveDate")]
         public DateTime? CreditEffectiveDate { get; set; }
+        public bool ShouldSerializeCreditEffectiveDate() { return CreditEffectiveDate != null; }
     
     }
 }

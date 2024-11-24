@@ -12,12 +12,14 @@ namespace ConcreteGo.SDK.Models.Common {
 
         [XmlElement(ElementName = "TaxID")]
         public string? TaxID { get; set; }
+        public bool ShouldSerializeTaxID() { return TaxID != null; }
 
         [XmlElement(ElementName = "TaxCode")]
         public string? TaxCode { get; set; }
 
         [XmlElement(ElementName = "Taxable")]
         public bool? Taxable { get; set; }
+        public bool ShouldSerializeTaxable() { return Taxable != null; }
     
         [XmlElement(ElementName = "NonTaxableReasonCode")]
         public string? NonTaxableReasonCode { get; set; }

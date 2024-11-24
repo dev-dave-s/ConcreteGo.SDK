@@ -14,6 +14,7 @@ namespace ConcreteGo.SDK.Models.Common {
     
         [XmlElement(ElementName = "PrintMixWeightOnTicket")]
         public bool? PrintMixWeightOnTicket { get; set; }
+        public bool ShouldSerializePrintMixWeightOnTicket() { return PrintMixWeightOnTicket != null; }
     
         [XmlElement(ElementName = "ProjectType")]
         public string? ProjectType { get; set; }
@@ -26,6 +27,7 @@ namespace ConcreteGo.SDK.Models.Common {
     
         [XmlElement(ElementName = "EstimatedTravelTime")]
         public double? EstimatedTravelTime { get; set; }
+        public bool ShouldSerializeEstimatedTravelTime() { return EstimatedTravelTime != null; }
     
         // 1 Do Not Poll, 2 Poll First Truck, 3 Poll Every Truck
         [XmlElement(ElementName = "TruckPollType")]
@@ -33,9 +35,11 @@ namespace ConcreteGo.SDK.Models.Common {
     
         [XmlElement(ElementName = "UpdateProjectMapCoordinates")]
         public bool? UpdateProjectMapCoordinates { get; set; }
+        public bool ShouldSerializeUpdateProjectMapCoordinates() { return UpdateProjectMapCoordinates != null; }
     
         [XmlElement(ElementName = "UpdateOrderMapCoordinates")]
         public bool? UpdateOrderMapCoordinates { get; set; }
+        public bool ShouldSerializeUpdateOrderMapCoordinates() { return UpdateOrderMapCoordinates != null; }
     
         [XmlElement(ElementName = "DefaultOrderType")]
         public string? DefaultOrderType { get; set; }
