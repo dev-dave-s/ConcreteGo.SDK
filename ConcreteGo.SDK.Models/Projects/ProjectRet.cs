@@ -9,116 +9,114 @@ using System.Xml.Serialization;
 
 namespace ConcreteGo.SDK.Models.Projects
 {
-    [XmlRoot(ElementName = "ProjectRet")]
+    [XmlRoot(ElementName = "ProjectRet", Namespace = "")]
     public class ProjectRet
     {
         [XmlElement(ElementName = "ID")]
         public int ID { get; set; }
-
+        
         [XmlElement(ElementName = "Code")]
         public string Code { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "Name")]
         public string Name { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "CustomerID")]
         public int CustomerID { get; set; }
-
+        
         [XmlElement(ElementName = "CustomerCode")]
         public string CustomerCode { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "CustomerName")]
         public string CustomerName { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "SetupDate")]
         public DateTime SetupDate { get; set; }
-
+        
         [XmlElement(ElementName = "DeliveryAddress")]
         public DeliveryAddress DeliveryAddress { get; set; } 
-
+        
         [XmlElement(ElementName = "Instruction")]
         public Instruction Instruction { get; set; } 
-
+        
         [XmlElement(ElementName = "InvoiceAddress")]
         public InvoiceAddress InvoiceAddress { get; set; } 
-
+        
         [XmlElement(ElementName = "StatementAddress")]
         public StatementAddress StatementAddress { get; set; }
-
+        
         [XmlElement(ElementName = "Contact")]
         public string Contact { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "Phone")]
         public string Phone { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "Fax")]
         public string Fax { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "Cellular")]
         public string Cellular { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "Email")]
         public string Email { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "CustomerJob")]
         public string CustomerJob { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "PurchaseOrder")]
         public string PurchaseOrder { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "ExpirationDate")]
         public DateTime? ExpirationDate { get; set; }
-
+        
         [XmlElement(ElementName = "ShippingCustomerCode")]
         public string ShippingCustomerCode { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "ReferenceCustomerCode")]
         public string ReferenceCustomerCode { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "Sales")]
         public Sales Sales { get; set; }
-
+        
         [XmlElement(ElementName = "Taxing")]
         public Taxing Taxing { get; set; }
-
+        
         [XmlElement(ElementName = "Pricing")]
         public Pricing Pricing { get; set; }
-
+        
         [XmlElement(ElementName = "Charges")]
         public Charges Charges { get; set; }
-
+        
         [XmlElement(ElementName = "Accounting")]
         public Accounting Accounting { get; set; }
-
+        
         [XmlElement(ElementName = "Distribution")]
         public Distribution Distribution { get; set; }
-
+        
         [XmlElement(ElementName = "EnablePriceEscalation")]
         public bool EnablePriceEscalation { get; set; }
-
+        
         [XmlElement(ElementName = "PriceEscalationAmount")]
         public decimal? PriceEscalationAmount { get; set; }
-
+        
         [XmlElement(ElementName = "PriceEscalationDate")]
         public DateTime? PriceEscalationDate { get; set; }
-
-
+        
         [XmlElement(ElementName = "Latitude")]
         public string Latitude { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "Longitude")]
         public string Longitude { get; set; } = string.Empty;
-
+        
         [XmlElement(ElementName = "JobsiteRadius")]
-        public int? JobSiteRadius { get; set; }
-
-
+        public double? JobsiteRadius { get; set; }
+        
         [XmlElement(ElementName = "UpdateDate")]
         public DateTime UpdateDate { get; set; }
-
+        
         [XmlElement(ElementName = "CustomerRet")]
         public CustomerRet CustomerRet { get; set; }
-
+        
         [XmlElement(ElementName = "Products")]
         public Products Products { get; set; }
 
