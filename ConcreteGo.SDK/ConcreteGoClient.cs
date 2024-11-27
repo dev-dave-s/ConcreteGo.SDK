@@ -2708,7 +2708,7 @@ namespace ConcreteGo.SDK
 
         }
         
-        public async Task<List<ProjectRet>?> AddOrUpdateProjects(ProjectAddOrUpdateRq data)
+        public async Task<List<ProjectRet>?> AddOrUpdateProject(ProjectAddOrUpdateRq data)
         {
             var requestElementName = "ProjectUpdateRq";
 
