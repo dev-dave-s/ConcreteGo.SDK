@@ -155,8 +155,9 @@ namespace ConcreteGo.SDK.Models.Projects
         [XmlElement(ElementName = "BatchCode")]
         public string BatchCode { get; set; } = string.Empty;
         
+        // NOTE When is DOUBLE creates error (Needs to check if number or not then converted to double)
         [XmlElement(ElementName = "Slump")]
-        public double Slump { get; set; }
+        public string Slump { get; set; } = string.Empty;
         
         [XmlElement(ElementName = "AllowAuto")]
         public bool AllowAuto { get; set; }
@@ -176,7 +177,7 @@ namespace ConcreteGo.SDK.Models.Projects
         [XmlElement(ElementName = "EstimatedQuantityUnitCode")]
         public int? EstimatedQuantityUnitCode { get; set; }
         
-        // NOTE When is INT creates error
+        // NOTE When is INT creates error (Needs to check if number or not then converted to INT)
         [XmlElement(ElementName = "EstimatedQuantityUnit")]
         public string? EstimatedQuantityUnit { get; set; }
         
