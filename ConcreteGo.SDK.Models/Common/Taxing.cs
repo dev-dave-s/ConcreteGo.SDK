@@ -22,5 +22,20 @@ namespace ConcreteGo.SDK.Models.Common
 
         [XmlElement(ElementName = "NonTaxableReasonCode")]
         public string NonTaxableReasonCode { get; set; } = string.Empty;
+        
+        [XmlElement(ElementName = "TaxExcempt")]
+        public TaxExcempt TaxExcempt{ get; set; }
+    }
+    
+    
+    [XmlRoot(ElementName = "TaxExcempt")]
+    public class TaxExcempt
+    {
+        
+        [XmlElement(ElementName = "TaxAuthorityCode")]
+        public string TaxAuthorityCode { get; set; } = string.Empty;
+
+        [XmlElement(ElementName = "TaxExemptID")]
+        public string TaxExemptID { get; set; } = string.Empty;
     }
 }
