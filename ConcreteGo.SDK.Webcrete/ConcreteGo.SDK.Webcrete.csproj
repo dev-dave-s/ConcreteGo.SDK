@@ -4,6 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>ConcreteGo.SDK.Webcrete</Title>
+    <PackageProjectUrl>https://github.com/dev-dave-s/ConcreteGo.SDK</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
   </PropertyGroup>
 
   <ItemGroup>
