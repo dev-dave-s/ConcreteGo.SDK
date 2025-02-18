@@ -2706,6 +2706,56 @@ namespace ConcreteGo.SDK
 
         }
 
+        public async Task<List<ProjectRet>?> AddOrUpdateProject(ProjectAddOrUpdateRq data)
+        {
+            //Still in development
+            throw new NotImplementedException();
+
+            var requestElementName = "ProjectUpdateRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+
+
+                var requestData = XElement.Parse(Serialize(data));
+                if (requestElement != null)
+                {
+                    requestElement.Add(requestData);
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<ProjectRet>? result = null;
+            try
+            {
+                result = Deserialize<ProjectRet>(response.ProcessRequestResult, "ProjectUpdateRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Quotes

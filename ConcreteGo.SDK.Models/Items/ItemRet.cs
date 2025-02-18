@@ -222,7 +222,7 @@ namespace ConcreteGo.SDK.Models.Items
         public decimal? WaterCementRatio { get; set; }
 
         [XmlElement(ElementName = "AggregateSize")]
-        public decimal? AggregateSize { get; set; }
+        public string? AggregateSize { get; set; }
 
         [XmlElement(ElementName = "CementType")]
         public string CementType { get; set; } = string.Empty;
