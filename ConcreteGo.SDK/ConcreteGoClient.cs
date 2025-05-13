@@ -1212,6 +1212,7 @@ namespace ConcreteGo.SDK
             var requestElementName = "ItemUpdateRq";
 
             await ManageLogin();
+
             var request = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XProcessingInstruction("webcretexml", "version=\"1.0\""),
@@ -1222,7 +1223,6 @@ namespace ConcreteGo.SDK
             if (request.Root != null)
             {
                 var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
-
 
                 var requestData = XElement.Parse(Serialize(data));
                 if (requestElement != null)

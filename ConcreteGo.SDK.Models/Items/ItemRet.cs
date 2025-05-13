@@ -376,7 +376,6 @@ namespace ConcreteGo.SDK.Models.Items
     [XmlRoot(ElementName = "MixDesign")]
     public class MixDesign
     {
-
         [XmlElement(ElementName = "Material")]
         public List<Material> Material { get; set; } = null!;
     }
@@ -403,7 +402,6 @@ namespace ConcreteGo.SDK.Models.Items
     [XmlRoot(ElementName = "Locations")]
     public class Locations
     {
-
         [XmlElement(ElementName = "Location")]
         public List<Location> Location { get; set; } = null!;
     }
@@ -411,7 +409,6 @@ namespace ConcreteGo.SDK.Models.Items
     [XmlRoot(ElementName = "Material")]
     public class Material
     {
-
         [XmlElement(ElementName = "Sort")]
         public int? Sort { get; set; }
 

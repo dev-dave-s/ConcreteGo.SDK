@@ -10,17 +10,17 @@ namespace ConcreteGo.SDK.Models.Items
     [XmlRoot(ElementName = "ItemUpdate", Namespace = "")]
     public class ItemAddOrUpdateRq
     {
+        [XmlElement(ElementName = "Action")]
+        public string Action { get; set; }
+
         [XmlElement(ElementName = "ID")]
         public int ID { get; set; }
 
         [XmlElement(ElementName = "Code")]
-        public string Code { get; set; } = string.Empty;
+        public string Code { get; set; }
 
         [XmlElement(ElementName = "UpdateDate")]
-        public DateTime? UpdateDate { get; set; }
-
-        [XmlElement(ElementName = "Sales")]
-        public Sales Sales { get; set; } = null!;
+        public DateTime? UpdateDate { get; set; } = DateTime.Now;
 
         [XmlElement(ElementName = "Mix")]
         public Mix Mix { get; set; } = null!;
