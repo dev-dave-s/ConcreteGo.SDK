@@ -1207,6 +1207,53 @@ namespace ConcreteGo.SDK
             return result;
         }
 
+        public async Task<List<ItemRet>?> AddOrUpdateItem(ItemAddOrUpdateRq data)
+        {
+            var requestElementName = "ItemUpdateRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+
+
+                var requestData = XElement.Parse(Serialize(data));
+                if (requestElement != null)
+                {
+                    requestElement.Add(requestData);
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<ItemRet>? result = null;
+            try
+            {
+                result = Deserialize<ItemRet>(response.ProcessRequestResult, "ItemUpdateRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Item Categories
