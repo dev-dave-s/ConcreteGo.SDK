@@ -250,7 +250,6 @@ namespace ConcreteGo.SDK.Models.Items
     [XmlRoot(ElementName = "Location")]
     public class Location
     {
-
         [XmlElement(ElementName = "LocationID")]
         public int? LocationID { get; set; }
 
@@ -270,6 +269,9 @@ namespace ConcreteGo.SDK.Models.Items
 
         [XmlElement(ElementName = "BatchCodes")]
         public BatchCodes BatchCodes { get; set; } = null!;
+
+        [XmlAttribute(AttributeName = "Active")]
+        public bool Active { get; set; } = true;
 
         [XmlElement(ElementName = "AutoProducts")]
         public AutoProducts AutoProducts { get; set; } = null!;
