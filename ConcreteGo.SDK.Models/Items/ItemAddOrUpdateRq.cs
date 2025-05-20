@@ -19,6 +19,21 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement(ElementName = "Code")]
         public string Code { get; set; }
 
+        [XmlElement(ElementName = "CategoryCode")]
+        public string CategoryCode { get; set; } = string.Empty;
+
+        [XmlElement(ElementName = "Description")]
+        public string Description { get; set; } = string.Empty;
+
+        [XmlElement(ElementName = "Constituent")]
+        public bool? Constituent { get; set; }
+
+        [XmlElement(ElementName = "ItemTypeID")]
+        public int? ItemTypeID { get; set; }
+
+        [XmlElement(ElementName = "ItemType")]
+        public string ItemType { get; set; } = string.Empty;
+
         [XmlElement(ElementName = "UpdateDate")]
         public DateTime? UpdateDate { get; set; } = DateTime.Now;
 
