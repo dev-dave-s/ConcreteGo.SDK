@@ -26,7 +26,7 @@ namespace ConcreteGo.SDK.Models.Items
         public string Description { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "Constituent")]
-        public bool? Constituent { get; set; }
+        public bool Constituent { get; set; } = true;
 
         [XmlElement(ElementName = "ItemTypeID")]
         public int? ItemTypeID { get; set; }
@@ -37,11 +37,20 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement(ElementName = "UpdateDate")]
         public DateTime? UpdateDate { get; set; } = DateTime.Now;
 
+        [XmlElement(ElementName = "UOM")]
+        public UOM UOM { get; set; } = null!;
+
+        [XmlElement(ElementName = "Sales")]
+        public Sales Sales { get; set; } = null!;
+
         [XmlElement(ElementName = "Mix")]
         public Mix Mix { get; set; } = null!;
 
         [XmlElement(ElementName = "Locations")]
         public Locations Locations { get; set; } = null!;
+
+        [XmlElement(ElementName = "TaxOverrides")]
+        public TaxOverrides TaxOverrides { get; set; } = null!;
 
         //Include Ret
         public List<string> IncludeRetElement { get; set; } = new List<string>();

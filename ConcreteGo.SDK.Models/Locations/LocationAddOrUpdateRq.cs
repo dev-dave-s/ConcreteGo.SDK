@@ -13,9 +13,6 @@ namespace ConcreteGo.SDK.Models.locations
         [XmlElement(ElementName = "ID")]
         public int ID { get; set; }
 
-        [XmlElement(ElementName = "Action")]
-        public string Action { get; set; }
-
         [XmlElement(ElementName = "Code")]
         public string Code { get; set; }
 

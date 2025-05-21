@@ -1245,7 +1245,13 @@ namespace ConcreteGo.SDK
             List<ItemRet>? result = null;
             try
             {
+                if (response.ProcessRequestResult.ToString().Contains("Error"))
+                {
+                    Console.WriteLine($"Response : {response.ProcessRequestResult.ToString()}");
+                }
+
                 result = Deserialize<ItemRet>(response.ProcessRequestResult, "ItemUpdateRs");
+
             }
             catch (Exception ex)
             {
@@ -2127,6 +2133,11 @@ namespace ConcreteGo.SDK
             List<LocationRet>? result = null;
             try
             {
+                if (response.ProcessRequestResult.ToString().Contains("Error"))
+                {
+                    Console.WriteLine($"Response : {response.ProcessRequestResult.ToString()}");
+                }
+
                 result = Deserialize<LocationRet>(response.ProcessRequestResult, "LocationUpdateRs");
             }
             catch (Exception ex)
@@ -2600,6 +2611,11 @@ namespace ConcreteGo.SDK
             List<PlantRet>? result = null;
             try
             {
+                if (response.ProcessRequestResult.ToString().Contains("Error"))
+                {
+                    Console.WriteLine($"Response : {response.ProcessRequestResult.ToString()}");
+                }
+
                 result = Deserialize<PlantRet>(response.ProcessRequestResult, "PlantUpdateRs");
             }
             catch (Exception ex)

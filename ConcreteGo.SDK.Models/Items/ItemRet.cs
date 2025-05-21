@@ -10,7 +10,6 @@ namespace ConcreteGo.SDK.Models.Items
     [XmlRoot("ItemRet")]
     public class ItemRet
     {
-
         [XmlElement(ElementName = "ID")]
         public int ID { get; set; }
 
@@ -67,8 +66,10 @@ namespace ConcreteGo.SDK.Models.Items
 
         [XmlElement(ElementName = "Locations")]
         public Locations Locations { get; set; } = null!;
+
         [XmlElement(ElementName = "TaxOverrides")]
         public TaxOverrides TaxOverrides { get; set; } = null!;
+
     }
 
     [XmlRoot("TaxOverrides")]
@@ -258,6 +259,7 @@ namespace ConcreteGo.SDK.Models.Items
 
         [XmlElement(ElementName = "MixDesign")]
         public MixDesign MixDesign { get; set; } = null!;
+
         [XmlElement(ElementName = "Cost")]
         public Cost Cost { get; set; } = null!;
 
