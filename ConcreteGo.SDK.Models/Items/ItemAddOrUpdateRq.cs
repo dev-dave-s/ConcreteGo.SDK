@@ -25,8 +25,20 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement(ElementName = "Description")]
         public string Description { get; set; } = string.Empty;
 
-        [XmlElement(ElementName = "Constituent")]
-        public bool Constituent { get; set; } = true;
+        [XmlElement(ElementName = "ShortDescription")]
+        public string ShortDescription { get; set; } = string.Empty;
+
+        [XmlElement(ElementName = "DoNotAllowTicketing")]
+        public bool DoNotAllowTicketing { get; set; } = false;
+
+        [XmlElement(ElementName = "IsConstituent")]
+        public bool IsConstituent { get; set; } = false;
+        
+        [XmlElement(ElementName = "IsResaleable")]
+        public bool IsResaleable { get; set; } = false;
+
+        [XmlElement(ElementName = "KeepInInventory")]
+        public bool KeepInInventory { get; set; } = false;
 
         [XmlElement(ElementName = "ItemTypeID")]
         public int? ItemTypeID { get; set; }
