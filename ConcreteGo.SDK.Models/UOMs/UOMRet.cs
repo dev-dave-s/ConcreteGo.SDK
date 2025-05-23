@@ -19,6 +19,9 @@ namespace ConcreteGo.SDK.Models.UOMs
         [XmlElement(ElementName = "Name")]
         public string Name { get; set; }
 
+        [XmlElement(ElementName = "Symbol")]
+        public string Symbol { get; set; }
+
         [XmlElement(ElementName = "Description")]
         public string Description { get; set; }
 

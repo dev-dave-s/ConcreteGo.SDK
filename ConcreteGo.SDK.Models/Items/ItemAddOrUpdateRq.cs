@@ -52,17 +52,11 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement(ElementName = "UOM")]
         public UOM UOM { get; set; } = null!;
 
-        [XmlElement(ElementName = "Sales")]
-        public Sales Sales { get; set; } = null!;
-
         [XmlElement(ElementName = "Mix")]
         public Mix Mix { get; set; } = null!;
 
         [XmlElement(ElementName = "Locations")]
         public Locations Locations { get; set; } = null!;
-
-        [XmlElement(ElementName = "TaxOverrides")]
-        public TaxOverrides TaxOverrides { get; set; } = null!;
 
         //Include Ret
         public List<string> IncludeRetElement { get; set; } = new List<string>();

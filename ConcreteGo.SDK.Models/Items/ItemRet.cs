@@ -103,6 +103,8 @@ namespace ConcreteGo.SDK.Models.Items
     [XmlRoot(ElementName = "UOM")]
     public class UOM
     {
+        [XmlElement(ElementName = "ID")]
+        public int ID { get; set; }
 
         [XmlElement(ElementName = "OrderedQuantityUnitCode")]
         public string OrderedQuantityUnitCode { get; set; } = string.Empty;
