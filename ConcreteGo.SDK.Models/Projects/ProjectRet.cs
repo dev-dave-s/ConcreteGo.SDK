@@ -110,7 +110,7 @@ namespace ConcreteGo.SDK.Models.Projects
         public string Longitude { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "JobsiteRadius")]
-        public int? JobSiteRadius { get; set; }
+        public decimal? JobSiteRadius { get; set; }
 
 
         [XmlElement(ElementName = "UpdateDate")]

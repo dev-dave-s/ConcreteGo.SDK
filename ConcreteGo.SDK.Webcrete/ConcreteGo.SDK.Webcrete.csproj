@@ -9,6 +9,7 @@
     <PackageProjectUrl>https://github.com/dev-dave-s/ConcreteGo.SDK</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+	<Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
