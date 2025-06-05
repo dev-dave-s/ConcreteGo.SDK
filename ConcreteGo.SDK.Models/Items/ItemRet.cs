@@ -70,6 +70,9 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement(ElementName = "TaxOverrides")]
         public TaxOverrides TaxOverrides { get; set; } = null!;
 
+        [XmlElement(ElementName = "Action")]
+        public string Action { get; set; } = string.Empty;
+
     }
 
     [XmlRoot("TaxOverrides")]

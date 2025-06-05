@@ -1208,7 +1208,7 @@ namespace ConcreteGo.SDK
             return result;
         }
 
-        public async Task<List<ItemRet>?> AddOrUpdateItem(ItemAddOrUpdateRq data)
+        public async Task<ItemUpdateResponse?> AddOrUpdateItem(ItemAddOrUpdateRq data)
         {
             var requestElementName = "ItemUpdateRq";
 
@@ -1242,16 +1242,19 @@ namespace ConcreteGo.SDK
                 throw new Exception("Error processing request: " + ex.Message);
             }
 
-            List<ItemRet>? result = null;
+            ItemUpdateResponse? result = null;
             try
             {
-                if (response.ProcessRequestResult.ToString().Contains("Error"))
+                var xmlResponse = response.ProcessRequestResult.ToString();
+                //Console.WriteLine($"Response: {xmlResponse}");
+
+                if (xmlResponse.Contains("Error"))
                 {
-                    Console.WriteLine($"Response : {response.ProcessRequestResult.ToString()}");
+                    Console.WriteLine($"Error in response: {xmlResponse}");
+                    return null;
                 }
 
-                result = Deserialize<ItemRet>(response.ProcessRequestResult, "ItemUpdateRs");
-
+                result = DeserializeSingle<ItemUpdateResponse>(xmlResponse, "ItemUpdateRs");
             }
             catch (Exception ex)
             {
@@ -4319,6 +4322,30 @@ namespace ConcreteGo.SDK
         #endregion
 
         #region Helpers
+
+        private T? DeserializeSingle<T>(string xml, string rootElement) where T : class
+        {
+            try
+            {
+                var xDoc = XDocument.Parse(FixXmlBool(xml));
+                xDoc.Descendants().Where(e => string.IsNullOrEmpty(e.Value)).Remove();
+
+                var node = xDoc.Descendants().FirstOrDefault(x => x.Name.LocalName == rootElement);
+                if (node != null)
+                {
+                    var serializer = new XmlSerializer(typeof(T));
+                    using (var reader = node.CreateReader())
+                    {
+                        return (T?)serializer.Deserialize(reader);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Deserialization error: {ex.Message}");
+            }
+            return null;
+        }
 
         private List<T>? Deserialize<T>(string xml, string rootElement)
         {
