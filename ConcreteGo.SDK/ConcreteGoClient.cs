@@ -1198,6 +1198,8 @@ namespace ConcreteGo.SDK
             List<ItemRet>? result = null;
             try
             {
+                //Console.WriteLine(response.ProcessRequestResult);
+
                 result = Deserialize<ItemRet>(response.ProcessRequestResult, "ItemQueryRs");
             }
             catch (Exception ex)
@@ -4433,7 +4435,29 @@ namespace ConcreteGo.SDK
             return response;
         }
 
+        public async Task<string> RequestJsonRequest(string elementName)
+        {
+            await ManageLogin();
 
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(elementName, ""))));
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            return response.ProcessRequestResult;
+        }
 
         #endregion
     }

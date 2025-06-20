@@ -49,6 +49,9 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement(ElementName = "CategoryAccountLinkCode")]
         public string CategoryAccountLinkCode { get; set; } = string.Empty;
 
+        [XmlElement(ElementName = "ProductLink")]
+        public string ProductLink { get; set; } = string.Empty;
+
         [XmlElement(ElementName = "SetupDate")]
         public DateTime? SetupDate { get; set; }
 
@@ -72,7 +75,6 @@ namespace ConcreteGo.SDK.Models.Items
 
         [XmlElement(ElementName = "Action")]
         public string Action { get; set; } = string.Empty;
-
     }
 
     [XmlRoot("TaxOverrides")]
@@ -87,18 +89,22 @@ namespace ConcreteGo.SDK.Models.Items
     {
         [XmlElement("TaxAuthorityID")]
         public int TaxAuthorityID { get; set; }
+
         [XmlElement("TaxAuthorityCode")]
         public string TaxAuthorityCode { get; set; } = string.Empty;
+
         [XmlElement("TaxLocationID")]
         public int? TaxLocationID { get; set; }
 
         [XmlElement("TaxLocationCode")]
         public string TaxLocationCode { get; set; } = string.Empty;
+
         [XmlElement("OverrideTaxable")]
         public bool? OverrideTaxable { get; set; }
 
         [XmlElement("OverrideTaxRateLocationID")]
         public int? OverrideTaxRateLocationID { get; set; }
+
         [XmlElement("OverrideTaxRateLocationCode")]
         public string OverrideTaxRateLocationCode { get; set; } = string.Empty;
     }
@@ -191,7 +197,6 @@ namespace ConcreteGo.SDK.Models.Items
     [XmlRoot(ElementName = "Sales")]
     public class Sales
     {
-
         [XmlElement(ElementName = "Taxable")]
         public bool? Taxable { get; set; }
 
@@ -205,16 +210,15 @@ namespace ConcreteGo.SDK.Models.Items
         public string UsageCode { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "NonTaxableReasonCode")]
-        public string NonTaxableReasonCode { get; set; } 
+        public string? NonTaxableReasonCode { get; set; } = string.Empty;
+
         [XmlElement(ElementName = "ExpirationDate")]
         public DateTime? ExpirationDate { get; set; }
-
     }
 
     [XmlRoot(ElementName = "Mix")]
     public class Mix
     {
-
         [XmlElement(ElementName = "Strength")]
         public decimal? Strength { get; set; }
 
@@ -250,7 +254,6 @@ namespace ConcreteGo.SDK.Models.Items
 
         [XmlElement(ElementName = "LightweightCubicFeet")]
         public decimal? LightweightCubicFeet { get; set; }
-
     }
 
     [XmlRoot(ElementName = "Location")]
@@ -296,12 +299,12 @@ namespace ConcreteGo.SDK.Models.Items
     {
         [XmlElement("Code")]
         public string Code { get; set; } = string.Empty;
+
         [XmlElement("Quantity")]
         public decimal? Quantity { get; set; }
 
         [XmlElement("LoadQuantity")]
-        public decimal? LoadQuantity { get; set; } 
-
+        public decimal? LoadQuantity { get; set; }
     }
 
     [XmlRoot("BatchCodes")]
@@ -316,13 +319,16 @@ namespace ConcreteGo.SDK.Models.Items
     {
         [XmlElement("Code")]
         public string Code { get; set; } = string.Empty;
+
         [XmlElement("SortLineNumber")]
         public int? SortLineNumber { get; set; }
 
         [XmlElement("Description")]
         public string Description { get; set; } = string.Empty;
+
         [XmlElement("ShortDescription")]
         public string ShortDescription { get; set; } = string.Empty;
+
         [XmlElement("UpdateDate")]
         public DateTime? UpdateDate { get; set; }
     }
@@ -338,6 +344,7 @@ namespace ConcreteGo.SDK.Models.Items
 
         [XmlElement("BatchUnit")]
         public string BatchUnit { get; set; } = string.Empty;
+
         [XmlElement("MaximumBatchSize")]
         public decimal? MaximumBatchSize { get; set; }
 
@@ -351,7 +358,6 @@ namespace ConcreteGo.SDK.Models.Items
     [XmlRoot(ElementName = "Pricings")]
     public class Pricings
     {
-
         [XmlElement(ElementName = "Pricing")]
         public List<Pricing> Pricing { get; set; } = null!;
     }
@@ -359,7 +365,6 @@ namespace ConcreteGo.SDK.Models.Items
     [XmlRoot(ElementName = "Pricing")]
     public class Pricing
     {
-
         [XmlElement(ElementName = "PriceCategoryCode")]
         public string PriceCategoryCode { get; set; } = string.Empty;
 
