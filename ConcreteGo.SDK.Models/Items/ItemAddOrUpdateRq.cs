@@ -28,23 +28,29 @@ namespace ConcreteGo.SDK.Models.Items
         [XmlElement(ElementName = "ShortDescription")]
         public string ShortDescription { get; set; } = string.Empty;
 
+        [XmlElement(ElementName = "ItemTypeID")]
+        public int? ItemTypeID { get; set; }
+
+        [XmlElement(ElementName = "ItemType")]
+        public string ItemType { get; set; } = string.Empty;
+
+        [XmlElement(ElementName = "Constituent")]
+        public bool? Constituent { get; set; }
+
+        [XmlElement(ElementName = "Resaleable")]
+        public bool? Resaleable { get; set; }
+
+        [XmlElement(ElementName = "KeepInInventory")]
+        public bool? KeepInInventory { get; set; }
+
         [XmlElement(ElementName = "DoNotAllowTicketing")]
-        public bool DoNotAllowTicketing { get; set; } = false;
+        public bool? DoNotAllowTicketing { get; set; }
 
         [XmlElement(ElementName = "IsConstituent")]
         public bool IsConstituent { get; set; } = false;
 
         [XmlElement(ElementName = "IsResaleable")]
         public bool IsResaleable { get; set; } = false;
-
-        [XmlElement(ElementName = "KeepInInventory")]
-        public bool KeepInInventory { get; set; } = false;
-
-        [XmlElement(ElementName = "ItemTypeID")]
-        public int? ItemTypeID { get; set; }
-
-        [XmlElement(ElementName = "ItemType")]
-        public string ItemType { get; set; } = string.Empty;
 
         [XmlElement(ElementName = "AccountLinkCode")]
         public string AccountLinkCode { get; set; } = string.Empty;

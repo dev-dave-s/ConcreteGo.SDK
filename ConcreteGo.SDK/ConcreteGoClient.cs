@@ -614,6 +614,8 @@ namespace ConcreteGo.SDK
             List<EmployeeRet>? result = null;
             try
             {
+                Console.WriteLine(response.ProcessRequestResult);
+
                 result = Deserialize<EmployeeRet>(response.ProcessRequestResult, "EmployeeQueryRs");
             }
             catch (Exception ex)
