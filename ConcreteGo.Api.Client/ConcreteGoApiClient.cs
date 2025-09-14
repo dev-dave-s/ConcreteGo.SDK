@@ -26,6 +26,8 @@ using ConcreteGo.Api.Client.Models.Tickets;
 using ConcreteGo.Api.Client.Models.Trucks;
 using ConcreteGo.Api.Client.Models.UOMs;
 using ConcreteGo.Api.Client.Models.Version;
+using ConcreteGo.Api.Client.Models.Options;
+using Microsoft.Extensions.Options;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
@@ -34,7 +36,7 @@ using WebcreteAPI;
 
 namespace ConcreteGo.Api.Client
 {
-    public class ConcreteApiClient
+    public class ConcreteGoApiClient
     {
         private readonly string _username;
         private readonly string _password;
@@ -45,14 +47,36 @@ namespace ConcreteGo.Api.Client
         private TicketHeader? _ticketHeader;
         private DateTime? _loginTime;
 
-        public ConcreteApiClient(string username, string password, string appId, string appKey, string? slug)
+        // Constructor for options pattern with dependency injection
+        public ConcreteGoApiClient(IOptions<ConcreteGoApiOptions> options)
+            : this(options.Value.Username, options.Value.Password, options.Value.AppId, options.Value.AppKey, options.Value.Slug)
         {
+        }
+
+        // Constructor for scoped services with IOptionsSnapshot for configuration reloading
+        public ConcreteGoApiClient(IOptionsSnapshot<ConcreteGoApiOptions> options)
+            : this(options.Value.Username, options.Value.Password, options.Value.AppId, options.Value.AppKey, options.Value.Slug)
+        {
+        }
+
+        // Original constructor for backward compatibility and explicit parameter usage
+        public ConcreteGoApiClient(string username, string password, string appId, string appKey, string? slug)
+        {
+            // Validate required parameters
+            if (string.IsNullOrWhiteSpace(username))
+                throw new ArgumentException("Username cannot be null or empty", nameof(username));
+            if (string.IsNullOrWhiteSpace(password))
+                throw new ArgumentException("Password cannot be null or empty", nameof(password));
+            if (string.IsNullOrWhiteSpace(appId))
+                throw new ArgumentException("AppId cannot be null or empty", nameof(appId));
+            if (string.IsNullOrWhiteSpace(appKey))
+                throw new ArgumentException("AppKey cannot be null or empty", nameof(appKey));
+
             _username = username;
             _password = password;
             _appId = appId;
             _appKey = appKey;
             _slug = slug;
-
         }
 
         #region Login
@@ -2577,6 +2601,52 @@ namespace ConcreteGo.Api.Client
             return request;
         }
 
+        public async Task<List<OrderUpdateRet>?> AddOrUpdateOrderAsync(OrderAddOrUpdateRq data)
+        {
+            var requestElementName = "OrderUpdateRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+
+                var requestData = XElement.Parse(Serialize(data));
+                if (requestElement != null)
+                {
+                    requestElement.Add(requestData);
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<OrderUpdateRet>? result = null;
+            try
+            {
+                result = Deserialize<OrderUpdateRet>(response.ProcessRequestResult, "OrderUpdateRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Plants
@@ -4094,6 +4164,52 @@ namespace ConcreteGo.Api.Client
             }
 
             return request;
+        }
+
+        public async Task<List<TicketUpdateRet>?> AddOrUpdateTicketAsync(TicketAddOrUpdateRq data)
+        {
+            var requestElementName = "TicketUpdateRq";
+
+            await ManageLogin();
+            var request = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                new XElement("WebcreteXML",
+                new XElement("WebcreteXMLMsgsRq",
+                new XElement(requestElementName, ""))));
+
+            if (request.Root != null)
+            {
+                var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+
+                var requestData = XElement.Parse(Serialize(data));
+                if (requestElement != null)
+                {
+                    requestElement.Add(requestData);
+                }
+            }
+
+            var response = new ProcessRequestResponse();
+            try
+            {
+                response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error processing request: " + ex.Message);
+            }
+
+            List<TicketUpdateRet>? result = null;
+            try
+            {
+                result = Deserialize<TicketUpdateRet>(response.ProcessRequestResult, "TicketUpdateRs");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deserializing xml response: " + ex.Message);
+            }
+
+            return result;
         }
 
         #endregion
