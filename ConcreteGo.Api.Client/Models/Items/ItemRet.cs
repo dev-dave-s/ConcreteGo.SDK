@@ -11,19 +11,19 @@ namespace ConcreteGo.Api.Client.Models.Items
     public class ItemRet
     {
         [XmlElement(ElementName = "ID")]
-        public int ID { get; set; }
+        public int? ID { get; set; }
 
         [XmlElement(ElementName = "Code")]
-        public string Code { get; set; } = string.Empty;
+        public string? Code { get; set; }
 
         [XmlElement(ElementName = "CategoryCode")]
-        public string CategoryCode { get; set; } = string.Empty;
+        public string? CategoryCode { get; set; }
 
         [XmlElement(ElementName = "Description")]
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
         [XmlElement(ElementName = "ShortDescription")]
-        public string ShortDescription { get; set; } = string.Empty;
+        public string? ShortDescription { get; set; }
 
         [XmlElement(ElementName = "Constituent")]
         public bool? Constituent { get; set; }
@@ -32,7 +32,7 @@ namespace ConcreteGo.Api.Client.Models.Items
         public int? ItemTypeID { get; set; }
 
         [XmlElement(ElementName = "ItemType")]
-        public string ItemType { get; set; } = string.Empty;
+        public string? ItemType { get; set; }
 
         [XmlElement(ElementName = "Resaleable")]
         public bool? Resaleable { get; set; }
@@ -44,13 +44,13 @@ namespace ConcreteGo.Api.Client.Models.Items
         public bool? DoNotAllowTicketing { get; set; }
 
         [XmlElement(ElementName = "AccountLinkCode")]
-        public string AccountLinkCode { get; set; } = string.Empty;
+        public string? AccountLinkCode { get; set; }
 
         [XmlElement(ElementName = "CategoryAccountLinkCode")]
-        public string CategoryAccountLinkCode { get; set; } = string.Empty;
+        public string? CategoryAccountLinkCode { get; set; }
 
         [XmlElement(ElementName = "ProductLink")]
-        public string ProductLink { get; set; } = string.Empty;
+        public string? ProductLink { get; set; }
 
         [XmlElement(ElementName = "SetupDate")]
         public DateTime? SetupDate { get; set; }
@@ -59,22 +59,22 @@ namespace ConcreteGo.Api.Client.Models.Items
         public DateTime? UpdateDate { get; set; }
 
         [XmlElement(ElementName = "UOM")]
-        public UOM UOM { get; set; } = null!;
+        public UOM? UOM { get; set; }
 
         [XmlElement(ElementName = "Sales")]
-        public Sales Sales { get; set; } = null!;
+        public Sales? Sales { get; set; }
 
         [XmlElement(ElementName = "Mix")]
-        public Mix Mix { get; set; } = null!;
+        public Mix? Mix { get; set; }
 
         [XmlElement(ElementName = "Locations")]
-        public Locations Locations { get; set; } = null!;
+        public Locations? Locations { get; set; }
 
         [XmlElement(ElementName = "TaxOverrides")]
-        public TaxOverrides TaxOverrides { get; set; } = null!;
+        public TaxOverrides? TaxOverrides { get; set; }
 
         [XmlElement(ElementName = "Action")]
-        public string Action { get; set; } = string.Empty;
+        public string? Action { get; set; }
     }
 
     [XmlRoot("TaxOverrides")]
@@ -113,67 +113,70 @@ namespace ConcreteGo.Api.Client.Models.Items
     public class UOM
     {
         [XmlElement(ElementName = "ID")]
-        public int ID { get; set; }
+        public int? ID { get; set; }
+        public bool ShouldSerializeID() { return ID.HasValue; }
 
         [XmlElement(ElementName = "OrderedQuantityUnitCode")]
-        public string OrderedQuantityUnitCode { get; set; } = string.Empty;
+        public string? OrderedQuantityUnitCode { get; set; }
 
         [XmlElement(ElementName = "OrderedQuantityUnit")]
-        public string OrderedQuantityUnit { get; set; } = string.Empty;
+        public string? OrderedQuantityUnit { get; set; }
 
         [XmlElement(ElementName = "OrderedExtensionCode")]
-        public string OrderedExtensionCode { get; set; } = string.Empty;
+        public string? OrderedExtensionCode { get; set; }
 
         [XmlElement(ElementName = "DeliveredQuantityUnitCode")]
-        public string DeliveredQuantityUnitCode { get; set; } = string.Empty;
+        public string? DeliveredQuantityUnitCode { get; set; }
 
         [XmlElement(ElementName = "DeliveredQuantityUnit")]
-        public string DeliveredQuantityUnit { get; set; } = string.Empty;
+        public string? DeliveredQuantityUnit { get; set; }
 
         [XmlElement(ElementName = "TicketExtensionCode")]
-        public string TicketExtensionCode { get; set; } = string.Empty;
+        public string? TicketExtensionCode { get; set; }
 
         [XmlElement(ElementName = "PriceQuantityUnitCode")]
-        public string PriceQuantityUnitCode { get; set; } = string.Empty;
+        public string? PriceQuantityUnitCode { get; set; }
 
         [XmlElement(ElementName = "PriceQuantityUnit")]
-        public string PriceQuantityUnit { get; set; } = string.Empty;
+        public string? PriceQuantityUnit { get; set; }
 
         [XmlElement(ElementName = "PriceExtensionCode")]
-        public string PriceExtensionCode { get; set; } = string.Empty;
+        public string? PriceExtensionCode { get; set; }
 
         [XmlElement(ElementName = "BatchUnitCode")]
-        public string BatchUnitCode { get; set; } = string.Empty;
+        public string? BatchUnitCode { get; set; }
 
         [XmlElement(ElementName = "BatchUnit")]
-        public string BatchUnit { get; set; } = string.Empty;
+        public string? BatchUnit { get; set; }
 
         [XmlElement(ElementName = "InventoryUnitCode")]
-        public string InventoryUnitCode { get; set; } = string.Empty;
+        public string? InventoryUnitCode { get; set; }
 
         [XmlElement(ElementName = "InventoryUnit")]
-        public string InventoryUnit { get; set; } = string.Empty;
+        public string? InventoryUnit { get; set; }
 
         [XmlElement(ElementName = "PurchaseUnitCode")]
-        public string PurchaseUnitCode { get; set; } = string.Empty;
+        public string? PurchaseUnitCode { get; set; }
 
         [XmlElement(ElementName = "PurchaseUnit")]
-        public string PurchaseUnit { get; set; } = string.Empty;
+        public string? PurchaseUnit { get; set; }
 
         [XmlElement(ElementName = "ReportingUnitCode")]
-        public string ReportingUnitCode { get; set; } = string.Empty;
+        public string? ReportingUnitCode { get; set; }
 
         [XmlElement(ElementName = "ReportingUnit")]
-        public string ReportingUnit { get; set; } = string.Empty;
+        public string? ReportingUnit { get; set; }
 
         [XmlElement(ElementName = "DosageQuantity")]
-        public decimal? DosageQuantity { get; set; } 
+        public decimal? DosageQuantity { get; set; }
+        public bool ShouldSerializeDosageQuantity() { return DosageQuantity.HasValue; }
 
         [XmlElement(ElementName = "PerCemWeightDivisor")]
         public decimal? PerCemWeightDivisor { get; set; }
+        public bool ShouldSerializePerCemWeightDivisor() { return PerCemWeightDivisor.HasValue; }
 
         [XmlElement(ElementName = "UseDosageQuantityUOMInMixDesign")]
-        public UseDosageQuantityUOMInMixDesign UseDosageQuantityUOMInMixDesign { get; set; } = null!;
+        public UseDosageQuantityUOMInMixDesign? UseDosageQuantityUOMInMixDesign { get; set; }
     }
 
     [XmlRoot(ElementName = "UseDosageQuantityUOMInMixDesign")]
