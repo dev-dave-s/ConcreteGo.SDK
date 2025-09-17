@@ -3653,86 +3653,84 @@ namespace ConcreteGo.Api.Client
             //Process by order date
             if (options.FromOrderDate != null && options.ToOrderDate != null)
             {
-                var daysToProcess = (options.ToOrderDate - options.FromOrderDate).Value.Days;
+                var daysToProcess = (options.ToOrderDate - options.FromOrderDate).Value.Days + 1;
 
                 int maxDaysPerCall = 15;
-                if (daysToProcess > maxDaysPerCall)
-                {
+                //if (daysToProcess > maxDaysPerCall)
+                //{
                     await ManageLogin();
 
+                int pageCounter = 0;
+                while (daysToProcess > 0)
+                {
 
+                    request = new XDocument(
+                    new XDeclaration("1.0", "utf-8", "yes"),
+                    new XProcessingInstruction("webcretexml", "version=\"1.0\""),
+                    new XElement("WebcreteXML",
+                    new XElement("WebcreteXMLMsgsRq",
+                    new XElement(requestElementName, ""))));
 
-                    int pageCounter = 0;
-                    while (daysToProcess > 0)
+                    request = GetTicketRequestSetup(requestElementName, options, request);
+
+                    var start = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall);
+                    var end = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(maxDaysPerCall - 1);
+                    if (daysToProcess < maxDaysPerCall)
                     {
-
-                        request = new XDocument(
-                        new XDeclaration("1.0", "utf-8", "yes"),
-                        new XProcessingInstruction("webcretexml", "version=\"1.0\""),
-                        new XElement("WebcreteXML",
-                        new XElement("WebcreteXMLMsgsRq",
-                        new XElement(requestElementName, ""))));
-
-                        request = GetTicketRequestSetup(requestElementName, options, request);
-
-                        var start = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall);
-                        var end = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(maxDaysPerCall - 1);
-                        if (daysToProcess < maxDaysPerCall)
-                        {
-                            end = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(daysToProcess);
-                        }
-
-
-                        //FromOrderDate
-                        if (options.FromOrderDate != null)
-                        {
-                            var element = new XElement("FromOrderDate", start.ToString("yyyy-MM-dd"));
-                            var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
-                            if (requestElement != null)
-                            {
-                                requestElement.Add(element);
-                            }
-                        }
-                        //ToOrderDate
-                        if (options.ToOrderDate != null)
-                        {
-                            var element = new XElement("ToOrderDate", end.ToString("yyyy-MM-dd"));
-                            var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
-                            if (requestElement != null)
-                            {
-                                requestElement.Add(element);
-                            }
-                        }
-
-                        response = new ProcessRequestResponse();
-                        try
-                        {
-                            response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new Exception("Error processing request: " + ex.Message);
-                        }
-
-                        resultSet = null;
-                        try
-                        {
-                            resultSet = Deserialize<TicketRet>(response.ProcessRequestResult, "TicketQueryRs");
-                            if (resultSet != null)
-                            {
-                                result.AddRange(resultSet);
-                            }
-
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new Exception("Error deserializing xml response: " + ex.Message);
-                        }
-
-                        daysToProcess = daysToProcess - maxDaysPerCall;
-                        pageCounter++;
+                        end = options.FromOrderDate.Value.AddDays(pageCounter * maxDaysPerCall).AddDays(daysToProcess);
                     }
+
+
+                    //FromOrderDate
+                    if (options.FromOrderDate != null)
+                    {
+                        var element = new XElement("FromOrderDate", start.ToString("yyyy-MM-dd"));
+                        var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                        if (requestElement != null)
+                        {
+                            requestElement.Add(element);
+                        }
+                    }
+                    //ToOrderDate
+                    if (options.ToOrderDate != null)
+                    {
+                        var element = new XElement("ToOrderDate", end.ToString("yyyy-MM-dd"));
+                        var requestElement = request.Root.Descendants().FirstOrDefault(x => x.Name.LocalName == requestElementName);
+                        if (requestElement != null)
+                        {
+                            requestElement.Add(element);
+                        }
+                    }
+
+                    response = new ProcessRequestResponse();
+                    try
+                    {
+                        response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error processing request: " + ex.Message);
+                    }
+
+                    resultSet = null;
+                    try
+                    {
+                        resultSet = Deserialize<TicketRet>(response.ProcessRequestResult, "TicketQueryRs");
+                        if (resultSet != null)
+                        {
+                            result.AddRange(resultSet);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error deserializing xml response: " + ex.Message);
+                    }
+
+                    daysToProcess = daysToProcess - maxDaysPerCall;
+                    pageCounter++;
                 }
+                //}
                 return result;
             }
 
