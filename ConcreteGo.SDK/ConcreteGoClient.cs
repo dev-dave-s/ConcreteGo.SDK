@@ -1200,8 +1200,6 @@ namespace ConcreteGo.SDK
             List<ItemRet>? result = null;
             try
             {
-                //Console.WriteLine(response.ProcessRequestResult);
-
                 result = Deserialize<ItemRet>(response.ProcessRequestResult, "ItemQueryRs");
             }
             catch (Exception ex)
@@ -1239,6 +1237,8 @@ namespace ConcreteGo.SDK
             var response = new ProcessRequestResponse();
             try
             {
+                //Console.WriteLine(request.ToString());
+
                 response = await _api.ProcessRequestAsync(_ticketHeader, request.ToString());
             }
             catch (Exception ex)
