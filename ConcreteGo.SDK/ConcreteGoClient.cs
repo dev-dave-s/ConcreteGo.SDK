@@ -4428,6 +4428,10 @@ namespace ConcreteGo.SDK
             {
                 response = xmlText.Replace("True", "true");
                 response = response.Replace("False", "false");
+                response = response.Replace("<Active>0</Active>", "<Active>false</Active>");
+                response = response.Replace("<Active>1</Active>", "<Active>true</Active>");
+                response = response.Replace("<Removed>0</Removed>", "<Removed>false</Removed>");
+                response = response.Replace("<Removed>1</Removed>", "<Removed>true</Removed>");
             }
             catch (Exception ex)
             {
