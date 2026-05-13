@@ -516,8 +516,8 @@ namespace ConcreteGo.Api.Client.Models.Tickets
         public bool ShouldSerializePriceQtyUnit() => !string.IsNullOrEmpty(PriceQtyUnit);
 
         [XmlElement(ElementName = "Slump")]
-        public double? Slump { get; set; }
-        public bool ShouldSerializeSlump() => Slump.HasValue;
+        public string? Slump { get; set; }
+        public bool ShouldSerializeSlump() => !string.IsNullOrEmpty(Slump);
 
         [XmlElement(ElementName = "TrimPercent")]
         public double? TrimPercent { get; set; }

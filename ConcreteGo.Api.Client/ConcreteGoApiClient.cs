@@ -28,7 +28,6 @@ using ConcreteGo.Api.Client.Models.Tickets;
 using ConcreteGo.Api.Client.Models.Trucks;
 using ConcreteGo.Api.Client.Models.UOMs;
 using ConcreteGo.Api.Client.Models.Version;
-using Exceptionless.DateTimeExtensions;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 using System.Reflection.PortableExecutable;
@@ -747,14 +746,11 @@ namespace ConcreteGo.Api.Client
                 var boolFixedXml = FixXmlBool(xml);
                 var xDoc = XDocument.Parse(boolFixedXml);
 
-
-                //xDoc.Descendants().Where(e => string.IsNullOrEmpty(e.Value)).Remove();
                 xDoc.Descendants()
                     .Where(e => string.IsNullOrEmpty(e.Value) && !e.HasElements && !e.HasAttributes)
                     .Remove();
                 var elementRoot = GetXmlRootElementName<T>();
 
-                //var msgsRs = xDoc.Root?.Element(elementRoot);
                 var msgsRs = xDoc.Descendants().FirstOrDefault(x => x.Name.LocalName == elementRoot);
 
                 var serializer = new XmlSerializer(typeof(T));
@@ -764,9 +760,45 @@ namespace ConcreteGo.Api.Client
                     return (T?)serializer.Deserialize(reader);
                 }
             }
+            //catch (InvalidOperationException ex)
+            //{
+            //    Console.WriteLine($"Deserialization error for type '{typeof(T).Name}':");
+
+            //    // Walk the full inner exception chain to find details
+            //    var current = ex as Exception;
+            //    while (current != null)
+            //    {
+            //        Console.WriteLine($"  -> {current.GetType().Name}: {current.Message}");
+            //        current = current.InnerException;
+            //        if(current != null)
+            //        {
+            //            // Extract the problematic value from the error message
+            //            var valueMatch = System.Text.RegularExpressions.Regex.Match(
+            //                current.Message, @"'([^']+)'");
+            //            if (valueMatch.Success)
+            //            {
+            //                var problemValue = valueMatch.Groups[1].Value;
+            //                var idx = xml.IndexOf(problemValue);
+            //                if (idx > -1)
+            //                {
+            //                    var start = Math.Max(0, idx - 50);
+            //                    var length = Math.Min(problemValue.Length + 100, xml.Length - start);
+            //                    var context = xml.Substring(start, length);
+            //                    Console.WriteLine($"  XML context around '{problemValue}':");
+            //                    Console.WriteLine($"  ...{context}...");
+            //                }
+            //            }
+            //        }
+                    
+            //    }
+
+            //    return null;
+            //}
             catch (Exception ex)
             {
-                Console.WriteLine($"Simple deserialization error: {ex.Message}");
+                Console.WriteLine($"Deserialization error: {ex.Message}");
+                if (ex.InnerException != null)
+                    Console.WriteLine($"  Inner: {ex.InnerException.Message}");
                 return null;
             }
         }
