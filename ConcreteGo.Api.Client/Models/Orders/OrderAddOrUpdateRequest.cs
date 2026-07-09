@@ -33,5 +33,34 @@ namespace ConcreteGo.Api.Client.Models.Orders
         {
             return Invoiced.HasValue;
         }
+
+        /// <summary>
+        /// Optional - Sets the current status of the order.
+        /// 0 = Normal, 1 = Will Call, 2 = Weather Permitting,
+        /// 3 = Hold Delivery, 4 = Completed, 5 = Wait List
+        /// </summary>
+        [XmlElement("CurrentStatus")]
+        public int? CurrentStatus { get; set; }
+
+        /// <summary>
+        /// Determines if CurrentStatus should be serialized
+        /// </summary>
+        public bool ShouldSerializeCurrentStatus()
+        {
+            return CurrentStatus.HasValue;
+        }
+    }
+
+    /// <summary>
+    /// Represents the possible status values for an order.
+    /// </summary>
+    public enum OrderStatus
+    {
+        Normal = 0,
+        WillCall = 1,
+        WeatherPermitting = 2,
+        HoldDelivery = 3,
+        Completed = 4,
+        WaitList = 5
     }
 }
