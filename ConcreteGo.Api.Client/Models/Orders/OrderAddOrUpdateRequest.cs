@@ -34,6 +34,16 @@ namespace ConcreteGo.Api.Client.Models.Orders
             return Invoiced.HasValue;
         }
 
+        [XmlElement("InvoiceNumber")]
+        public string? InvoiceNumber { get; set; }
+        /// <summary>
+        /// Determines if Invoiced should be serialized
+        /// </summary>
+        public bool ShouldSerializeInvoiceNumber()
+        {
+            return !string.IsNullOrEmpty(InvoiceNumber);
+        }
+
         /// <summary>
         /// Optional - Sets the current status of the order.
         /// 0 = Normal, 1 = Will Call, 2 = Weather Permitting,

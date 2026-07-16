@@ -232,6 +232,16 @@ namespace ConcreteGo.Api.Client.Models.Orders
         [XmlElement(ElementName = "Taxable")]
         public bool Taxable { get; set; }
 
+        [XmlElement(ElementName = "Invoiced")]
+        public bool Invoiced { get; set; }
+
+        [XmlElement(ElementName = "InvoiceNumber")]
+        public string InvoiceNumber { get; set; }
+        public bool ShouldSerializeInvoiceNumber()
+        {
+            return !string.IsNullOrEmpty(InvoiceNumber);
+        }
+
         [XmlElement(ElementName = "NonTaxableReasonCode")]
         public string NonTaxableReasonCode { get; set; }
         public bool ShouldSerializeNonTaxableReasonCode()
