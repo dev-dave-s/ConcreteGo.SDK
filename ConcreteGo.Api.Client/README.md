@@ -3,10 +3,15 @@
 A .NET client library for the Sysdyne ConcreteGo API. This package provides a typed wrapper around the ConcreteGo/Webcrete SOAP API with dependency injection support.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue.svg)](https://github.com/dev-dave-s/ConcreteGo.SDK)
+
+## Source Code
+
+The source code is available on GitHub: [https://github.com/dev-dave-s/ConcreteGo.SDK](https://github.com/dev-dave-s/ConcreteGo.SDK)
 
 ## Requirements
 
-- .NET 8.0 or later
+- .NET 10.0 or later
 - A valid ConcreteGo account with API credentials (Username, Password, AppId, AppKey)
 
 ## Installation
