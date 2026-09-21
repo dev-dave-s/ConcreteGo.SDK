@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using DeliverGo.Api.Client.Authentication;
 using DeliverGo.Api.Client.Configuration;
 using DeliverGo.Api.Client.Exceptions;
 using DeliverGo.Api.Client.Internal;
@@ -13,7 +14,7 @@ namespace DeliverGo.Api.Client
     /// Default <see cref="IDeliverGoApiClient"/> implementation backed by a typed
     /// <see cref="HttpClient"/> whose pipeline supplies the bearer token.
     /// </summary>
-    public sealed class DeliverGoApiClient : IDeliverGoApiClient
+    public sealed class DeliverGoApiClient : IDeliverGoApiClient, IDisposable
     {
         internal static readonly JsonSerializerOptions SerializerOptions = new(JsonSerializerDefaults.Web)
         {
@@ -23,19 +24,89 @@ namespace DeliverGo.Api.Client
 
         private readonly HttpClient _httpClient;
         private readonly DeliverGoOptions _options;
+        private readonly IDisposable[]? _ownedResources;
+
+        private bool _disposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DeliverGoApiClient"/> class.
         /// </summary>
         public DeliverGoApiClient(HttpClient httpClient, IOptions<DeliverGoOptions> options)
+            : this(httpClient, options, ownedResources: null)
+        {
+        }
+
+        private DeliverGoApiClient(HttpClient httpClient, IOptions<DeliverGoOptions> options, IDisposable[]? ownedResources)
         {
             ArgumentNullException.ThrowIfNull(httpClient);
             ArgumentNullException.ThrowIfNull(options);
 
             _httpClient = httpClient;
             _options = options.Value;
+            _ownedResources = ownedResources;
 
             _httpClient.BaseAddress ??= _options.BaseAddress;
+        }
+
+        /// <summary>
+        /// Creates a fully configured, self-contained client for console applications and other
+        /// scenarios without dependency injection. The returned instance owns its
+        /// <see cref="HttpClient"/> and authentication pipeline, so it must be disposed.
+        /// </summary>
+        /// <remarks>
+        /// Create the client once and reuse it for the lifetime of the application; creating many
+        /// instances can exhaust available sockets. The supplied <paramref name="options"/> instance
+        /// is used as-is, so later mutations affect the created client.
+        /// </remarks>
+        /// <param name="options">Configuration used for authentication and API requests.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="options"/> is <see langword="null"/>.</exception>
+        /// <exception cref="InvalidOperationException">A required configuration value is missing or invalid.</exception>
+        public static DeliverGoApiClient Create(DeliverGoOptions options)
+        {
+            ArgumentNullException.ThrowIfNull(options);
+            options.Validate();
+
+            IOptions<DeliverGoOptions> wrapped = Options.Create(options);
+
+            var tokenClientFactory = new SingleHttpClientFactory(options);
+            var tokenProvider = new DeliverGoTokenProvider(tokenClientFactory, wrapped);
+
+            var authenticationHandler = new DeliverGoAuthenticationHandler(tokenProvider)
+            {
+                InnerHandler = new SocketsHttpHandler(),
+            };
+
+            var httpClient = new HttpClient(authenticationHandler, disposeHandler: true)
+            {
+                BaseAddress = options.BaseAddress,
+                Timeout = options.Timeout,
+            };
+
+            return new DeliverGoApiClient(httpClient, wrapped, [httpClient, tokenProvider, tokenClientFactory]);
+        }
+
+        /// <summary>
+        /// Releases the resources owned by clients created through <see cref="Create(DeliverGoOptions)"/>.
+        /// Instances resolved from a dependency injection container own nothing and dispose is a no-op.
+        /// </summary>
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+
+            if (_ownedResources is null)
+            {
+                return;
+            }
+
+            foreach (IDisposable resource in _ownedResources)
+            {
+                resource.Dispose();
+            }
         }
 
         /// <inheritdoc />
