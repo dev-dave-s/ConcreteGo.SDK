@@ -813,7 +813,7 @@ namespace ConcreteGo.Api.Client
             }
 
             //If login is old, refresh login.
-            if ((DateTime.Now - _loginTime.Value).TotalHours >= 4)
+            if ((DateTime.Now - _loginTime.Value).TotalHours >= 1)
             {
                 await LoginAsync();
             }
